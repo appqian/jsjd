@@ -369,12 +369,7 @@
 
     var ctx = window.location.origin;
 
-    $("#dh").click(function () {
-        $('.dh').toggle(400);
-    })
-    $("#nd").click(function () {
-        $('.nd').toggle(400);
-    })
+   
     yxzt();
     function yxzt() {
         var url = ctx + "/jsjd/portal/getJzqtInfo.do";
@@ -406,22 +401,69 @@
                             break;
                     }
                 }
-                var ndhzhtml = prepare(ndhz)
-                var dhhzhtml = prepare(dhhz)
-                var ndhtml = prepare(nd);
-               	var dhhtml = prepare(dh);
+                var ndhzhtml = prepare(ndhz,"ndhz")
+                var dhhzhtml = prepare(dhhz,"dhhz")
+                var ndhtml = prepare(nd,'nd');
+               	var dhhtml = prepare(dh,'dh');
  				var all=dhhzhtml+ dhhtml +ndhzhtml+ndhtml
                 $("#test").html(all);
+ 				 $("#dh").click(function () {
+ 			        $('.dh').toggle(400);
+ 			    })
+ 			    $("#nd").click(function () {
+ 			        $('.nd').toggle(400);
+ 			    })
+ 				
             }
         })
     }
    
-    function prepare(data,col) {
+    function prepare(data,diff) {
     	var col= ["jizu",'qidongyongshi',"type","zongyongshi","dhzcc","cczbw","bwz50fh","qdhy","qdhm","qdhs","qdhd","qdpjfl","zqwd","zqwdbz","zqyl","zqylbz","zrqw","zrqwbz","zrqy","zrqybz","zfl","zflbz","gsll","gsllbz","zqll","zqllbz"]
         var html_string =[];
+    	
+			
         for(var i = 0 ;i<data.length; i++){
-            html_string.push("<tr>");
-            var d= data[i];
+        	var d= data[i];
+        	/* switch(d.jizu){
+				case "dh":			
+					html_string.push("<tr id='dh'>");
+					break;
+				case "nd":			
+					html_string.push("<tr id='nd'>");	
+					break;
+			
+    		}
+        	if(diff == "dh"){
+				
+				html_string.push("<tr class='dh'>");
+			}
+			
+			if(diff == "nd"){
+				
+				html_string.push("<tr class='nd'>");
+			} */
+        	switch(diff){
+	        	case "dh":			
+					html_string.push("<tr class='dh'>");
+					break;
+				case "nd":			
+					html_string.push("<tr class='nd'>");	
+					break;
+				case "dhhz":			
+					html_string.push("<tr id='dh'>");
+					break;
+				case "ndhz":			
+					html_string.push("<tr id='nd'>");	
+					break;
+        	
+        	
+        	}
+        	
+        	
+        	
+           // html_string.push("<tr>");
+            
             var colValue = "";
             for(var j = 0;j<col.length;j++){
                 colValue = getColValue(col[j],d[col[j]]);
