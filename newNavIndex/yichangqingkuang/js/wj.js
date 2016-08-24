@@ -11,20 +11,72 @@ function rootpath() {
 
 	document.getElementById("url").value = rootPath;
 }
+var user_org_id;
+var targetbutton;
 rootpath();
 var rootPath = $('#url').val();
+//获取用户orgid;
+(function getorg(){	
+	$.ajax({
+		url:rootPath+"/portal/getUserOrgId.do",
+		type:"POST",
+		success:function(data){
+			user_org_id=data;
+		}
+	})
+	
+})();
+$("#lh_name").change(function(){
+	alert(1)
+})
+$('#gz').on('show.bs.modal', function (event) {
+	  targetbutton = $(event.relatedTarget) // Button that triggered the modal
+	  var recipient = targetbutton.data('id') // Extract info from data-* attributes
+	  var targetHtml = targetbutton.html();
+	  console.log(targetHtml)
+	  $("#targetHtml").val(targetHtml)
+	  var modal = $(this)
+	  modal.find('#record-id').val(recipient)	 	
+	})
 var data1={};
-// $(".level1").show();
-// $(".level4").hide();
-// $(".wu_top").hide();
-// $("#table1_huizong").hide();
-// $("#Pagination").hide();
-// $(".wu_main").css({"marginTop":23});
-// $('#lh_name').html("岱海电厂");
+
+//故障说明填写
+$("#gzSubmit").click(function(){
+	if($("#targetHtml").html() != "填写"){
+		alert("只允许提交一次！")
+		return;
+	}
+	var url= rootPath + "/portal.do"
+	$id   = $("#record-id").val();
+	$text = $("#message-text").val();
+	$.ajax({
+		url:url,
+		type:"post",
+		data:{
+			method:"updateLHDesc",
+	     	 lh_desc:$text,
+	         id:$id 
+		},
+		success:function(data){
+			console.log(data)
+			if(data=="gzsuccess"){
+				$('#gz').modal('hide');
+				targetbutton.html($text)
+			}else{
+				//console.log("failure")
+				alert("提交失败！")
+			}
+		}
+		
+	})
+})
+
+
+
 
 function getTree() {
 
-	var org_id = localStorage.getItem("orgid");
+	/*var org_id = localStorage.getItem("orgid");
 	if(org_id !== "a61365e2-969d-4352-b3f8-805027ab9f1d"){
 		var url= rootPath+ "/portal/getGZTreeMenu.do?orgid=" +  org_id;
 		$.ajax({
@@ -71,8 +123,44 @@ function getTree() {
 				$("#tree_1_span").click();		
 			}      
 		})
-	}
-
+	}*/
+	var url= rootPath+ "/portal/getJTGZTreeMenu.do" ;
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType:"JSON",
+		success: function(data){		
+			data1=data;
+			
+		},
+		complete:function(msg) {
+			var org_name ="";
+			var setting = {
+				callback: {
+					onClick: zTreeOnClick
+				}
+			};
+			$.fn.zTree.init($("#tree"), setting, data1);
+			//默认展开机组；
+			$("#tree_1_switch").click();
+			//默认显示电厂的相关信息；
+			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
+				org_name = "岱海发电"
+			}
+			if(user_org_id =="472212af-1977-462b-a74a-a1f36ed6562d"){
+				org_name = "宁东发电"
+			}
+			 
+			
+			$("#tree").find(".node_name").each(function(){
+				if($(this).html() == org_name ){
+					$(this).click();
+				}
+			})
+			
+			
+		}      
+	})
 }
 
 getTree();
@@ -136,10 +224,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$('#lh_name').html(treeNode.name);
 		/*$(".wu_top").hide();
 		$(".wu_top1").hide();
-		
-		;
-		
-		
+
 		$("#wu_top1").hide();*/
 		var url = rootPath + "/portal.do";
 		$.ajax({
@@ -215,7 +300,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 				      pagesize:5	
 				},
 				success: function(data) {
-					
+					console.log(data)
 					//var i = 0;
 					var page = Math.ceil(data.total/5)
 					//console.log(page);
@@ -363,7 +448,16 @@ function prepearData(data){
 	//htmlArray.push("<tr>");
 	for(var i = 0;i<data.length;i++){
 		var j=i+1;
-		htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+","+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")
+		if(!data[i].name||data[i].name ==""||data[i].name== " "){
+			data[i].name = "填写"
+		}
+		//如果本条记录orgid 与  用户orgid 不同 这不让填写故障说明
+		if(user_org_id!=data[i].ORG_ID){
+			//console.log("不相等")
+			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+","+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal'  data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")
+		}else{
+			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+","+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal' data-target='#gz' data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")			
+		}
 		
 	}
 	if(data.length!==5){
@@ -416,7 +510,7 @@ function chuantou(d){
 			      year:"",
 			      month:"",
 			      org_id: sessionStorage.getItem("orgid"),
-			      g_id:d.result[0].G_ID,
+			      g_id:d.G_ID,
 			      name:d.name,
 			      pagenum:1,
 			      pagesize:5	
@@ -504,7 +598,8 @@ function chuantou(d){
 		data: {
 			method: "getGZCountByName",
 			org_id: sessionStorage.getItem("orgid"),
-			g_id:   d.result[0].G_ID,
+			//todo
+			g_id:   d.G_ID,
 			name: d.name
 			
 		},
@@ -534,6 +629,7 @@ function chuantou(d){
 			if (data.gzlist.length !== 0) {
 		
 				/*轮换的名称*/
+				//todo
 				lh_name.html(d.name);
 
 				/*轮换的具体数据*/
@@ -554,26 +650,16 @@ function chuantou(d){
 
 function prepearDatalevel1(data){
 	var htmlArray =[];
-
-	htmlArray.push("<tr>");
-	for(var i = 0;i<data.length;i++){
-		d = data[i];
-		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
-		
+	if(data.result.length == 0){
+		return "暂时没有数据！"
+	}
+	for(var i = 0;i<data.result.length;i++){
+		var d = data; 
+		var fun ="onclick='chuantou("+JSON.stringify(d.result[i])+")'";
 		var j=i+1;
-		htmlArray.push("<tr "+fun+"><td >"+j+"</td><td>" + d.name+ "</td>");
-		//console.log(d.result[0].G_ID)
-		for(var k = 0;k < d.result.length ; k++){
-			if(k === 0){
-				htmlArray.push("<td>#"+d.result[k].G_ID+"</td><td>"+d.result[k].totalnum+"</td><td>"+d.result[k].YCOUNT+"</td><td>"+d.result[k].MCOUNT+"</td></tr>")
-			}
-			else{
-				htmlArray.push("<td>#"+d.result[k].G_ID+"</td><td>"+d.result[k].totalnum+"</td><td>"+d.result[k].YCOUNT+"</td><td>"+d.result[k].MCOUNT+"</td></tr>")
-			}
-		}
-		
-	}		
-	htmlArray.push("</tr>");
+		htmlArray.push("<tr "+fun+"><td >"+j+"</td><td><a>" + d.result[i].name+ "</a></td>");	
+		htmlArray.push("<td>#"+d.result[i].G_ID+"</td><td>"+d.result[i].totalnum+"</td><td>"+d.result[i].YCOUNT+"</td><td>"+d.result[i].MCOUNT+"</td></tr>")				
+	}			
 	return htmlArray.join('');
 
 }
