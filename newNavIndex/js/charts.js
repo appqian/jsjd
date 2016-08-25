@@ -124,12 +124,20 @@ function huanxingshuju(){
 
 		//huanxing('huanxing1','#1A76CB',a,d);
 		
-		$("#totalFHL").html(parseInt(a)+"%");
+		//"<a onclick=show('JNJT:PE:YXFH')  href='javascript:void(0)' >" + parseInt(a) + "%</a>"
+		
+		$("#totalFHL").html("<a onclick=show('JNJT:PE:YXFH')  href='javascript:void(0)' >" + parseInt(a) + "%</a>");
+		$("#nd1").html("<a onclick=show('JNJT:PE:NSJFDL')  href='javascript:void(0)' >" + parseInt(b) + "%</a>");
+		
+		$("#yd1").html("<a onclick=show('JNJT:PE:YSJFDL')  href='javascript:void(0)' >" + parseInt(c) + "%</a>");
+		
+		//$("#totalFHL").html(parseInt(a)+"%");
+		//$("#nd1").html(parseInt(b) +"%");		
+		//$("#yd1").html(parseInt(c)+"%");
+		
 		$("#nd").html(parseInt(res)+"%");
-		$("#nd1").html(parseInt(b) +"%");
 		$("#yd").html(parseInt(dayPercent)+"%");
-		$("#yd1").html(parseInt(c)+"%");
-
+		
 		jt_huanxing0(0,Number(a))
 		jt_huanxing(parseInt(res),Number(b));
 		//jt_huanxing(Number(monthPercent),Number(b));
