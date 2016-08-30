@@ -555,7 +555,7 @@ function show(point) {
 		}
 	}
 
-	timer = window.setInterval(IfWindowClosed, 500);
+	timer = window.setInterval(IfWindowClosed, 1);
 	subwin.focus();
 	// var queryString = "http://172.168.100.101:8080/HistoryTrend.aspx?Tag=" + psTag;
 	//
@@ -1432,7 +1432,7 @@ $(document).ready(
 		//集团异常情况更多链接
 		$("#wj_jt_yc").click(
 			function() {
-				$("#wj_yc_more").attr("href", ctx + "/newNavIndex/jtyichangqingkuang/jthuizong.html")
+				$("#wj_yc_more").attr("href", ctx + "/newNavIndex/yichangqingkuang/qchuizong.html")
 			}
 
 		)

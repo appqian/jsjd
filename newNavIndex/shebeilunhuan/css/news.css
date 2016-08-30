@@ -88,7 +88,7 @@ ul.ztree {
 
 
 
-//分页
+
 .pagination a {
     text-decoration: none;
 	border: 1px solid #AAE;
@@ -124,5 +124,9 @@ ul.ztree {
     border-bottom: 1px solid #ddd;
 }
 #level1_query{
+    cursor: pointer;
+}
+table a{
+    color:blue;
     cursor: pointer;
 }

@@ -21,9 +21,85 @@ $(".wu_main").css({"marginTop":23});
 $('#lh_name').html("岱海电厂");
 function getTree() {
     var org_id = localStorage.getItem("orgid");
-    var url=(org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d") ? rootPath + "/portal/getJTSYTreeMenu.do" : rootPath　 + 　"/portal/getSYTreeMenu.do?orgid=" + org_id;
+    var url =rootPath + "/portal/getSYTreeMenu.do";   
     getTreeData(url);
 }
+
+
+
+//集团视图========================================================
+
+var jt_query=true;
+function jtview(){	
+	$('.dc').hide();
+	$('.jt').show();
+	
+	//集团汇总	
+	$("#lh_name").html("京能集团")
+	jt_summary()
+	//集团detail
+	jt_detail(1);
+	jt_query=true;
+}
+
+//集团查询
+$("#jt_submit").click(function(){
+	jt_detail(1);
+	jt_query=true;
+})
+//集团分页
+var jt_lh_pagenation = function(page) {
+   	var num_entries = page;
+  	// 创建分页
+  	$("#Pagination_query").pagination(num_entries, {
+	    num_edge_entries: 1, //边缘页数
+	    num_display_entries: 4, //主体页数
+	    callback: jt_query_pagenation,
+	    items_per_page: 1, //每页显示1项
+	    prev_text: "前一页",
+	    next_text: "后一页"
+  	});
+};
+//集团分页callback
+function jt_query_pagenation(page_index, jq){
+	/*if(page_index==0){
+		return;
+	}*/
+	//var g_id=sessionStorage.getItem("g_id");
+	
+	//query_lh(event,page_index + 1,g_id);
+	jt_detail(page_index+1)
+  
+}
+//集团 汇总
+function jt_summary(){
+	var url = rootPath + "/portal/getJTSYTotal.do";
+	ajax(url,"jthz",["YSCOUNT","YCOUNT","YEARRATE","MSCOUNT","MCOUNT","MONTHRATE"]);
+	
+}
+//集团 detail
+function jt_detail(jt_page_index){
+	
+	var orgid = $("#org_id").val();	
+	var g_id  = $("#g_id_jt").val();
+	var year  = $("#annual").val();
+	var name  = $("#jt_name").val();	
+	var url = rootPath +"/portal.do";
+	var sentData = {
+			"method":"getJTSYinfos",
+			"orgid":orgid,
+			"g_id":g_id,
+			"name":name,
+			"year":year,
+			'pagenum':jt_page_index,
+			'pagesize':10			
+	};
+	
+	
+	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MSCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
+}
+
+//集团页面 end=================================================================================================
 function getTreeData(url){
     $.ajax({
         type: "GET",
@@ -32,8 +108,35 @@ function getTreeData(url){
         success: function(data){
             var setting = {callback: {onClick: zTreeOnClick}};
             $.fn.zTree.init($("#tree"), setting, data);
-            $("#tree_1_switch").click();//默认展开机组
-            $("#tree_1_span").click();//默认显示电厂的相关信息
+           // $("#tree_1_switch").click();//默认展开机组
+            //$("#tree_1_span").click();//默认显示电厂的相关信息
+            
+            
+            var org_name = "";
+			//默认展开机组；
+			$("#tree_1_switch").click();
+			user_org_id=localStorage.getItem("orgid_baobiao");
+			//默认显示电厂的相关信息；
+			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
+				org_name = "岱海发电"
+			}
+			if(user_org_id =="472212afo-1977-462b-a74a-a1f36ed6562d"){
+				org_name = "宁东发电"
+			}
+			if(user_org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
+				org_name = "京能集团"
+			}
+			 
+			
+			$("#tree").find(".node_name").each(function(){
+				var $this = $(this)
+				if($this.html() == org_name ){
+					//console.log(this)
+					$this.click();
+					//展开本条
+					$this.parent().siblings().click();
+				}
+			})
         }
 
     })
@@ -42,18 +145,29 @@ function getTreeData(url){
 getTree();
 
 
-function ajax(url, tableId, columns) {
+function ajax(url, tableId, columns,sentData) {
+	if(!sentData){
+		sentData ={};
+	}
     $.ajax({
         url : url,
         type:"post",
+		data:sentData,
         dataType : "json",
         success : function(data) {
             var tableHtml = '';
-            if(data&&data.length>0){
-                
-                tableHtml = prearData(data, columns);
-                
+            if(data&&data.length>0){               
+                tableHtml = prearData(data, columns);               
             }
+			if(data.total){
+            	var page = Math.ceil(data.total/10)
+            	if(jt_query){
+    				jt_lh_pagenation(page);//分页加载
+    			}
+            	jt_query = false; 
+            	tableHtml = prearData(data.exper, columns);
+            }	
+
             $("#" + tableId).html(tableHtml);
            
         }
@@ -65,12 +179,19 @@ function prearData(data, columns) {
         var d = data[i];
         htmlArray.push("<tr>");
         for (var j = 0;j < columns.length; j++) {
-        	if(j==0){
+			//处理第一列为序号的
+        	if(columns[0]=="x" && j==0){
         		k=i+1;
         		htmlArray.push("<td >"+k+"</td>");
         	}else{
         		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
-                 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
+				 if(columns[j]=="NAME"){
+        			 htmlArray.push("<td title=" + columnValue + " style='text-align:left'>" + columnValue + "</td>");
+        			 
+        		 }else{
+        			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
+        		 }
+                 	//htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
         	}
            
         }
@@ -84,7 +205,7 @@ function getColumnValue(column, columnValue) {
     if(column =='W_DATE'){
         columnValue = columnValue.replace(/\s/g,"&#13;")
     }
-    if(column == "gId"){
+    if(column == "gId"||column == "G_ID"){
     	if(Number(columnValue)){
     		columnValue = "#"+columnValue;
     	}
@@ -186,8 +307,14 @@ function pageselectCallback_query(page_index, jq){
 * return 2016-6-13
 */	
 function timefixed(time){
-	var date= new Date(time);
-	return date.toLocaleDateString();
+	if(time){
+		var date= new Date(time);
+		var x = date.toLocaleDateString()
+	}else{
+		x = ""
+	}
+	
+	return x;
 }
 function querypre(data){
 	var htmlArray =[];
@@ -391,8 +518,16 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	var special_id = $(event.target).parent().parent().parent().siblings().text();
 	var name = treeNode.name;
 	switch (treeNode.level) {
-		//电厂级别
+		//集团级别
 		case 0:
+			
+			
+			jtview();
+			break;
+			//alert("jt")
+		//电厂级别
+		case 1:
+			$('.jt').hide();
 			g_id = "";
 			special_id = "";
 			if(name == "岱海发电"){
@@ -405,7 +540,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			level1();
 			break;
 			//机组级别
-		case 1:
+		case 2:
+			$('.jt').hide();
 			g_id = name.substring(1, 2);
 			special_id = "";
 			sessionStorage.setItem("g_id", g_id);
@@ -413,7 +549,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			level2();
 			break;
 			//专业级别
-		case 2:
+		case 3:
+			$('.jt').hide();
 			g_id = special_id.substring(1, 2);
 			sessionStorage.setItem("g_id", g_id);
 			special_id = name;
@@ -421,7 +558,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			
 			break;
 			//试验名称级别
-		case 3:
+		case 4:
+			$('.jt').hide();
 			g_id = g_id.substring(1, 2);
 			//console.log('4')
 			level4();
@@ -438,8 +576,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	function level2(){
 		
 		$("#Pagination_query").show();
-		$(".select").show();
-		
+		$(".select.dc").show();		
 		$("table.level1").show();
 		$("table.level4").hide();
 		$(".wu_top").hide();
@@ -458,6 +595,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		addzy(g_id);//加载专业
 		query_flag=true;
 		query_sy(event,1,g_id);//执行查询
+		return false;
 	}
 	//level1=====================================================
 	function level1(){
@@ -468,6 +606,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$(".wu_top1").hide();
 		$("#table1_huizong").hide();
 		$("#Pagination").hide();
+		$(".select.dc").show();	
 		$(".wu_main").css({"marginTop":23});
 		$('#lh_name').html(treeNode.name);
 		$("#wu_top1").hide();
@@ -479,6 +618,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		addzy();
 		query_flag=true;
 		$("#submit").click();
+		return false;
 	}
 	//根据电厂 添加机组========================================================
 	
@@ -1441,13 +1581,6 @@ dragresize.ondragmove = function(isResize) {};
 dragresize.ondragend = function(isResize) {};
 dragresize.ondragblur = function() {};
 dragresize.apply(document);
-
-
-
-
-
-
-
 
 
 

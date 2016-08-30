@@ -85,7 +85,12 @@ function huanxing(id,color,value,shiji){
 
 
 			
-			
+setInterval(huanxingshuju,2*60*1000)
+
+
+
+
+
 function huanxingshuju(){
  	var url2=ctx+'/syzb.do?method=getAmounts';
 	$.ajax({
@@ -98,6 +103,7 @@ function huanxingshuju(){
 		zong[0].innerHTML=fixNumber(data[0].value);
 		zong[1].innerHTML=fixNumber(data[3].value);
 		zong[2].innerHTML=fixNumber(data[6].value);
+        console.log(data[2].ration)
 		var a= baoliuliangwei(data[2].ration);
 		var b= baoliuliangwei(data[5].ration);
 		var c= baoliuliangwei(data[8].ration);
@@ -126,10 +132,10 @@ function huanxingshuju(){
 		
 		//"<a onclick=show('JNJT:PE:YXFH')  href='javascript:void(0)' >" + parseInt(a) + "%</a>"
 		
-		$("#totalFHL").html("<a onclick=show('JNJT:PE:YXFH')  href='javascript:void(0)' >" + parseInt(a) + "%</a>");
-		$("#nd1").html("<a onclick=show('JNJT:PE:NSJFDL')  href='javascript:void(0)' >" + parseInt(b) + "%</a>");
+		$("#totalFHL").html("<a onclick=show('JNJT:AF:FHLV')  href='javascript:void(0)' >" + parseInt(a) + "%</a>");
+		$("#nd1").html("<a onclick=show('JNJT:AF:FDWCL_YEAR')  href='javascript:void(0)' >" + parseInt(b) + "%</a>");
 		
-		$("#yd1").html("<a onclick=show('JNJT:PE:YSJFDL')  href='javascript:void(0)' >" + parseInt(c) + "%</a>");
+		$("#yd1").html("<a onclick=show('JNJT:AF:FDWCL_MONTH')  href='javascript:void(0)' >" + parseInt(c) + "%</a>");
 		
 		//$("#totalFHL").html(parseInt(a)+"%");
 		//$("#nd1").html(parseInt(b) +"%");		

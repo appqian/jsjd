@@ -18,7 +18,7 @@
  <!--  <input id="url" type="hidden" value=""> -->
   <div class="wu_top">
   <div class="wu_top0"></div>
-  <div class="wu_top1" style="display:none">
+  <div class="wu_top1 dc" style="display:none">
     <ol>
       <li>
         <h2>准时性判断:</h2>
@@ -118,9 +118,116 @@
 
 <div class="wu_main" style="border: 1px solid #ccc;">
   <div class="wu_main1">
-     <p id="lh_name"></p>
-
-     <table class="wu_tab1" id="table1_huizong" style="display:none">
+  <p id="lh_name" style="width:94%;float:left"></p>
+  <button class="btn btn-primary"><a href="../portal.jsp" style="color:#fff" id="fanhui">返回</a></button>
+	<!-- 集团view -->
+	<!-- 集团汇总 -->
+	<table class="wu_tab1 jt" style='display:none' >
+      <thead>
+        <tr>
+          <td>本年应做（次）</td>
+          <td>本年已做（次）</td>
+          <td>本年完成率（%）</td>
+          <td>本月应做（次）</td>
+          <td>本月已做（次）</td>
+          <td>本月完成率（%）</td>
+        </tr>        
+      </thead>
+      <tbody id="jthz">
+      
+      
+      </tbody>
+      
+    </table>
+    	<!-- 集团查询 -->
+    	
+    <div class="wu_top0 select jt_select jt" style="display:none">
+      <form class="form-inline">
+           
+			<div style="float:left;margin-right:5%">
+				<div class="form-group ">
+                	<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="org_id">单位</label>
+                	<select name="choose" class="form-control col-sm-1" id="org_id">
+	                 	<option value="" selected>京能集团</option>
+                    <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
+                    <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>	                    
+               	 	</select>
+            	</div>
+				<div class="form-group ">
+                	<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="g_id_jt">机组</label>
+                	<select name="choose" class="form-control col-sm-1" id="g_id_jt">
+                    <option value="" selected></option>
+	                 	<option value="1" >#1</option>
+	                 	<option value="2" >#2</option>
+	                 	<option value="3" >#3</option>
+	                  <option value="4">#4</option>
+               	 	</select>
+            	</div>         	            	
+	            <div class="form-group">
+	                <label for="annual" class=" control-label left">年度</label>
+	                <div class="input-group date jt-form_datetime col-sm-2" data-link-field="dtp_input1" style="">
+	                    <input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:60px" id="annual">
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	                </div>
+	
+	                <input type="hidden" id="dtp_input1" value=""><br>
+	            </div>
+	            <div class="form-group ">
+                	<label class=" control-label left" style="float:left;width: 74px;position: relative;top: 5px;" value="" for="jt_name">轮换名称</label>
+                	
+	                <input class="form-control col-sm-1" type="text" id="jt_name" style="width:135px;" >
+            	</div>
+	            <div class="form-group" id="query" style="margin-left:22px;">
+	                <button class ="form-control col-sm-1 btn btn-primary" type="button" id="jt_submit" style="">查询</button>
+	            </div>
+            </div>
+        </form>
+	      <div class="fengge"></div>
+    </div>
+    	
+    	<!-- 集团详情 -->
+    <table class="wu_tab1 jt" style="display:none" >
+      <thead>
+        <tr>
+          <td rowspan="2" >序号</td>
+          <td rowspan="2" style="width:50px;">单位</td>
+          <td rowspan="2">机组</td>
+          <td rowspan="2">轮换名称</td>
+          <td rowspan="2">本年应做（次）</td>
+          <td rowspan="2">本年已做（次）</td>
+          <td>每月应做(次)</td>
+          <td >1月已做(次)</td>
+          <td >2月已做(次)</td>
+          <td >3月已做(次)</td>
+          <td >4月已做(次)</td>
+          <td >5月已做(次)</td>
+          <td >6月已做(次)</td>
+          <td >7月已做(次)</td>
+          <td >8月已做(次)</td>
+          <td >9月已做(次)</td>
+          <td >10月已做(次)</td>
+          <td >11月已做(次)</td>
+          <td >12月已做(次)</td>                       
+        </tr>
+      
+      </thead>
+      <tbody id='jt_detail'>
+       
+      
+      </tbody>
+      <div class="fengge"></div>
+     
+    </table>
+    	
+    	
+    	
+    	
+    	
+	
+	<!-- 电厂view -->
+		<!-- level4 详情 汇总 -->
+    <table class="wu_tab1 dc" id="table1_huizong" style="display:none">
       <thead>
         <tr>
           <td>本年应进行（次）</td>
@@ -139,8 +246,8 @@
         </tr>
       </thead>
     </table>
-
-    <table class="wu_tab1 level4" style="display:none">
+		<!-- level4  详情 -->
+    <table class="wu_tab1 level4 dc" style="display:none">
       <thead>
         <tr>
           <td>序号</td>
@@ -155,7 +262,8 @@
         
       </tbody>
     </table>
-    <table class="wu_tab1 level1" style='display:none' >
+    	<!-- 电厂汇总  -->
+    <table class="wu_tab1 level1 dc" style='display:none' >
       <thead>
         <tr>
           <td>序号</td>
@@ -172,8 +280,9 @@
       
       </tbody>
     </table>
-    
-    <div class="wu_top0 select" style="">
+    	<!-- 电厂查询  -->
+  
+    <div class="wu_top0 select dc" style="">
         <form class="form-inline">
             <!-- <div class="left form-group" style="margin-left:30px;"><a href="kaohe.html">返回</a></div> -->
            
@@ -239,7 +348,8 @@
 	 <div class="fengge"></div>
 
     </div>
-    <table class="wu_tab1 level1"  >
+    	<!-- 电厂详情 -->
+    <table class="wu_tab1 level1 dc"  >
       <thead>
         <tr>
           <td>序号</td>
@@ -291,6 +401,20 @@ $('.form_datetime').datetimepicker({
     //format: "yyyy-mm"
     format: "yyyy-mm-dd"
 });
+$('.jt-form_datetime').datetimepicker({
+    //weekStart: 1,
+    //todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 4,
+    minView: 4,
+    forceParse: 0,
+    //format: "yyyy-mm"
+    format: "yyyy"
+});
+
+
+
   
 </script>
 </body>

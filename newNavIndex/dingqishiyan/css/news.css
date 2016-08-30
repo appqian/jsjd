@@ -1,9 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 * { margin: 0; padding: 0; }
-body { min-width: 960px; background: #fff;  font-family: "微软雅黑", "黑体", "宋体"; color: #000000;}
+body { min-width: 960px; background: #fff; font-size: 11pt; font-family: "微软雅黑", "黑体", "宋体"; color: #000000;}
 div, p, span { line-height: 25px; }
-dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6 { text-align: left;  font-weight: normal; line-height: 25px;}
+dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6 { text-align: left; font-size: 11pt; font-weight: normal; line-height: 25px;}
 li { list-style: none; }
 a { text-decoration: none; color: #000000; }
 img { border: 0; vertical-align: middle; }
@@ -85,7 +85,7 @@ ul.ztree {
     color: #333;
 }
 
-
+//分页
 .pagination a {
     text-decoration: none;
 	border: 1px solid #AAE;
@@ -121,11 +121,8 @@ ul.ztree {
 }
 .link{
 	cursor: pointer;
-    color: #26B;
+	color:blue;
 }
 #level1_query{
     cursor: pointer;
-}
-h2,h3{
-    font-size:16px;
 }

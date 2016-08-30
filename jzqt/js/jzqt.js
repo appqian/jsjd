@@ -343,11 +343,32 @@ function detail(orgid,g_id,type,nub,flag){
 
 function preparedataDetail(data,type,orgId){
 	var htmlArray = [];
+	//console.log(type)
+	if(type=="TJ"){
+		$("#d_head td").eq(1).html("灭火时间")
+		$("#d_head td").eq(2).html("打闸时间")
+		$("#d_head td").eq(3).html("解列时间")
+		$("#d_head td").eq(4).html("盘车投入时间")
+	}
+	if(type == "QD"){
+		$("#d_head td").eq(1).html("点火时间")
+		$("#d_head td").eq(2).html("冲车时间")
+		$("#d_head td").eq(3).html("并网时间")
+		$("#d_head td").eq(4).html("至50%负荷时间")
+	}
+	if(type == ""){
+		$("#d_head td").eq(1).html("点火/灭火时间")
+		$("#d_head td").eq(2).html("冲车/打闸时间")
+		$("#d_head td").eq(3).html("并网/解列时间")
+		$("#d_head td").eq(4).html("至50%负荷/盘车投入时间")
+	}
+	
+	
 	for(var i = 0; i < data.expr.length; i++){
 		var d = data.expr[i];
 		htmlArray.push("<tr>");
 		//判断从数据里读取
-		console.log(type)
+		
 		if(d.NAME.indexOf("启动")>-1){
 			type = "QD"
 		}
@@ -358,10 +379,7 @@ function preparedataDetail(data,type,orgId){
 
 		if(type=='TJ'){
 			
-			$("#d_head td").eq(1).html("灭火时间")
-			$("#d_head td").eq(2).html("打闸时间")
-			$("#d_head td").eq(3).html("解列时间")
-			$("#d_head td").eq(4).html("盘车投入时间")
+			
 			var msg='';
 			if(d.ADUIT_STATUS=='A'  && orgId==d.ORG_ID){
 				msg='填写';
@@ -385,10 +403,7 @@ function preparedataDetail(data,type,orgId){
 			
 			
 		}else{
-			$("#d_head td").eq(1).html("点火时间")
-			$("#d_head td").eq(2).html("冲车时间")
-			$("#d_head td").eq(3).html("并网时间")
-			$("#d_head td").eq(4).html("至50%负荷时间")
+			
 			 msg='';
 			if(d.QT_DESC && d.QT_DESC.length>0){
 				msg=d.QT_DESC;

@@ -48,7 +48,7 @@ img { border: 0; vertical-align: middle; }
 .select_option li.selected { background-color: #F3F3F3; color: #999; }
 .select_option li.hover { background: #2fa9cc; color: #fff; }
 .wu_main { float: right; display: inline; width: 83%;min-height:535px; margin: 0 1% 20px 0; border: 1px solid #ECECEC; border-top: none; }
-.wu_main1 { width: 98%; height: auto; min-height: 200px; margin: 10px auto; }
+.wu_main1 { width: 98%; height: auto; min-height: 200px; margin: 22px auto; }
 .wu_main1 p { width: 100%; height: 30px; line-height: 30px; text-align: center; font-size: 13pt; color: #333333; }
 .wu_tab1 { width: 100%; margin: 15px auto; background: #ffffff; jerry: expression(cellSpacing="1"); border-collapse: separate; border-spacing: 1px; border: 1px solid #cccccc; }
 .wu_tab1 thead td { height: 40px; padding: 0 10px; background: #f2f2f2; text-align: center; vertical-align: middle; line-height: normal; color: #177eda; font-size: 12pt; }
@@ -67,8 +67,19 @@ img { border: 0; vertical-align: middle; }
 .linecontent { width: 700px; height: 300px; margin: 10px auto; overflow: hidden; text-align: center; }
 
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
-
 table a{
 	cursor: pointer;
 }
 	
+
+
+.select{
+	padding-top:3px;
+	height: 42px;
+    line-height: 38px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
+}
+

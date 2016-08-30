@@ -1,128 +1,208 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>京能集团实时技术监督生产管理系统</title>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<meta charset="utf-8">
+	<title>京能集团实时技术监督生产管理系统</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<link type="text/css" rel="stylesheet" href="css/zTreeStyle.css" />
-<link type="text/css" rel="stylesheet" href="css/pagination.css" />
-
-<link type="text/css" rel="stylesheet" href="css/news.css" />
+	<link type="text/css" rel="stylesheet" href="css/zTreeStyle.css" />
+	<link type="text/css" rel="stylesheet" href="css/pagination.css" />
+	 <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+	<link type="text/css" rel="stylesheet" href="css/news.css" />
 </head>
 
 <body>
 
-<div class="wu_top">
+	<div class="wu_top">
 
-  <div class="wu_top0"></div>
-  
-  <div class="fengge"></div>
-</div>
+		<div class="wu_top0"></div>
 
-<div class="wu_left">
-  <ul id="tree" class="ztree"></ul>
-</div>
+		<div class="fengge"></div>
+	</div>
 
-<div class="wu_main" style="border: 1px solid #ccc;">
-  <div class="wu_main1">
-    <p id="lh_name" style = "width:94%;float:left"></p><button class="btn btn-primary" ><a href="qchuizong.html" style="color:#fff" id="fanhui">返回</a></button>
-    <table class="wu_tab1 level4" id="table1_huizong" style="display:none">
-      <thead>
-        <tr>
-          <td>累计发生次数</td>
-          <td>本年已发生（次）</td>
-          <td>本月已发生（次）</td>        
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>    
-          <td></td>
-        </tr>
-      </thead>
-    </table>
+	<div class="wu_left">
+		<ul id="tree" class="ztree"></ul>
+	</div>
 
-    <table class="wu_tab1 level4" style="display:none">
-      <thead>
-        <tr>
-          <td>序号</td>
-          <td>发生时间</td>
-          <td>故障曲线</td>
-          <td>故障说明</td>
-          <td>是否已申诉</td>
-          <td>导出报告</td>
-        </tr>
-      </thead>
-      <tbody id="sblhcounter">
-        
-      </tbody>
-    </table>
+	<div class="wu_main" style="border: 1px solid #ccc;">
+		<div class="wu_main1">
+			<p id="lh_name" style="width:94%;float:left"></p>
+			<button class="btn btn-primary"><a href="javascript:void(0)<!--qchuizong.html-->" style="color:#fff" id="fanhui">返回</a></button>
+			
+			<!--集团view-->
+			<!--集团查询-->
+			<div class="wu_top0 select jt_select jt" style="display:none;margin: 0 0 20px 0;">
+				<form class="form-inline">
+					<div style="float:left;margin-right:5%">
+						<div class="form-group ">
+							<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="org_id">单位</label>
+							<select name="choose" class="form-control col-sm-1" id="org_id">
+	                 			<option value="" selected>京能集团</option>
+						        <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
+					          	<option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>	                    
+               	 			</select>
+						</div>
+						<div class="form-group ">
+							<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="g_id_jt">机组</label>
+							<select name="choose" class="form-control col-sm-1" id="g_id_jt">  
+								<option value="" selected></option>                 
+								<option value="1" >#1</option>
+								<option value="2" >#2</option>
+								<option value="3" >#3</option>
+								<option value="4" >#4</option>
+               	 			</select>
+						</div>
+						<div class="form-group">
+							<label for="annual" class=" control-label left">年度</label>
+							<div class="input-group date jt-form_datetime col-sm-2" data-link-field="dtp_input1" style="">
+								<input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:60px" id="annual">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							</div>
+
+							<input type="hidden" id="dtp_input1" value=""><br>
+						</div>
+						<div class="form-group ">
+							<label class=" control-label left" style="float:left;width: 74px;position: relative;top: 5px;"  for="jt_name">异常类型</label>
+
+							<input class="form-control col-sm-1" type="text" id="jt_name" style="width:135px;" value="">
+						</div>
+						<div class="form-group" id="query" style="margin-left:22px;">
+							<button class="form-control col-sm-1 btn btn-primary" type="button" id="jt_submit" style="">查询</button>
+						</div>
+					</div>
+				</form>
+				<div class="fengge"></div>
+			</div>
+
+			<!--集团汇总-->
+			<table class="wu_tab1 jt" style='display:none'>
+				<thead>
+				<tr>
+					<td>序号</td>
+					<td>单位</td>
+					<td>机组</td>
+					<td>异常类型</td>
+					<td>累计发生次数（次）</td>
+					<td>本年已发生（次）</td>
+					<td>本月已发生（次）</td>					
+				</tr>
+				</thead>
+				<tbody id="jthz">
+				</tbody>
+			</table>
+			<!--电厂view-->
+			<!--电厂汇总-->
+			<table class="wu_tab1 level1 dc" style="display:none;">
+				<thead>
+					<tr>
+						<td>序号</td>
+						<td>异常类型</td>
+						<td>机组</td>
+						<td>累计发生次数（次）</td>
+						<td>本年已发生（次）</td>
+						<td>本月已发生（次）</td>
+					</tr>
+				</thead>
+				<tbody id="level1">
+
+				</tbody>
+			</table>
+			<!--电厂明细汇总-->
+			<table class="wu_tab1 level4 dc" id="table1_huizong" style="display:none">
+				<thead>
+					<tr>
+						<td>累计发生次数</td>
+						<td>本年已发生（次）</td>
+						<td>本月已发生（次）</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+			</table>
+			<!--电厂明细汇总-->
+			<table class="wu_tab1 level4 dc" style="display:none">
+				<thead>
+					<tr>
+						<td>序号</td>
+						<td>发生时间</td>
+						<td>故障曲线</td>
+						<td>故障说明</td>
+						<td>是否已申诉</td>
+						<td>导出报告</td>
+					</tr>
+				</thead>
+				<tbody id="sblhcounter">
+
+				</tbody>
+			</table>
 
 
-    
 
-    <table class="wu_tab1 level1" style="display:none;" >
-      <thead>
-        <tr>
-          <td>序号</td>
-          <td>异常类型</td>
-          <td>机组</td>
-          <td>累计发生次数（次）</td>
-          <td>本年已发生（次）</td>
-          <td>本月已发生（次）</td>          
-        </tr>
-      </thead>
-      <tbody id="level1">
-       
-      </tbody>
-    </table>
-     <div id="Pagination" class="pagination" style="float:right"><!-- 这里显示分页 --></div>
-    <div class="fengge"></div>
-  </div>
-  <div class="fengge"></div>
-</div>
+			
+			<div id="Pagination" class="pagination" style="float:right">
+				<!-- 这里显示分页 -->
+			</div>
+			<div class="fengge"></div>
+		</div>
+		<div class="fengge"></div>
+	</div>
 
 
-<div class="modal fade" id="gz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">故障说明</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <input type = "hidden" id="record-id" />
-           <input type = "hidden" id="targetHtml" />
-          <div class="form-group">
-           
-            <textarea class="form-control" id="message-text" placeholder="请输入故障说明，只可提交一次！"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" id="gzSubmit">提交</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="modal fade" id="gz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel">故障说明</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<input type="hidden" id="record-id" />
+						<input type="hidden" id="targetHtml" />
+						<div class="form-group">
+
+							<textarea class="form-control" id="message-text" placeholder="请输入故障说明，只可提交一次！"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="gzSubmit">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
-<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-<script type="text/javascript"  src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="js/echarts2.js"></script> -->
-<script type = "text/javascript" src="js/jquery.ztree.core.js"></script>
-<script type = "text/javascript" src="js/jquery.pagination.js"></script>
+	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+	<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
 
-<script type="text/javascript" src="js/wj.js"></script>
-<script	type="text/javascript" >
+	<!-- <script type="text/javascript" src="js/echarts2.js"></script> -->
+	<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="js/wj.js"></script>
+	<script type="text/javascript">
+		$('.jt-form_datetime').datetimepicker({
+			//weekStart: 1,
+			//todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 4,
+			minView: 4,
+			forceParse: 0,
+			//format: "yyyy-mm"
+			format: "yyyy"
+		});
 
-
-
-</script>
+	</script>
 </body>
 
 </html>

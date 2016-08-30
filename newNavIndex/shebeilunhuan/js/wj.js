@@ -273,6 +273,12 @@ function rootpath() {
 	var rootPath = localhostPath + projectName;
 	document.getElementById("url").value = rootPath;
 }
+
+
+
+
+//获取用户orgid;
+
 rootpath();
 var rootPath = $('#url').val();
 var data1={};
@@ -289,66 +295,219 @@ $('#lh_name').html("岱海电厂");
 getTree();
 function getTree() {
 	var org_id = localStorage.getItem("orgid");
-	if(org_id !== "a61365e2-969d-4352-b3f8-805027ab9f1d"){
-		var url = rootPath　 + 　"/portal/getTreeMenu.do?orgid=" + org_id;	
-		$.ajax({
-			type: "GET",
-			url: url,
-			
-			dataType:"JSON",
-			success: function(data){		
-				data1=data;
-			},
-			complete:function(msg){
-				var setting = {
+	var url = rootPath +"/portal/getTreeMenu.do";	
+	var data1="";
+	$.ajax({
+		type: "GET",
+		url: url,		
+		dataType:"JSON",
+		success: function(data){		
+			data1=data;
+		},
+		complete:function(msg){
+			var setting = {
+					
 					callback: {
 						onClick: zTreeOnClick
 					}
-				};
-				$.fn.zTree.init($("#tree"), setting, data1);
-
-				//默认展开机组；
-				$("#tree_1_switch").click();
-				//默认显示电厂的相关信息；
-				$("#tree_1_span").click();
-			}
- 
-		})
-	}else{
-		var url = rootPath + "/portal/getJTLHTreeMenu.do" ;
-		$.ajax({
 			
-			url: url,
-			type: "GET",
-			dataType:"JSON",
-			success: function(data){		
-				data1=data;
+			};
+			$.fn.zTree.init($("#tree"), setting, data1);
+			var org_name = "";
+			//默认展开机组；
+			$("#tree_1_switch").click();
+			user_org_id=localStorage.getItem("orgid_baobiao");
+			//默认显示电厂的相关信息；
+			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
+				org_name = "岱海发电"
+			}
+			if(user_org_id =="472212afo-1977-462b-a74a-a1f36ed6562d"){
+				org_name = "宁东发电"
+			}
+			if(user_org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
+				org_name = "京能集团"
+			}			 
+			
+			$("#tree").find(".node_name").each(function(){
+				var $this = $(this)
+				if($this.html() == org_name ){
 				
-			},
-			complete:function(msg){
-				var setting = {
-					callback: {
-						onClick: zTreeOnClick
+					$this.click();
+					if(user_org_id!="a61365e2-969d-4352-b3f8-805027ab9f1d"){
+						$this.parent().siblings().click();
 					}
-				};
-				$.fn.zTree.init($("#tree"), setting, data1);
-
-				//默认展开机组；
-				$("#tree_1_switch").click();
-				//默认显示电厂的相关信息；
-				$("#tree_1_span").click();
-			}
-
-		})
-	}
+				}
+			})
+		}
+ 
+	})
 	
 }
+
+
+//集团视图========================================================
+var jt_query=true;
+function jtview(){	
+	$('.dc').hide();
+	$('.jt').show();
+	$(".wu_main").css({"marginTop":22});
+	//集团汇总	
+	$("#lh_name").html("京能集团")
+	jt_summary()
+	//集团detail
+	jt_detail(1);
+	jt_query=true;
+}
+//集团查询
+$("#jt_submit").click(function(){
+	jt_detail(1);
+	jt_query=true;
+})
+
+
+
+
+//处理函数==================================================================
+function ajax(url, tableId, columns,sentData,type) {
+	if(!sentData){
+		sentData ={};
+	}
+    $.ajax({
+        url : url,
+        type:"post",
+		//contentType:"application/json",
+        data:sentData,
+        dataType : "json",
+        success : function(data) {
+            var tableHtml = '';
+            if(data&&data.length>0){               
+                tableHtml = prearData(data, columns);                
+            }
+			//电厂level1
+			if(tableId=='level1_query'){
+            	var page = Math.ceil(data.total/7)
+				if(!page){
+					$("#Pagination_query").hide();
+				}else{
+					$("#Pagination_query").show();
+				}
+				if(query_flag){
+					dc_lh_pagenation(page);//分页加载
+				}
+				query_flag=false;
+				if(data.exper.length =="0"){
+					tableHtml ="<div>暂时没有数据.....<div>"
+				}else{
+					jt_query = false; 
+            	    tableHtml = prearData(data.exper, columns);
+				}	            	
+            }	
+			//集团汇总
+			if( tableId == 'jt_detail'){				
+            	var page = Math.ceil(data.total/10)
+            	if(jt_query){
+    				jt_lh_pagenation(page);//分页加载
+    			}
+            	jt_query = false; 
+            	tableHtml = prearData(data.exper, columns);
+            }
+            $("#" + tableId).html(tableHtml);         
+        }
+    });
+}
+function prearData(data, columns) {
+    var htmlArray = [];
+    for (var i = 0; i < data.length; i++) {
+        var d = data[i];
+		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
+        htmlArray.push("<tr "+fun+">");      
+        for (var j = 0;j < columns.length; j++) {
+        	//todo
+        	if(columns[0]=="x" && j==0){
+        		k=i+1;
+        		htmlArray.push("<td >"+k+"</td>");
+        		
+        	}else{
+        		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
+        		 if(columns[j]=="NAME" || columns[j]=="name"){
+        			 htmlArray.push("<td  title=" + columnValue + " style='text-align:left'><a>" + columnValue + "</a></td>");
+        			 
+        		 }else{
+        			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
+        		 }
+        	}
+        }
+    }
+    htmlArray.push("</tr>");
+    return htmlArray.join('');
+}
+
+function getColumnValue(column, columnValue) {
+   
+    if(column =='W_DATE'){
+        columnValue = columnValue.replace(/\s/g,"&#13;")
+    }
+    if(column == "gId" || column == "G_ID"){
+    	if(Number(columnValue)){
+    		columnValue = "#"+columnValue;	
+    	} 	
+    }
+	if(column == "startTime"){
+		columnValue = timefixed(columnValue)
+
+	}
+    return columnValue;
+}
+
+//集团分页
+var jt_lh_pagenation = function(page) {
+   	var num_entries = page;
+  	// 创建分页
+  	$("#Pagination_query").pagination(num_entries, {
+	    num_edge_entries: 1, //边缘页数
+	    num_display_entries: 4, //主体页数
+	    callback: jt_query_pagenation,
+	    items_per_page: 1, //每页显示1项
+	    prev_text: "前一页",
+	    next_text: "后一页"
+  	});
+};
+//集团分页callback
+function jt_query_pagenation(page_index, jq){
+	jt_detail(page_index+1)
+}
+
+function jt_summary(){
+	var url = rootPath + "/portal/getJTLHTotal.do";
+	ajax(url,"jthz",["YSCOUNT","YCOUNT","YEARRATE","MSCOUNT","MCOUNT","MONTHRATE"]);
+}
+
+
+function jt_detail(jt_page_index){
+	
+	var orgid = $("#org_id").val();	
+	var g_id  = $("#g_id_jt").val();
+	var year  = $("#annual").val();
+	var name  = $("#jt_name").val();	
+	var url = rootPath +"/portal.do";
+	var sentData = {
+			"method":"getJTLHinfos",
+			"orgid":orgid,
+			"g_id":g_id,
+			"name":name,
+			"year":year,
+			'pagenum':jt_page_index,
+			'pagesize':10			
+	};
+	
+	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MSCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
+}
+
 //查询事件
 
 $("#submit").on("click",function(){
 	var g_id=sessionStorage.getItem("g_id");
 	query_flag=true;
-	//console.log(g_id);
 	query_lh(event,1,g_id);
 	$("#Pagination_query").show();
 });
@@ -361,15 +520,14 @@ function query_lh(event,pageNum,gid){
 	var name    = $("#name").val();
 	var startTime = $("#startTime").val();
     var endTime   = $("#endTime").val();
-    var conditionType = $("#add_type").val();
-   
+    var conditionType = $("#add_type").val();  
     if(!name){
     	name = ""; 
     }
     if(!$("#g_id").val()){
 		g_id=gid
 	};
-   // console.log(g_id);
+   
     if(!g_id){
     	g_id="";
     } 
@@ -385,30 +543,9 @@ function query_lh(event,pageNum,gid){
   		  "conditionType":conditionType
   		};
     var url = rootPath+"/portal/getlhdetailinfo.do"
-    $.ajax({
-        url:url,
-		type:"POST",
-		contentType:"application/json",
-		data:JSON.stringify(data1),
-        success: function(data) {
-        	var page = Math.ceil(data.total/7)
-        	if(!page){
-        		$("#Pagination_query").hide();
-        	}else{
-        		$("#Pagination_query").show();
-			}
-			if(query_flag){
-				initPagination1(page);//分页加载
-			}
-        	query_flag=false;
-        	$("#level1_query").html("");
-        	$("#level1_query").html(querypre(data.pagedata));
-          
-        } 
-      })
-    
+	ajax(url,'level1_query',['x','gId','name','startTime','ysCount','yCount','msCount','mCount','fCount'],data1) 
 }
-var initPagination1 = function(page) {
+var dc_lh_pagenation = function(page) {
    	var num_entries = page;
   	// 创建分页
   	$("#Pagination_query").pagination(num_entries, {
@@ -421,46 +558,35 @@ var initPagination1 = function(page) {
   	});
 };
 function pageselectCallback_query(page_index, jq){
-	/*if(page_index==0){
-		return;
-	}*/
+	
 	var g_id=sessionStorage.getItem("g_id");
 	query_lh(event,page_index + 1,g_id);
   	return false;
 }
 var query_flag=true;
-//时间处理
+//时间处理--for hanrongjie
+//时间对象处理函数 
+/*@para time 毫秒
+* return 2016-6-13
+*/	
 function timefixed(time){
 	if(time){
 		var date= new Date(time);
 		var x = date.toLocaleDateString()
 	}else{
 		x = ""
-	}
-	
+	}	
 	return x;
 }
 
-function querypre(data){
-	var htmlArray =[];		
-	for(var i = 0;i<data.length;i++){
-		d = data[i];
-		var j=i+1;
-		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
-		if(Number(d.gId)){
-			d.gId = "#"+d.gId;
-		}
-		htmlArray.push("<tr "+fun+"><td >"+j+"</td><td>" + d.gId+ "</td><td style='text-align:left;'>" + d.name+ "</td><td>" + timefixed(d.startTime)+ "</td><td>" + d.ysCount+ "</td><td>" + d.yCount+ "</td><td>" + d.msCount+ "</td><td>" + d.mCount+ "</td><td>" + d.fCount+ "</td></tr>");
-	}	
-	return htmlArray.join(''); 
-}
-
 function chuantou(d){
+	$('.jt').hide();
 	
-	//alert(d);
+	if(!d.gId){
+		d.gId = d.G_ID
+	}
+
     var flag=true;
-    
-    $("#Pagination_query").hide();
     $(".select").hide();
     $("table.level1").hide();
     $(".wu_top").show();
@@ -474,7 +600,7 @@ function chuantou(d){
     var initPagination = function(page) {
         var num_entries = page;
         // 创建分页
-        $("#Pagination").pagination(num_entries, {
+        $("#Pagination_query").pagination(num_entries, {
             num_edge_entries: 1, //边缘页数
             num_display_entries: 4, //主体页数
             callback: pageselectCallback,
@@ -484,15 +610,20 @@ function chuantou(d){
         });
     };
 
-
-
     function pageselectCallback(page_index, jq){
         expr(page_index + 1);
         return false;
-    }
-    var name=name = encodeURIComponent(trim(d.name));
+    };
+	//var name="";
+	if(d.name){
+		name = encodeURIComponent(d.name);
+	}else if(d.NAME){
+		name = encodeURIComponent(d.NAME);
+	}
+   // var name = encodeURIComponent(trim(d.name));
     var url = rootPath + "/portal.do?name="+name;
     expr(1);
+	// level4 detail
     function expr(pagenum){
         $.ajax({
             url: url,
@@ -570,76 +701,99 @@ function chuantou(d){
         });
 
     }
-    $.ajax({
-        url: url,
-        type: "POST",
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: "json",
-        data: {
-            method: "getLHCount",
-            org_id: sessionStorage.getItem("orgid"),
-            g_id: d.gId,
-            special_id: d.professionName
-        },
-        success: function(data) {
-            var data_level4 = data.lhlist[0];
-            //console.log(data_level4 );
-            //console.log(data_level4.length);
-            var table1_huizong_td = $("#table1_huizong").find("td");
-            var header_h3 = $('.wu_top1').find("h3");
-            var lh_name = $('#lh_name');
-
-            if (data.lhlist.length == 0) {
-                table1_huizong_td.each(function(i) {
-                    if (i > 4) {
-                        $(this).html("暂时无数据");
-                    }
-
-                });
-                lh_name.html("");
-                header_h3.each(function() {
-                    $(this).html("");
-                });
-                lh_name.html("本条记录无数据");
-            }
-
-            if (data.lhlist.length !== 0) {
-                /*轮换说明*/
-                header_h3.eq(0).html(data_level4.validbasic);
-                header_h3.eq(1).html(data_level4.lhmethod);
-                header_h3.eq(2).html(data_level4.systemlogic);
-                header_h3.eq(3).html(data_level4.startbasic);
-                header_h3.eq(4).html(data_level4.endbasic);
-
-                /*轮换的名称*/
-                lh_name.html(d.name);
-
-                /*轮换的具体数据*/
-                table1_huizong_td.eq(5).html(data_level4.yscount);
-                table1_huizong_td.eq(6).html(data_level4.ycount);
-                table1_huizong_td.eq(7).html(data_level4.mscount);
-                table1_huizong_td.eq(8).html(data_level4.mcount);
-                table1_huizong_td.eq(9).html(data_level4.noexper);
-
-            }
-
-        }
-
-    })
+	var l4sentdata ={ 
+		method: "getLHCount",
+		org_id: sessionStorage.getItem("orgid"),
+		g_id: d.gId,
+		special_id: d.professionName
+	}
+	level4_header(url,l4sentdata)
 }
 
 
+//根据电厂 添加机组========================================================
+function addjz(){
+	$("#g_id").html("<option value=''></option>");
+	var orgId = sessionStorage.getItem("orgid")
+	var url = rootPath +"/portal/getLhJzInfo.do?orgId="+orgId;
+	$.ajax({
+		url:url,
+		type:"POST",
+		success:function(data){
+			var arr = [];
+			for(var i in data){
+				arr.push(data[i]);
+			}
+			arr.sort()//机组排序
+			//机组信息插入到页面当中
+			for(var i = 0;i<arr.length;i++){ 
+				var j = i+1;
+				
+				if(Number(arr[i])){
+					arr[i] = "#"+arr[i];
 
-
+				}else{
+					j=arr[i];
+				}
+				
+				$("#g_id").append("<option value='"+j+"'>"+arr[i]+"</option>");
+			}
+		}
+	})
+}
+//根据=电厂=机组=添加专业============================================================
+function addzy(gid){
+	$("#spec_id").html("<option value=''></option>");
+	var orgId = sessionStorage.getItem("orgid");
+	var g_id = $("#g_id").val();
+	var url = "";
+	
+	if(!$("#g_id").val()){
+		url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId
+	}
+	else{
+		
+		url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId+"&gId="+g_id;
+	}
+	$.ajax({
+		url:url,
+		type:"POST",
+		success:function(data){
+			for(var key in data){
+				$("#spec_id").append("<option value='"+key+"'>"+ifFix(data[key])+"</option>");
+			}		
+		}
+	})
+}
+function ifFix(x){
+	return x.replace(/专业/,"")
+}
+//机组改变的时候加载对应的专业！==================================================
+$("#g_id").on("change",function(){
+	$("#spec_id").html("")
+	addzy(g_id);
+	query_flag = true;
+})
+$("#spec_id").on("change",function(){
+	//addzy(g_id);
+	query_flag = true;//重新加载分页
+});
 
 function zTreeOnClick(ev, treeId, treeNode) {	
 	var event = ev || window.event;
 	var g_id = $(event.target).parent().parent().parent().siblings().parent().parent().siblings().text();
 	var special_id = $(event.target).parent().parent().parent().siblings().text();
 	var name = treeNode.name;
+	var $fanhui = $('#fanhui')
 	switch (treeNode.level) {
+		case 0:			
+			jtview();
+			$fanhui.attr("href","../portal.jsp")				
+			break;
+			
 		//电厂级别
-		case 0:
+		case 1:
+			$('.jt').hide();
 			g_id = "";
 			special_id = "";
 			if(name == "岱海发电"){
@@ -650,9 +804,11 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			name = "";
 			//console.log(1);
 			level1();
+			$fanhui.attr("href","../portal.jsp")	
 			break;
 			//机组级别
-		case 1:
+		case 2:
+			$('.jt').hide();
 			if(Number(name.substring(1, 2))){
 				g_id = name.substring(1, 2);
 			}else{
@@ -662,19 +818,22 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			special_id = "";
 			name = "";
 			level2();
+			$fanhui.attr("href","qchuizong.html")
 			break;
 			//专业级别
-		case 2:
+		case 3:
 			g_id = special_id.substring(1, 2);
 			sessionStorage.setItem("g_id", g_id);
 			special_id = name;
 			name = "";
+			$fanhui.attr("href","qchuizong.html")
 			break;
 			//试验名称级别
-		case 3:
+		case 4:
 			g_id = g_id.substring(1, 2);
-			
+			$('.jt').hide();
 			level4();
+			$fanhui.attr("href","qchuizong.html")
 			break;
 		default:
 			g_id = "";
@@ -685,18 +844,13 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 //level1 && level2 are same interface;
 	
-	
-	
-	
-	
-	
-	
-	//leve2 new=====================================================
-	function level2(){
-		
+	//level 1 new======================================================
+	function level1(){
+		//
+		sessionStorage.setItem("g_id", "");
 		$("#Pagination_query").show();
 		$(".select").show();
-		
+		$(".jt_select").hide();
 		$("table.level1").show();
 		$("table.level4").hide();
 		$(".wu_top").hide();
@@ -704,6 +858,33 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$("#table1_huizong").hide();
 		$("#Pagination").hide();
 		$(".wu_main").css({"marginTop":23});
+		$('#lh_name').html(treeNode.name);
+		$("#wu_top1").hide();
+		
+		var orgId = sessionStorage.getItem("orgid")
+		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
+		//summary
+		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
+		addjz("");//加载机组
+		addzy();//默认加载#1机组的专业
+		$("#g_id").show().siblings().show();
+		query_flag=true;
+		//detail
+		$("#submit").click();
+	}
+	//leve2 new=====================================================
+	function level2(){
+		
+		$("#Pagination_query").show();
+		$(".select.dc").show();
+		
+		$("table.level1").show();
+		$("table.level4").hide();
+		$(".wu_top").hide();
+		$(".wu_top1").hide();
+		$("#table1_huizong").hide();
+		$("#Pagination").hide();
+		$(".wu_main").css({"marginTop":22});
 		$('#lh_name').html(treeNode.name);
 		$("#wu_top1").hide();
 		
@@ -717,106 +898,12 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		query_lh(event,1,g_id);
 		
 	}
-	//level 1 new======================================================
-	function level1(){
-		//
-		sessionStorage.setItem("g_id", "");
-		$("#Pagination_query").show();
-		$(".select").show();
-		
-		$("table.level1").show();
-		$("table.level4").hide();
-		$(".wu_top").hide();
-		$(".wu_top1").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide();
-		$(".wu_main").css({"marginTop":23});
-		$('#lh_name').html(treeNode.name);
-		$("#wu_top1").hide();
-		
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
-		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
-		addjz("");//加载机组
-		addzy();//默认加载#1机组的专业
-		$("#g_id").show().siblings().show();
-		query_flag=true;
-		$("#submit").click();
-	}
-	//根据电厂 添加机组========================================================
-	function addjz(){
-		$("#g_id").html("<option value=''></option>");
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath +"/portal/getLhJzInfo.do?orgId="+orgId;
-		$.ajax({
-			url:url,
-			type:"POST",
-			success:function(data){
-				var arr = [];
-				for(var i in data){
-					arr.push(data[i]);
-				}
-				arr.sort()//机组排序
-				//console.log(arr);
-				//机组信息插入到页面当中
-				for(var i = 0;i<arr.length;i++){ 
-					var j = i+1;
-					
-					if(Number(arr[i])){
-						arr[i] = "#"+arr[i];
-
-					}else{
-						j=arr[i];
-					}
-					
-					$("#g_id").append("<option value='"+j+"'>"+arr[i]+"</option>");
-				}
-			}
-		})
-	}
-	//机组改变的时候加载对应的专业！==================================================
-	$("#g_id").on("change",function(){
-		$("#spec_id").html("")
-		addzy(g_id);
-		query_flag = true;
-	})
-	$("#spec_id").on("change",function(){
-		//addzy(g_id);
-		query_flag = true;//重新加载分页
-	});
-
-	//时间对象处理函数 
-   /*@para time 毫秒
-    * return 2016-6-13
-    */	
 	
-	//根据=电厂=机组=添加专业============================================================
-	function addzy(gid){
-		$("#spec_id").html("<option value=''></option>");
-		var orgId = sessionStorage.getItem("orgid");
-		var g_id = $("#g_id").val();
-		var url = "";
-		
-		if(!$("#g_id").val()){
-			url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId
-		}
-		else{
-			
-			url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId+"&gId="+g_id;
-		}
-		$.ajax({
-			url:url,
-			type:"POST",
-			success:function(data){
-				for(var key in data){
-					$("#spec_id").append("<option value='"+key+"'>"+ifFix(data[key])+"</option>");
-				}		
-			}
-		})
-	}
-	function ifFix(x){
-		return x.replace(/专业/,"")
-	}
+	
+	
+	
+	
+	
 	
 	function level4(){
 		var flag=true;
@@ -884,11 +971,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 					}
 					flag=false;
 					//console.log(data);
-					$('#sblhcounter').html(prepearData(data.exper));//处理ajax返回的数据添加到html中
-
-					//$('#sblhcounter').html("<tr><td>1</td><td>" + dataP1.starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent'id='zx"+i+"'></div></div></td><td>" + dataP1.name + "</td><td>是</td></tr>")
-					
-					//newPop(".lineDiv","zhexian",".drsMoveHandle span");
+					$('#sblhcounter').html(prepearData(data.exper));//处理ajax返回的数据添加到html中					
 					//初始化弹窗的相对定位
 					var line_width = ($(window).width() - 700) / 2 + "px";
 					//var line_height=($(window).height()-365)/2+"px";
@@ -949,27 +1032,28 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			});
 			
 		}
+		var l4sentdata={method: "getLHCount",org_id: sessionStorage.getItem("orgid"),g_id: g_id,special_id: special_id}
+		level4_header(url,l4sentdata)
+		
+        return false;		
+	}
+	return false;
 
-		//level4 轮换信息；
-		$.ajax({
+}
+
+function level4_header(url,data){
+	$.ajax({
 			url: url,
 			type: "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			dataType: "json",
-			data: {
-				method: "getLHCount",
-				org_id: sessionStorage.getItem("orgid"),
-				g_id: g_id,
-				special_id: special_id
-			},
+			data: data,
 			success: function(data) {
 				var data_level4 = data.lhlist[0];
-				//console.log(data_level4 );
-				//console.log(data_level4.length);
+				
 				var table1_huizong_td = $("#table1_huizong").find("td");
 				var header_h3 = $('.wu_top1').find("h3");
 				var lh_name = $('#lh_name');
-
 				if (data.lhlist.length == 0) {
 					table1_huizong_td.each(function(i) {
 						if (i > 4) {
@@ -1007,20 +1091,16 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			}
 
 		})
-        return false;		
-	}
-	return false;
-
 }
+
+
 function prepearData(data){
 	
 	var htmlArray =[];
 	htmlArray.push("<tr>");
 	
 	for(var i = 0;i<data.length;i++){
-
-		var j=i+1;
-		//htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>是</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
+		var j=i+1;		
 		htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>"+zunsi(data[i].NOEXPER)+"</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
 
 	}
@@ -1045,73 +1125,12 @@ function zunsi(x){
 		return "否"
 	}
 }
-/*function prepearDatalevel1(data){
-	var htmlArray =[];
 
-	htmlArray.push("<tr>");
-	for(var i = 0;i<data.length;i++){
-		d = data[i];
-		var j=i+1;
-		htmlArray.push("<tr><td >"+j+"</td><td>" + d.gId+ "</td>");
-	}
-	htmlArray.push("</tr>");
-	return htmlArray.join('');
-}*/
 
-function prearData(data, columns) {
-    var htmlArray = [];
-    for (var i = 0; i < data.length; i++) {
-        var d = data[i];
-        htmlArray.push("<tr>");
-        for (var j = 0;j < columns.length; j++) {
-        	if(j==0){
-        		k=i+1;
-        		htmlArray.push("<td >"+k+"</td>");
-        	}else{
-        		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
-                 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
-        	}
-           
-        }
-    }
-    htmlArray.push("</tr>");
-    return htmlArray.join('');
-}
 
-function getColumnValue(column, columnValue) {
-   
-    if(column =='W_DATE'){
-        columnValue = columnValue.replace(/\s/g,"&#13;")
-    }
-    if(column == "gId"){
-    	if(Number(columnValue)){
-    		columnValue = "#"+columnValue;	
-    	}
-    	
-    }
-    	
-    
-    return columnValue;
-}
-function ajax(url, tableId, columns) {
-    $.ajax({
-        url : url,
-        type:"post",
-        dataType : "json",
-        success : function(data) {
-            var tableHtml = '';
-            if(data&&data.length>0){
-                
-                tableHtml = prearData(data, columns);
-                
-            }
-            $("#" + tableId).html(tableHtml);
-           // styleTable("#" + tableId); 对生成的table的样式重写；
-        }
-    });
-}
 
 function trim(str) {
+	
 	return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
@@ -1354,16 +1373,7 @@ Date.prototype.format = function(format) {
 }
 
 
-function shuaxinhanshu(length) {
-	var html = '';
-	var s = 1;
-	var a = '#1EH油泵切至#2EH油泵运行';
-	var b = '是';
-	for (var i = 0; i < length; i++) {
-		html += '<tr><td>' + (i + 1) + '</td><td class="time">' + s + '</td><td class="zhexian"><p><img src="img/qx.png" /></p><div class="lineDiv" style="left:25%; top: 150px; width:400px; height:365px;"><div class="drsMoveHandle"><span></span></div><div class="linecontent"><div id="zhe' + (i + 1) + '" class="zhe" style="width: 300px;height:300px;"></div></div></div></td><td class="shuoming">' + a + '</td><td>' + b + '</td></tr>'
-	}
-	$('#rongqi').append(html)
-}
+
 
 
 $(document).ready(
@@ -1447,7 +1457,7 @@ $(document).ready(
 	}
 )
 
-$('.wu_top1b').click(function(){
+/*$('.wu_top1b').click(function(){
 	var year 	   =  $('.select_showbox').eq(0).attr("title");
 	var mouth	   =  $('.select_showbox').eq(1).attr("title"); 
 	var $current   =  $(".curSelectedNode");
@@ -1589,7 +1599,7 @@ $('.wu_top1b').click(function(){
 
 
 
-})
+})*/
 
 
 

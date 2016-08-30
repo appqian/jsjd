@@ -370,15 +370,27 @@ $(function(){
 		if(id=='C35DF90D235740E3A49C2D6E7D9A057D'){
 			img.attr('src','<%=request.getContextPath() %>/evaluate/img/momeiji.png')
 		}
+		
 		if(id=='48be668a-d973-4957-819d-da80287e57ed'){
 			img.attr('src','<%=request.getContextPath() %>/evaluate/img/yanwen.png')
 		}
-		if(id =="482F49D6AC8843BA8CF885F263518B72"){
+		/* 凝结水  */
+		if(id =="482F49D6AC8843BA8CF885F263518B72" || id=="482F49D6AC8843BA8CF885F263518072"||id== "482F49D6AC8843BA8CF885F263518073"||id=="482F49D6AC8843BA8CF885F263518074"|| id =="482F49D6AC8843BA8CF885F263518075" || id =="482F49D6AC8843BA8CF885F263518076"){
 			img.attr("src",'<%=request.getContextPath() %>/evaluate/img/njs.png')
 		}
+		/*宁东制粉*/
 		if(id =="5779d131-fded-44fc-93d4-980bfea19ebf"){
 			img.attr("src",'<%=request.getContextPath() %>/evaluate/img/ndzf.png');
 		}
+		/* 主蒸汽优化 */
+		if(id =="C35DF90D235740E3A49C2D6E7D9A0570"||id =="C35DF90D235740E3A49C2D6E7D9A0571"||id =="C35DF90D235740E3A49C2D6E7D9A0572"||id =="C35DF90D235740E3A49C2D6E7D9A0573"||id =="C35DF90D235740E3A49C2D6E7D9A0574"||id =="C35DF90D235740E3A49C2D6E7D9A0575"){
+			img.attr("src",'<%=request.getContextPath() %>/evaluate/img/zzqyh.png');
+		}
+		
+		
+		
+		
+		
 	}
 	morder('${requestScope.tecProjectVo.id}')
 	
