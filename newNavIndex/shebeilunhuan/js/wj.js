@@ -351,6 +351,20 @@ function jtview(){
 	$('.dc').hide();
 	$('.jt').show();
 	$(".wu_main").css({"marginTop":22});
+
+	//默认加载 集团 全部
+
+	$('#org_id option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
+		}
+	})
+	$('#g_id_jt option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
+		}
+	})
+	
 	//集团汇总	
 	$("#lh_name").html("京能集团")
 	jt_summary()
