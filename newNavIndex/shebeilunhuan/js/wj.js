@@ -594,6 +594,8 @@ function timefixed(time){
 }
 
 function chuantou(d){
+	//穿透后 点击返回本页
+	$('#fanhui').attr("href","qchuizong.html")
 	$('.jt').hide();
 	
 	if(!d.gId){
@@ -906,7 +908,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId+"&gId="+g_id;
 		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
 		$("#g_id").html("").fadeOut().siblings().fadeOut();
-		//console.log(g_id);
 		addzy(g_id);
 		query_flag=true;
 		query_lh(event,1,g_id);
