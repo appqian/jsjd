@@ -2,7 +2,6 @@ function rootpath() {
 	var url = $('<input id="url" type="hidden" value="">');
 	$("body").prepend(url);
 	var curWwwPath = window.document.location.href;
-	//console.log(curWwwPath);
 	var pathName = window.document.location.pathname;
 	var pos = curWwwPath.indexOf(pathName);
 	var localhostPath = curWwwPath.substring(0, pos);
@@ -69,12 +68,7 @@ $("#gzSubmit").click(function(){
 	})
 })
 
-//返回事件handle
-$('#fanhui').click(function(){
-	if($('.curSelectedNode').hasClass('.level1')){
-		alert('1')
-	}
-})
+
 //集团页面===================================================
 //集团query
 
@@ -195,8 +189,7 @@ function getColumnValue(column, columnValue) {
     		columnValue = "#"+columnValue;
     	}
     	
-    }
-	
+    }	
     return columnValue;
 }
 
@@ -214,13 +207,10 @@ var jt_lh_pagenation = function(page) {
 	    next_text: "后一页"
   	});
 };
-function jt_query_pagenation(page_index, jq){
-	
+function jt_query_pagenation(page_index, jq){	
 	 jt_hz(page_index+1)
   
 }
-
-
 
 
 //处理函数结束========================================================
@@ -231,8 +221,7 @@ function getTree() {
 		type: "GET",
 		dataType:"JSON",
 		success: function(data){		
-			data1=data;
-			
+			data1=data;			
 		},
 		complete:function(msg) {
 			var org_name ="";
@@ -254,25 +243,16 @@ function getTree() {
 			if(user_org_id =="a61365e2-969d-4352-b3f8-805027ab9f1d"){
 				org_name = "京能集团"
 			}
-			
-			 
-			
 			$("#tree").find(".node_name").each(function(){
 				var $this = $(this)
-				if($this.html() == org_name ){
-					
+				if($this.html() == org_name ){					
 					//展开本条
 					$this.click();
 					if(user_org_id!="a61365e2-969d-4352-b3f8-805027ab9f1d"){
 						$this.parent().siblings().click();
-					}
-					
-				
-					
+					}													
 				}
 			})
-			
-			
 		}      
 	})
 }
@@ -384,7 +364,9 @@ function zTreeOnClick(ev, treeId, treeNode) {
 
 		//name = encodeURIComponent(trim(name));
 		var url = rootPath + "/portal.do";
+
 		expr(1);
+		
 		//level4 轮换详情；
 		function expr(pagenum){
 			$.ajax({
@@ -470,62 +452,15 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			});
 			
 		}
-
-		//level4 轮换信息；
-		$.ajax({
-			url: url,
-			type: "POST",
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			dataType: "json",
-			data: {
+		//单条详情汇总 显示
+		var l4sentdata ={ 
 				method: "getGZCountByName",
 				org_id: sessionStorage.getItem("orgid"),
 				g_id:   g_id,
-				name:name
-				
-			},
-			success: function(data) {
-			
-				var data_level4 = data.gzlist[0];				
-				var table1_huizong_td = $("#table1_huizong").find("td");
-				var header_h3 = $('.wu_top1').find("h3");
-				var lh_name = $('#lh_name');
+				name:name				
+		}
+		level4_header(url,l4sentdata)
 
-				if (data.gzlist.length == 0) {
-
-					table1_huizong_td.each(function(i) {
-						if (i > 2) {							
-							$(this).html("暂时无数据");
-						}
-
-					});
-					lh_name.html("");
-					header_h3.each(function() {
-						$(this).html("");
-					});
-					lh_name.html("本条记录无数据");
-				}
-
-				if (data.gzlist.length !== 0) {
-					/*轮换说明*/
-				/*	header_h3.eq(0).html(data_level4.validbasic)
-					header_h3.eq(1).html(data_level4.lhmethod);
-					header_h3.eq(2).html(data_level4.systemlogic);
-					header_h3.eq(3).html(data_level4.startbasic);
-					header_h3.eq(4).html(data_level4.endbasic)
-*/
-					/*轮换的名称*/
-					lh_name.html(treeNode.name);
-
-					/*轮换的具体数据*/
-					table1_huizong_td.eq(3).html(data_level4.totalnum);
-					table1_huizong_td.eq(4).html(data_level4.ycount);
-					table1_huizong_td.eq(5).html(data_level4.mcount);
-				}
-
-			}
-
-		})
         return false;		
 	}
 	return false;
@@ -558,7 +493,8 @@ function prepearData(data){
 	return htmlArray.join('');
 }
 function chuantou(d){
-	//console.log(d);
+	//穿透后 点击返回本页
+	$('#fanhui').attr("href","qchuizong.html")
 	var flag=true;
 	$('.jt').hide();
 
@@ -650,7 +586,7 @@ function chuantou(d){
 						var starttime = arr[2];
 						var endtime = arr[3];
 						var id = arr[4];
-						console.log(id);
+						
 						
 						if(d_flag){
 							sbjiaohu("zx"+i,code,name,starttime,endtime);
@@ -660,7 +596,7 @@ function chuantou(d){
 
 						$(this).children(".lineDiv").fadeIn();
 						var index = $(this).index();
-						//zhexian($(this).find('.linecontent div').attr('id'))  
+						
 					}
 				)
 				//弹出层关闭按钮
@@ -678,28 +614,33 @@ function chuantou(d){
 		});
 		
 	}
+	//单条详情汇总 显示
+	var l4sentdata ={ 
+			method: "getGZCountByName",			
+			org_id: d.ORG_ID,			
+			g_id:   d.G_ID,
+			name: d.name
+	}
+	level4_header(url,l4sentdata)
+
+
 	
-	
+}
+
+
+
+function level4_header(url,data){
 	$.ajax({
 		url: url,
 		type: "POST",
 		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 		dataType: "json",
-		data: {
-			method: "getGZCountByName",
-			//org_id: sessionStorage.getItem("orgid"),
-			org_id: d.ORG_ID,			
-			g_id:   d.G_ID,
-			name: d.name
-		},
+		data: data,
 		success: function(data) {
 	
-			var data_level4 = data.gzlist[0];
-			
+			var data_level4 = data.gzlist[0];			
 			var table1_huizong_td = $("#table1_huizong").find("td");
-			var header_h3 = $('.wu_top1').find("h3");
 			var lh_name = $('#lh_name');
-
 			if (data.gzlist.length == 0) {
 
 				table1_huizong_td.each(function(i) {
@@ -708,25 +649,16 @@ function chuantou(d){
 					}
 
 				});
-				lh_name.html("");
-				header_h3.each(function() {
-					$(this).html("");
-				});
+				
 				lh_name.html("本条记录无数据");
 			}
 
 			if (data.gzlist.length !== 0) {
-		
-				/*轮换的名称*/
-				//todo
-				lh_name.html(d.name);
-
-				/*轮换的具体数据*/
+				lh_name.html(data.name);
+				/*具体数据*/
 				table1_huizong_td.eq(3).html(data_level4.totalnum);
 				table1_huizong_td.eq(4).html(data_level4.ycount);
-				table1_huizong_td.eq(5).html(data_level4.mcount);
-
-				
+				table1_huizong_td.eq(5).html(data_level4.mcount);	
 			}
 
 		}
@@ -734,21 +666,9 @@ function chuantou(d){
 	})
 }
 
-
-
-
-
 function trim(str) {
 	return str.replace(/(^\s*)|(\s*$)/g, "");
 }
-
-
-/*
-
-//使左右高度相等
-var main_height=$(".wu_left").height()-$(".wu_top").height()+20
-$(".wu_main").css({"min-height": main_height+"px" });
-*/
 
 
 
