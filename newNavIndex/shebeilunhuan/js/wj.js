@@ -1,4 +1,4 @@
-
+	
 
 
 
@@ -321,7 +321,8 @@ function getTree() {
 			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
 				org_name = "岱海发电"
 			}
-			if(user_org_id =="472212afo-1977-462b-a74a-a1f36ed6562d"){
+			if(user_org_id =="472212af-1977-462b-a74a-a1f36ed6562d"){
+							  
 				org_name = "宁东发电"
 			}
 			if(user_org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
@@ -364,7 +365,8 @@ function jtview(){
 			this.selected = "selected";										
 		}
 	})
-	
+	//年份清空
+	$("#annual").val("")
 	//集团汇总	
 	$("#lh_name").html("京能集团")
 	jt_summary()
@@ -388,14 +390,14 @@ function ajax(url, tableId, columns,sentData,type) {
 	}
     $.ajax({
         url : url,
-        type:"post",
-		//contentType:"application/json",
+        type:"post",		
         data:sentData,
         dataType : "json",
         success : function(data) {
             var tableHtml = '';
+			//header 集团汇总|| 电厂汇总
             if(data&&data.length>0){               
-                tableHtml = prearData(data, columns);                
+                tableHtml = prearData(data, columns,tableId);                
             }
 			//电厂level1
 			if(tableId=='level1_query'){
@@ -415,11 +417,13 @@ function ajax(url, tableId, columns,sentData,type) {
 					jt_query = false; 
             	    tableHtml = prearData(data.exper, columns);
 				}	            	
-            }	
-			//集团汇总
-			if( tableId == 'jt_detail'){				
-            	var page = Math.ceil(data.total/10)
+            }
+			//集团汇总	
+			
+			//集团detail
+			if( tableId == 'jt_detail'){				 	
             	if(jt_query){
+					var page = Math.ceil(data.total/10)
     				jt_lh_pagenation(page);//分页加载
     			}
             	jt_query = false; 
@@ -429,12 +433,19 @@ function ajax(url, tableId, columns,sentData,type) {
         }
     });
 }
-function prearData(data, columns) {
+function prearData(data, columns,tableId) {
     var htmlArray = [];
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
+
 		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
-        htmlArray.push("<tr "+fun+">");      
+		/*if(tableId == "jthz"||tableId =='level1'){
+			htmlArray.push("<tr>"); 
+		}else{
+			 htmlArray.push("<tr "+fun+">"); 
+		}*/
+		htmlArray.push('<tr>');
+            
         for (var j = 0;j < columns.length; j++) {
         	//todo
         	if(columns[0]=="x" && j==0){
@@ -444,7 +455,7 @@ function prearData(data, columns) {
         	}else{
         		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
         		 if(columns[j]=="NAME" || columns[j]=="name"){
-        			 htmlArray.push("<td  title=" + columnValue + " style='text-align:left'><a>" + columnValue + "</a></td>");
+        			 htmlArray.push("<td  title=" + columnValue + " "+fun+" style='text-align:left'><a>" + columnValue + "</a></td>");
         			 
         		 }else{
         			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
@@ -525,7 +536,7 @@ $("#submit").on("click",function(){
 	query_lh(event,1,g_id);
 	$("#Pagination_query").show();
 });
-$("#submit").click();
+//$("#submit").click();
 //level1        查询=====================================================
 function query_lh(event,pageNum,gid){
 	var orgId = sessionStorage.getItem("orgid");
@@ -596,10 +607,14 @@ function timefixed(time){
 function chuantou(d){
 	//穿透后 点击返回本页
 	$('#fanhui').attr("href","qchuizong.html")
+	jt_query=true;
 	$('.jt').hide();
 	
 	if(!d.gId){
 		d.gId = d.G_ID
+	}
+	if(d.name){
+		d.NAME = d.name
 	}
 
     var flag=true;
@@ -631,11 +646,11 @@ function chuantou(d){
         return false;
     };
 	//var name="";
-	if(d.name){
-		name = encodeURIComponent(d.name);
-	}else if(d.NAME){
+	// if(d.name){
+	// 	name = encodeURIComponent(d.name);
+	// }else if(d.NAME){
 		name = encodeURIComponent(d.NAME);
-	}
+	//}
    // var name = encodeURIComponent(trim(d.name));
     var url = rootPath + "/portal.do?name="+name;
     expr(1);
@@ -648,12 +663,11 @@ function chuantou(d){
             dataType: "json",
             data: {
                 method: "getLHTime",
-                org_id: sessionStorage.getItem("orgid"),
+                org_id: d.ORG_ID,
                 year:'',
                 month:'',
                 g_id:  d.gId,
                 special_id: d.professionName,
-               // name:d.name,
                 ispage:true,
                 pagenum:pagenum,
                 pagesize:5
@@ -717,11 +731,15 @@ function chuantou(d){
         });
 
     }
+	
+	$("#lh_name").html(d.NAME);
 	var l4sentdata ={ 
 		method: "getLHCount",
-		org_id: sessionStorage.getItem("orgid"),
+		org_id: d.ORG_ID,
 		g_id: d.gId,
 		special_id: d.professionName
+		
+
 	}
 	level4_header(url,l4sentdata)
 }
@@ -786,7 +804,9 @@ function ifFix(x){
 }
 //机组改变的时候加载对应的专业！==================================================
 $("#g_id").on("change",function(){
-	$("#spec_id").html("")
+	$("#spec_id").html("");
+	
+	var g_id = $(this).val();
 	addzy(g_id);
 	query_flag = true;
 })
@@ -818,7 +838,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 				sessionStorage.setItem("orgid", "472212af-1977-462b-a74a-a1f36ed6562d");
 			}
 			name = "";
-			//console.log(1);
 			level1();
 			$fanhui.attr("href","../portal.jsp")	
 			break;
@@ -1047,6 +1066,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			});
 			
 		}
+		
 		var l4sentdata={method: "getLHCount",org_id: sessionStorage.getItem("orgid"),g_id: g_id,special_id: special_id}
 		level4_header(url,l4sentdata)
 		
@@ -1056,19 +1076,19 @@ function zTreeOnClick(ev, treeId, treeNode) {
 
 }
 
-function level4_header(url,data){
+function level4_header(url,dataIN){
 	$.ajax({
 			url: url,
 			type: "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			dataType: "json",
-			data: data,
+			data: dataIN,
 			success: function(data) {
 				var data_level4 = data.lhlist[0];
 				
 				var table1_huizong_td = $("#table1_huizong").find("td");
 				var header_h3 = $('.wu_top1').find("h3");
-				var lh_name = $('#lh_name');
+				//var lh_name = $('#lh_name');
 				if (data.lhlist.length == 0) {
 					table1_huizong_td.each(function(i) {
 						if (i > 4) {
@@ -1092,7 +1112,7 @@ function level4_header(url,data){
 					header_h3.eq(4).html(data_level4.endbasic)
 
 					/*轮换的名称*/
-					lh_name.html(treeNode.name);
+					//lh_name.html(dataIN.name);
 
 					/*轮换的具体数据*/
 					table1_huizong_td.eq(5).html(data_level4.yscount);
@@ -1112,8 +1132,7 @@ function level4_header(url,data){
 function prepearData(data){
 	
 	var htmlArray =[];
-	htmlArray.push("<tr>");
-	
+	htmlArray.push("<tr>");	
 	for(var i = 0;i<data.length;i++){
 		var j=i+1;		
 		htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>"+zunsi(data[i].NOEXPER)+"</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
@@ -1124,14 +1143,9 @@ function prepearData(data){
 
 			htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
 		}
-	}
-		
-
+	}		
 	htmlArray.push("</tr>");
-
-
 	return htmlArray.join('');
-
 }
 function zunsi(x){
 	if(x==0){
@@ -1140,9 +1154,6 @@ function zunsi(x){
 		return "否"
 	}
 }
-
-
-
 
 function trim(str) {
 	
@@ -1509,7 +1520,7 @@ $(document).ready(
 			
 			
 		  	return false;
-		}
+		} 
 
 
 	name = encodeURIComponent(trim(name));

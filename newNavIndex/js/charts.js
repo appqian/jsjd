@@ -467,7 +467,7 @@ function kuandu(){
 				
 			},
 			error:function(){
-				alert("获取折线图数据失败");
+				//alert("获取折线图数据失败");
  			}
 		})
 	}
