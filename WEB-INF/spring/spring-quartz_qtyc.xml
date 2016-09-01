@@ -93,7 +93,21 @@
     	   <value>false</value>
     	 </property>
 	</bean>
-	
+	<!-- 金属超温超压报警统计表 -->
+	<bean id="MetalbjTotal" class="com.xzsoft.interfaces.MetalBaojing"/>
+	<bean id="jobDetailaddMetalbjTotal" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+		    <ref bean="MetalbjTotal"/>
+		</property>  
+    	<property name="targetMethod">
+    	    <value>MetalBaojingTotalExecute</value>
+    	</property>
+    	<!-- 将并发设置为false   -->
+    	<property name="concurrent">
+    	   <value>false</value>
+    	 </property>
+	</bean>
+
       <!-- 设备轮换 -->
 	<bean id="testTriggeraddLH" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddLH"/>  
@@ -124,6 +138,11 @@
        <property name="jobDetail" ref="jobDetailaddMetalBj"/>  
        <property name="cronExpression" value="0 0/11 * * * ?"/><!-- 每11分钟执行一次   -->
 	</bean> 
+     <!--金属超温超压报警统计表-->
+	<bean id="testTriggeraddMetalBjTotal" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jobDetailaddMetalbjTotal"/>  
+       <property name="cronExpression" value="0 0 0 1 * ?"/><!-- 每月1号0点执行 value="0 0 0 1 * ?"  -->
+	</bean> 
 
 	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序     -->
 	<bean id="addwork" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
@@ -137,6 +156,7 @@
 								 <ref bean="testTriggeraddQTStep" /> 
                                  <ref bean="testTriggeraddSY" />  
 								 <ref bean="testTriggeraddMetalBj" />  <!--金属超温超压报警-->
+								 <ref bean="testTriggeraddMetalBjTotal" />  <!--金属超温超压报警统计表 -->
 							
             </list>  
     </property>  
