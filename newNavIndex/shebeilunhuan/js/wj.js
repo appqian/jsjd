@@ -1,4 +1,4 @@
-	
+
 
 
 
@@ -354,7 +354,6 @@ function jtview(){
 	$(".wu_main").css({"marginTop":22});
 
 	//默认加载 集团 全部
-
 	$('#org_id option').each(function(){
 		if(this.value == ""){							
 			this.selected = "selected";										
@@ -378,12 +377,32 @@ function jtview(){
 $("#jt_submit").click(function(){
 	jt_detail(1);
 	jt_query=true;
+});
+$('#org_id').change(function(){
+	var org_id = $(this).val();
+	addjz(org_id);
+})
+//返回按钮处理 -- 处理在所在电厂级和集团级
+//-- todo 如果在机组和名称层级处理
+$("#fanhui_test").click(function(){
+	var now_org_name = $('.curSelectedNode').attr('title')
+	switch (now_org_name) {
+		case "京能集团":
+			jtview();
+			break;
+		case "岱海发电":
+			level1(now_org_name);
+			break;
+		case "宁东发电":
+			level1(now_org_name);
+			break;
+		default:
+			break;
+	}
 })
 
 
-
-
-//处理函数==================================================================
+//处理函数 --start
 function ajax(url, tableId, columns,sentData,type) {
 	if(!sentData){
 		sentData ={};
@@ -483,7 +502,7 @@ function getColumnValue(column, columnValue) {
 	}
     return columnValue;
 }
-
+//处理函数 --end
 //集团分页
 var jt_lh_pagenation = function(page) {
    	var num_entries = page;
@@ -497,19 +516,18 @@ var jt_lh_pagenation = function(page) {
 	    next_text: "后一页"
   	});
 };
-//集团分页callback
+//集团分页 --callback
 function jt_query_pagenation(page_index, jq){
 	jt_detail(page_index+1)
 }
-
+//集团总览 --view-header
 function jt_summary(){
 	var url = rootPath + "/portal/getJTLHTotal.do";
 	ajax(url,"jthz",["YSCOUNT","YCOUNT","YEARRATE","MSCOUNT","MCOUNT","MONTHRATE"]);
 }
 
-
-function jt_detail(jt_page_index){
-	
+//集团详情 --view-main
+function jt_detail(jt_page_index){	
 	var orgid = $("#org_id").val();	
 	var g_id  = $("#g_id_jt").val();
 	var year  = $("#annual").val();
@@ -528,7 +546,7 @@ function jt_detail(jt_page_index){
 	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MSCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
 }
 
-//查询事件
+// 电厂查询事件 
 
 $("#submit").on("click",function(){
 	var g_id=sessionStorage.getItem("g_id");
@@ -746,9 +764,15 @@ function chuantou(d){
 
 
 //根据电厂 添加机组========================================================
-function addjz(){
-	$("#g_id").html("<option value=''></option>");
-	var orgId = sessionStorage.getItem("orgid")
+function addjz(orgid_outer){
+	var orgId = ""
+	if(!orgid_outer){
+		$("#g_id").html("<option value=''></option>")
+	   orgId = sessionStorage.getItem("orgid")
+	}else{
+		orgId=orgid_outer;
+		$("#g_id_jt").html("");
+	}	
 	var url = rootPath +"/portal/getLhJzInfo.do?orgId="+orgId;
 	$.ajax({
 		url:url,
@@ -765,13 +789,15 @@ function addjz(){
 				
 				if(Number(arr[i])){
 					arr[i] = "#"+arr[i];
-
 				}else{
 					j=arr[i];
+				}	
+				if (!orgid_outer) {
+					$("#g_id").append("<option value='" + j + "'>" + arr[i] + "</option>");
+				} else {
+					$("#g_id_jt").append("<option value='" + j + "'>" + arr[i] + "</option>");
 				}
-				
-				$("#g_id").append("<option value='"+j+"'>"+arr[i]+"</option>");
-			}
+			}						
 		}
 	})
 }
@@ -815,18 +841,46 @@ $("#spec_id").on("change",function(){
 	query_flag = true;//重新加载分页
 });
 
+
+
+
+//level 1 new======================================================
+	function level1(now_org_name){
+		//
+		sessionStorage.setItem("g_id", "");
+		$("#Pagination_query").show();
+		$(".select").show();
+		$(".jt_select").hide();
+		$("table.level1").show();
+		$("table.level4").hide();
+		$(".wu_top").hide();
+		$(".wu_top1").hide();
+		$("#table1_huizong").hide();
+		$("#Pagination").hide();
+		$(".wu_main").css({"marginTop":23});
+		$('#lh_name').html(now_org_name);
+		$("#wu_top1").hide();
+		
+		var orgId = sessionStorage.getItem("orgid")
+		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
+		//summary
+		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
+		addjz("");//加载机组
+		addzy();//默认加载#1机组的专业
+		$("#g_id").show().siblings().show();
+		query_flag=true;
+		//detail
+		$("#submit").click();
+	}
 function zTreeOnClick(ev, treeId, treeNode) {	
 	var event = ev || window.event;
 	var g_id = $(event.target).parent().parent().parent().siblings().parent().parent().siblings().text();
 	var special_id = $(event.target).parent().parent().parent().siblings().text();
 	var name = treeNode.name;
-	var $fanhui = $('#fanhui')
 	switch (treeNode.level) {
 		case 0:			
-			jtview();
-			$fanhui.attr("href","../portal.jsp")				
-			break;
-			
+			jtview();					
+			break;			
 		//电厂级别
 		case 1:
 			$('.jt').hide();
@@ -837,9 +891,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			}else if(name == "宁东发电"){	
 				sessionStorage.setItem("orgid", "472212af-1977-462b-a74a-a1f36ed6562d");
 			}
-			name = "";
-			level1();
-			$fanhui.attr("href","../portal.jsp")	
+			level1(name);
+			name = "";	
 			break;
 			//机组级别
 		case 2:
@@ -853,7 +906,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			special_id = "";
 			name = "";
 			level2();
-			$fanhui.attr("href","qchuizong.html")
 			break;
 			//专业级别
 		case 3:
@@ -861,7 +913,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			sessionStorage.setItem("g_id", g_id);
 			special_id = name;
 			name = "";
-			$fanhui.attr("href","qchuizong.html")
 			break;
 			//试验名称级别
 		case 4:
@@ -879,34 +930,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 //level1 && level2 are same interface;
 	
-	//level 1 new======================================================
-	function level1(){
-		//
-		sessionStorage.setItem("g_id", "");
-		$("#Pagination_query").show();
-		$(".select").show();
-		$(".jt_select").hide();
-		$("table.level1").show();
-		$("table.level4").hide();
-		$(".wu_top").hide();
-		$(".wu_top1").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide();
-		$(".wu_main").css({"marginTop":23});
-		$('#lh_name').html(treeNode.name);
-		$("#wu_top1").hide();
-		
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
-		//summary
-		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
-		addjz("");//加载机组
-		addzy();//默认加载#1机组的专业
-		$("#g_id").show().siblings().show();
-		query_flag=true;
-		//detail
-		$("#submit").click();
-	}
+	
 	//leve2 new=====================================================
 	function level2(){
 		
