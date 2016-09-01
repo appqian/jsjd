@@ -79,12 +79,31 @@ $("#jt_submit").click(function(){
 	jt_query=true;
 })
 //集团控制
-function jt_view(){
+function jtview(){
 	$('.jt').show();
 	$('.dc').hide();
 	jt_hz(1);
 	$('#lh_name').html('京能集团');	
 }
+//返回按钮处理 -- 处理在所在电厂级和集团级
+//-- todo 如果在机组和名称层级处理
+$("#fanhui_test").click(function(){
+	var now_org_name = $('.curSelectedNode').attr('title')
+	//cosnole.log(now_org_name)
+	switch (now_org_name) {
+		case "京能集团":
+			jtview();
+			break;
+		case "岱海发电":
+			level1(now_org_name);
+			break;
+		case "宁东发电":
+			level1(now_org_name);
+			break;
+		default:
+			break;
+	}
+})
 
 
 //集团汇总
@@ -102,7 +121,7 @@ function jt_hz(jt_page_index){
 	ajax(url,'jthz',['x','ORG_NAME','G_ID','name','YTOTAL','YCOUNT','MCOUNT'],sentData)
 }
 
-//处理函数====================================================================
+//处理函数 --start
 function ajax(url, tableId, columns,sentData) {
 	if(!sentData){
 		sentData ={};
@@ -155,10 +174,13 @@ function prearData(data, columns) {
     var htmlArray = [];
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
-
 		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
-
-        htmlArray.push("<tr "+fun+">");
+		/*if(tableId == "jthz"||tableId =='level1'){
+			htmlArray.push("<tr>"); 
+		}else{
+			 htmlArray.push("<tr "+fun+">"); 
+		}*/
+	    htmlArray.push('<tr>');
         for (var j = 0;j < columns.length; j++) {
 			//处理第一列为序号的
         	if(columns[0]=="x" && j==0){
@@ -167,7 +189,7 @@ function prearData(data, columns) {
         	}else{
         		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
 				 if(columns[j]=="NAME"||columns[j]=="name"){
-        			 htmlArray.push("<td  title=" + columnValue + " style='text-align:left'><a>" + columnValue + "</a></td>");
+        			 htmlArray.push("<td  title=" + columnValue + " "+fun+" style='text-align:left'><a>" + columnValue + "</a></td>");
         			 
         		 }else{
         			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
@@ -259,6 +281,23 @@ function getTree() {
 
 getTree();
 
+function level1(now_org_name){
+		$(".wu_main").css({"marginTop":23});
+		$("table.level1").show();
+		$("table.level4").hide();
+		$("#table1_huizong").hide();
+		$("#Pagination").hide()
+		$('#lh_name').html(now_org_name);
+		console.log(now_org_name)		
+		var url = rootPath + "/portal.do";
+		var g_id='';
+		var sentData = {
+			method:"getGZCountByOrgid",
+			org_id: sessionStorage.getItem("orgid"),
+			g_id: g_id,			
+		};
+		ajax(url,'level1',['x','name','G_ID','totalnum','YCOUNT','MCOUNT'],sentData)
+	}
 
 function zTreeOnClick(ev, treeId, treeNode) {
 	
@@ -269,7 +308,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	switch (treeNode.level) {
 		//集团级别
 		case 0:
-			jt_view();
+			jtview();
 			break;
 		//电厂级别
 		case 1:
@@ -280,14 +319,13 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			} else if (name == "宁东发电") {
 				sessionStorage.setItem("orgid", "472212af-1977-462b-a74a-a1f36ed6562d");
 			}
+			level1(name);
 			name = "";
 			$('.jt').hide();
-			level1();
-			$('#fanhui').attr("href","../portal.jsp")			
+						
 			break;
 			//机组级别
-		case 2:
-			$('#fanhui').attr("href","qchuizong.html")
+		case 2:			
 			g_id = name.substring(1, 2);
 			special_id = "";
 			name = "";
@@ -296,8 +334,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			break;
 			//专业级别
 		case 3:
-			$('.jt').hide();
-			$('#fanhui').attr("href","qchuizong.html")
+			$('.jt').hide();			
 			g_id = special_id.substring(1, 2);
 			special_id = name;
 			//name = "";
@@ -305,8 +342,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			break;
 			//试验名称级别
 		case 4:
-			$('.jt').hide();
-			$('#fanhui').attr("href","qchuizong.html")
+			$('.jt').hide();			
 			g_id = g_id.substring(1, 2);
 			//console.log('4')
 			$('.dc').hide();
@@ -321,21 +357,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 	//level1 && level2 are some interface;
 
-	function level1(){
-		$(".wu_main").css({"marginTop":23});
-		$("table.level1").show();
-		$("table.level4").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide()
-		$('#lh_name').html(treeNode.name);		
-		var url = rootPath + "/portal.do";
-		var sentData = {
-			method:"getGZCountByOrgid",
-			org_id: sessionStorage.getItem("orgid"),
-			g_id: g_id,			
-		};
-		ajax(url,'level1',['x','name','G_ID','totalnum','YCOUNT','MCOUNT'],sentData)
-	}
+	
 	function level4(){
 		var flag=true;
 
@@ -494,7 +516,6 @@ function prepearData(data){
 }
 function chuantou(d){
 	//穿透后 点击返回本页
-	$('#fanhui').attr("href","qchuizong.html")
 	var flag=true;
 	$('.jt').hide();
 
