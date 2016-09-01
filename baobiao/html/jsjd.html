@@ -177,13 +177,13 @@
             <tbody>
             <tr>
                 <td >
-                    <a class="btn btn-default"  title="I4028e4f363d6611a0152676d92461a32" href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f363d6611a0152676d92461a32&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">火力发电厂金属技术监督报表</a>
+                    <a class="btn btn-default"  title="I4028e4f363d6611a0152676d92461a32" href=".jsp?resid=I4028e4f363d6611a0152676d92461a32&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">火力发电厂金属技术监督报表</a>
                 </td>
                 <td>
-                	<a class="btn btn-default lh_35"  title="I4028e4f363d6611a0152675a76f81684" href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f30cfc711701561191ddd31fec&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">金属超温报表</a>
+                	<a class="btn btn-default lh_35"  href=".jsp?resid=I4028e4f30cfc711701561191ddd31fec&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">金属超温报表</a>
                 </td>
                  <td>
-                	<a class="btn btn-default lh_35"  title="I4028e4f363d6611a0152675a76f81684" href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f30cfc7117015611ce7a6d35f1&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">金属超压报表</a>
+                	<a class="btn btn-default lh_35" href=".jsp?resid=I4028e4f30cfc7117015611ce7a6d35f1&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">金属超压报表</a>
                 </td>
                 
                 
@@ -233,8 +233,6 @@
 
 </div>
 <script type="text/javascript" src="../js/base.js"></script>
-
-
 <script>
     //定义全局变量
     var ctx = window.location.origin;
@@ -267,12 +265,20 @@
                 case "I4028e4f363d6611a0152676d92461a32":
                      _href ="/main?xwl=23Z5K1X3ZF2N&repordCode=HLFDCJSJSJDYBB";
                      break;
-                case "I4028e4f363d6611a0152675a76f81684":
+                /*case "I4028e4f363d6611a0152675a76f81684":
                     _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=CWCYBB";
-                    break;
+                    break;*/
                 case "I4028e4f363d6611a01526765f343191b":
                     _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=SRMCWCYTJB";
                     break;
+                    //超温
+                case "I4028e4f30cfc711701561191ddd31fec":
+                    _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=JSCWB";
+                    break;  
+                case "I4028e4f30cfc7117015611ce7a6d35f1":
+                    _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=JSGYB";
+                    break;       
+                    
                 default:
                     _href="";
             }
