@@ -5,15 +5,12 @@
   <meta charset="utf-8">
   <title>京能集团实时技术监督生产管理系统</title>
 
-  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">-->
-  
+  <link rel="stylesheet" href="../../common/css/bootstrap.min.css"> 
  <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
   <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
   <link type="text/css" rel="stylesheet" href="css/zTreeStyle.css" />
-  <link type="text/css" rel="stylesheet" href="css/pagination.css" />
-   <script type="text/javascript" src='../js/erji_common.js'></script>
-  <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/pagination.css" />  
+  <script src="../../common/js/jquery.min.js"></script>
   <link type="text/css" rel="stylesheet" href="css/news.css" />
 </head>
 
@@ -136,7 +133,6 @@
             <td rowspan="2">试验名称</td>
             <td rowspan="2">本年应做（次）</td>
             <td rowspan="2">本年已做（次）</td>
-            <td>每月应做(次)</td>
             <td>1月已做(次)</td>
             <td>2月已做(次)</td>
             <td>3月已做(次)</td>
@@ -173,7 +169,7 @@
             <td>本年已完成（次）</td>
             <td>本月应进行（次）</td>
             <td>本月已完成（次）</td>
-            <td>非实验次数</td>
+            <td>非试验次数</td>
 
           </tr>
           <tr>
@@ -212,7 +208,7 @@
             <td>本年已做（次）</td>
             <td>本月应做（次）</td>
             <td>本月已做（次）</td>
-            <td>非实验期次数</td>
+            <td>非试验期次数</td>
           </tr>
         </thead>
         <tbody id='level1'>
@@ -247,9 +243,8 @@
             <div class="form-group ">
               <label class=" control-label left" style="float:left;    width: 32px;position: relative;top: 5px;" for="spec_id">专业</label>
               <select name="choose" class="form-control col-sm-1" id="spec_id" style="width:80px;">
-	                    
-	                    
-               	 	</select>
+
+              </select>
             </div>
 
             <div class="form-group ">
@@ -298,7 +293,7 @@
             <td>本年已做（次）</td>
             <td>本月应做（次）</td>
             <td>本月已做（次）</td>
-            <td>非试验验次数</td>
+            <td>非试验次数</td>
           </tr>
         </thead>
         <tbody id="level1_query">
@@ -308,27 +303,24 @@
 
 
       </table>
-      <div id="Pagination_query" class="pagination" style="float:right">
+      <div id="Pagination_query" class="pagination jt" style="float:right">
         <!-- 这里显示分页 -->
       </div>
       <div class="fengge"></div>
-      <div id="Pagination" class="pagination" style="float:right">
+      <div id="Pagination" class="pagination dc" style="float:right">
         <!-- 这里显示分页 -->
       </div>
     </div>
 
     <div class="fengge"></div>
   </div>
-  <script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+  <script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-
   <script type="text/javascript" src="js/echarts2.js"></script>
   <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
   <script type="text/javascript" src="js/jquery.pagination.js"></script>
   <script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
- 
   <script type="text/javascript" src="js/wj.js?v4"></script>
   <script type="text/javascript">
     $('.form_datetime').datepicker({
@@ -337,19 +329,20 @@
       todayBtn: 1,
       autoclose: 1,
       todayHighlight: 1,
-      startView: 2,
-      minView: 0,
+      minViewMode:0,
+     
       forceParse: 0,
-      //format: "yyyy-mm"
+      
       format: "yyyy-mm-dd"
     });
-    $('.jt-form_datetime').datetimepicker({
+    $('.jt-form_datetime').datepicker({
         //weekStart: 1,
         //todayBtn:  1,
+        language: 'zh-CN',
         autoclose: 1,
         todayHighlight: 1,
-        startView: 4,
-        minView: 4,
+        startView: 2,
+        minViewMode:2,
         forceParse: 0,
         //format: "yyyy-mm"
         format: "yyyy"

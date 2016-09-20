@@ -12,8 +12,9 @@
     <![endif]-->
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/common.css">
-
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script src = '../js/jquery-1.8.3.min.js'></script>
+    
+   <!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css"/>
     <script type="text/javascript" src="../js/SimpleTree.js"></script>
    
@@ -30,7 +31,7 @@
          <a class="right_tit1 btn btn-default" href="lcjd.html">
             查看电厂报表
         </a>
-        <a class="right_tit1 btn btn-default" href="jtindex.html">
+        <a class="right_tit1 btn btn-default" href="diy.html">
             返回
         </a>
 
@@ -41,7 +42,7 @@
             <tbody>
                 <tr>
                     <td>
-                    <a class="btn btn-default" href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f336cb39b80156ba3249181018">发电机励磁系统监督报表展示</a>
+                    <a class="btn btn-default" href="jsp?resid=I4028e4f336cb39b80156ba3249181018">发电机励磁系统监督报表</a>
                     </td>
                 </tr>
             </tbody>
@@ -97,13 +98,13 @@
                 default:
                     _href="";
             }
-           /* var $tb = $("#tianbao");
+            /* var $tb = $("#tianbao");
             if(flag){
                 $tb.get(0).href=ctx+"/jsjd"+_href;
             }else{
                 $tb.get(0).href="#";
                 $tb.attr("disabled","disabled");
-            }*/
+            } */
         }
         //去除a链接的跳转;
         return false;

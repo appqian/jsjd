@@ -33,6 +33,27 @@ var jt_query=true;
 function jtview(){	
 	$('.dc').hide();
 	$('.jt').show();
+	//默认加载 集团 全部
+	$('#org_id option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
+		}
+	})
+	//集团级返回到首页 --return 
+	$('#fanhui_test').unbind('click').click(function (){
+		 window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
+	//集团name 清空
+	$("#jt_name").val("");
+	$('#g_id_jt option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
+		}
+	})
+	//年份清空
+	$("#annual").val("")
+	//集团name 清空
+	$("#jt_name").val("");
 	$(".wu_main").css({"marginTop":22});
 	//集团汇总	
 	$("#lh_name").html("京能集团")
@@ -50,7 +71,7 @@ $("#jt_submit").click(function(){
 
 //返回按钮处理 -- 处理在所在电厂级和集团级
 //-- todo 如果在机组和名称层级处理
-$("#fanhui_test").click(function(){
+/*$("#fanhui_test").click(function(){
 	var now_org_name = $('.curSelectedNode').attr('title')
 	switch (now_org_name) {
 		case "京能集团":
@@ -65,7 +86,7 @@ $("#fanhui_test").click(function(){
 		default:
 			break;
 	}
-})
+})*/
 
 //集团分页
 var jt_lh_pagenation = function(page) {
@@ -109,7 +130,7 @@ function jt_detail(jt_page_index){
 	};
 	
 	
-	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MSCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
+	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
 }
 
 //集团页面 end=================================================================================================
@@ -133,7 +154,7 @@ function getTreeData(url){
 			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
 				org_name = "岱海发电"
 			}
-			if(user_org_id =="472212afo-1977-462b-a74a-a1f36ed6562d"){
+			if(user_org_id =="472212af-1977-462b-a74a-a1f36ed6562d"){
 				org_name = "宁东发电"
 			}
 			if(user_org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
@@ -175,8 +196,7 @@ function ajax(url, tableId, columns,sentData) {
 			if(data.total){
 				var page = Math.ceil(data.total/10)
 			}
-			//header 集团汇总 || 电厂汇总
-			switch (tableId){
+			switch (tableId){	
 				case "level1"://header 电厂汇总
 					if(data&&data.length>0){               
                 		tableHtml = prearData(data, columns);               
@@ -234,6 +254,7 @@ function prearData(data, columns) {
         			  htmlArray.push("<td  title=" + columnValue + " "+fun+" style='text-align:left'><a>" + columnValue + "</a></td>");
         			 
         		 }else{
+					 
         			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
         		 }
                  	
@@ -255,16 +276,15 @@ function getColumnValue(column, colValue) {
 			break;	
 		case "G_ID":
 		case "gId":
-			colValue = colValue.replace(/\s/g,"&#13;")
+			if(Number(colValue)){
+				colValue = "#"+colValue;	
+			} 
 			break;	
-
-
-		default:
-			break;
 	}
 		    
     return colValue;
 }
+//处理函数 -- end
 var query_flag=true;
 //查询事件
 
@@ -353,7 +373,25 @@ function chuantou(d){
 	if(d.name){
 		d.NAME = d.name
 	}
-	
+	$("#fanhui_test").unbind('click').click(function () {
+		var now_org_name = $('.curSelectedNode').attr('title')
+		//cosnole.log(now_org_name)
+		switch (now_org_name) {
+			case "京能集团":
+				jtview();
+				break;
+			case "岱海发电":
+			case "宁东发电":
+				level1(now_org_name);
+				break;
+			default:
+				//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+				var cur_org_id = sessionStorage.getItem('orgid');
+				now_org_name = idToName(cur_org_id);
+				level1(now_org_name);
+				break;
+		}
+	})
     $("#Pagination_query").hide();
     $(".select").hide();
     $("table.level1").hide();
@@ -393,10 +431,10 @@ function chuantou(d){
             dataType: "json",
             data: {
                 method: "getSYTime",
-                org_id: sessionStorage.getItem("orgid"),
+                org_id: d.ORG_ID,
                 year:'',
                 month:'',
-                g_id:  d.gId.slice(1),
+                g_id: d.gId,
                 special_id: d.professionName,
                // name:d.name,
                 ispage:true,
@@ -537,13 +575,23 @@ function level1(now_org_name){
 	$(".wu_main").css({"marginTop":23});
 	$('#lh_name').html(now_org_name);
 	$("#wu_top1").hide();
+
+	//电厂级 返回到首页 --return
+	$('#fanhui_test').unbind('click').click(function (){
+		window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
+	//返回电厂时候清空搜索条件
+	$('#name').val("");
+	$('#startTime').val("");
+	$('#endTime').val("");
+	
 	var orgId = sessionStorage.getItem("orgid");
 	var url = rootPath + "/portal/getSYSummaryInfo.do?orgId="+orgId;
 	//summary
 	ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
 	$("#g_id").html("").fadeIn().siblings().fadeIn();
 	addjz();
-	addzy();
+	addzy('');
 	query_flag=true;
 	//detail
 	$("#submit").click();
@@ -584,15 +632,14 @@ function addjz(){
 function addzy(gid){
 	$("#spec_id").html("<option value=''></option>");
 	var orgId = sessionStorage.getItem("orgid");
-	var g_id = $("#g_id").val();
+	//var g_id = $("#g_id").val();
 	var url="";
 	//
-	if(!$("#g_id").val()){
+	if(!gid){
 		url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId
 	}
 	else{
-		
-		url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+g_id;
+		url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+gid;
 	}
 	//var url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+g_id;
 	$.ajax({
@@ -609,6 +656,18 @@ function addzy(gid){
 function ifFix(x){
 	return x.replace(/专业/,"")
 }
+
+//机组改变的时候加载对应的专业！==================================================
+$("#g_id").on("change",function(){
+	var g_id = $(this).val();
+	addzy(g_id);	
+	query_flag = true;//重新加载分页
+})
+
+$("#spec_id").on("change",function(){
+	
+	query_flag = true;//重新加载分页
+})
 
 function zTreeOnClick(ev, treeId, treeNode) {
 	
@@ -684,7 +743,26 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$(".wu_main").css({"marginTop":23});
 		$('#lh_name').html(treeNode.name);
 		$("#wu_top1").hide();
-		
+		//fixed 返回
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 		var orgId = sessionStorage.getItem("orgid")
 		var url = rootPath + "/portal/getSYSummaryInfo.do?orgId="+orgId+"&gId="+g_id;
 		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
@@ -699,17 +777,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 	
 	
-	//机组改变的时候加载对应的专业！==================================================
-	$("#g_id").on("change",function(){
-		addzy(g_id);
-		$("#spec_id").html("")
-		query_flag = true;//重新加载分页
-	})
-	
-	$("#spec_id").on("change",function(){
-		
-		query_flag = true;//重新加载分页
-	})
 	
 				
 	
@@ -729,7 +796,26 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$(".wu_top1").show();
 		$("#table1_huizong").show();
 		$("#Pagination").show();
-
+		//fixed 返回
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 		$(".wu_main").css({"marginTop":112});
 		var initPagination = function(page) {
 		   	var num_entries = page;
@@ -923,8 +1009,8 @@ function prepearData(data){
 		var j=i+1;
 		var d = data[i];
 		//htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>是</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
-		htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>说明</td><td>是</td>")
-		htmlArray.push('<td onclick=daocu("'+d.ID+'","'+d.EXCEL_ID+'") class="link">导出</td></tr>')
+		htmlArray.push("<tr><td>"+j+"</td><td>" + d.STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>"+d.SY_DESC+"</td><td>"+zunsi(d.NOEXPER)+"</td>")
+		htmlArray.push('<td onclick=daocu("'+d.ID+'","'+d.EXCEL_ID+'") class="link">查看</td></tr>')
 
 	}
 	if(data.length!==5){
@@ -941,6 +1027,13 @@ function prepearData(data){
 	return htmlArray.join('');
 
 }
+function zunsi(x){
+	if(x==0){
+		return "是"
+	}else{
+		return "否"
+	}
+}
 if (!window.location.origin) {
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }
@@ -948,20 +1041,6 @@ var ctx = window.location.origin;
 function daocu(id,type){
 	var url = ctx+"/jsjd/SYExportAction.do?method=getSYExport&sy_id="+id;
 	var url2  = ""
-	
-	if(type == "ZK"){
-		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
-	}else if(type == "ZJFM"){
-		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f3285e1cc2015528bcd02a0964&user=admin&password=manager&refresh=true' 
-	}else if(type == "ZJJZL"){
-		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f377a7776001557ad86df40469&user=admin&password=manager&refresh=true' 
-	}else if(type == "LQ"){
-		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f323a64585015524621c280efa&user=admin&password=manager&refresh=true'
-	}else if(type == "SQ"){
-		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f31af9c762015523579e932ab6&user=admin&password=manager&refresh=true'
-		
-	}
-	
 	switch(type){
 		case "zk":
 			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
@@ -970,17 +1049,16 @@ function daocu(id,type){
 			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f3285e1cc2015528bcd02a0964&user=admin&password=manager&refresh=true'
 			break;
 		case "ZJJZL":
-			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f377a7776001557ad86df40469&user=admin&password=manager&refresh=true'
 			break;
 		case "LQ":
-			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f323a64585015524621c280efa&user=admin&password=manager&refresh=true'
 			break;
 		case "SQ":
-			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f31af9c762015523579e932ab6&user=admin&password=manager&refresh=true'
 			break;
 	}
-	//window.open(url2);
-	
+		
 	$.ajax({
 		url:url,
 		type:"POST",
@@ -1234,7 +1312,25 @@ Date.prototype.format = function(format) {
 	}
 	return format;
 }
+function idToName(id){
+	var _name ="";
+	switch (id) {
+		case "a61365e2-969d-4352-b3f8-805027ab9f1d":
+			_name = "京能集团"
+			break;
+		case "c21834b4-1cb0-490f-a2a8-deeaf7f7e065":
+			_name = "宁东发电"
+			break;
+		case "472212af-1977-462b-a74a-a1f36ed6562d":
+			_name = "岱海发电"
+			break;
+	
+		default:
+			break;
+	}
+	return _name;
 
+}
 
 
 

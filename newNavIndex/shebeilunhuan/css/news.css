@@ -33,9 +33,9 @@ img { border: 0; vertical-align: middle; }
 .wu_top1 span { float: left; display: inline; padding: 0 10px; height: 28px; line-height: 28px; margin: 5px 0 5px 10px; text-align: center; font-size: 11pt; color: #ffffff; background: #2fa9cc; border: 0; border-radius: 5px; cursor: pointer; vertical-align: middle; }
 .wu_top1 ol { float: left; width: 100%; height: auto; overflow: visible; }
 .wu_top1 li { float: left; height: 28px; margin: 5px 15px 0 5px; position: relative; overflow: visible; }
-.wu_top1 h2 { float: left; height: 28px; line-height: 28px; color: #666666; text-decoration: underline; cursor: pointer; }
+.wu_top1 h2 { float: left; height: 28px; margin: 0px ;line-height: 28px; color: #666666; text-decoration: underline; cursor: pointer; }
 .wu_top1 h2:hover { color: #177eda; }
-.wu_top1 h3 { position: absolute; top: 28px; left: 0; z-index: 3500; width: 200px; height: auto; padding: 5px 10px; background: #000000; border-radius: 5px; z-index: 3000; color: #ffffff; display: none; }
+.wu_top1 h3 { position: absolute; top: 20px; opacity:0; left: 0; z-index: 3500; width: 200px; height: auto; padding: 5px 10px; background: #000000; border-radius: 5px; z-index: 3000; color: #ffffff; display: none; }
 .wu_top1b:hover { background: #145A96; }
 .wu_top1a { float: right; display: inline; width: 200px; height: 26px; margin: 5px 10px 5px 0; line-height: 26px; font-size: 11pt; text-indent: 5px; border: 1px solid #177eda; }
 .wu_top1b { float: right; display: inline; width: 60px; height: 28px; margin: 5px 10px 5px 0; text-align: center; font-size: 11pt; color: #ffffff; background: #177eda; border: 0; cursor: pointer; vertical-align: middle; }

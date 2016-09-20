@@ -70,8 +70,8 @@
 				<span id="time" style="color:#666;width:"></span>
 				<div id="FontScroll" style="float: left; height: 28px;line-height: 31px;overflow: hidden;font-size: 16px; font-weight: 100; color: red;">
 				    <ul>
-				        <li>宁东发电新高： 日发电量   43333万kWh       2016-07-10  月发电量               12.55亿kWh  2016-05 </li>
-				        <li>岱海发电新高： 日发电量   43333万kWh       2016-07-10  月发电量                12.55亿kWh  2016-05</li>
+				        <li> </li>
+				        <li></li>
 				    </ul>
 				</div>
 				<ul>
@@ -882,7 +882,7 @@
 	
 	
 	
-	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<script src="${ctx}/common/js/jquery.min.js"></script>
 	
 	<script type="text/javascript"  src="${ctx}/util/echarts-all.js"></script>
 

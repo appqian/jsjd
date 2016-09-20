@@ -19,21 +19,21 @@ $.ajax({
 	url:rootPath+"/portal/getUserOrgId.do",
 	type:"POST",
 	success:function(data){
+		
 		if(data && data!="null" ){
-			
 			user.org_id=data;
-			jzqt_zonglan(user.org_id);
-			viewById(user.org_id);
-			
-		}else{
-			jzqt_zonglan('c21834b4-1cb0-490f-a2a8-deeaf7f7e065');
-			
+			if(user.org_id != "a61365e2-969d-4352-b3f8-805027ab9f1d"){
+				
+				jzqt_zonglan(user.org_id);
+				
+			}
+			viewById(user.org_id);			
 		}
 		
 	}
 })
 function viewById(orgID){
-	if(orgID == "jt"){
+	if(orgID == "jt" || orgID == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
  	  jt_flag= true;
  	  jt_query(1,jt_flag); 
  	  $("#dc_view").hide();
@@ -68,6 +68,10 @@ function callback(page_index, jq){
   	return false;
 }
 var jt_flag= true;
+$("#submit").click(function(){
+	 jt_flag= true;
+	  jt_query(1,jt_flag);
+})
 function jt_query(pagenum){
    var url = rootPath +"/portal.do?method=getJtJzqtinfo"
    $.ajax({
@@ -87,6 +91,7 @@ function jt_query(pagenum){
 	   success:function(data){
 		   //console.log(data);
 		   if(data.exper.length==0){
+			   $("#jt_huizong").html("");
 			   $("#Pagination").hide();
        			return;
        		}
@@ -97,8 +102,9 @@ function jt_query(pagenum){
 				jt_flag=false;
 			}
 	   
-		   $("#jt_huizong").html(preparedata(data.exper,["NAME","STARTTIME","ENDTIME","FIRETIME","RUSHTIME","PARATIME","QT_DESC"],"jt_huizong"))
-		  
+		  $("#jt_huizong").html(preparedata(data.exper,["NAME","FIRETIME","RUSHTIME","PARATIME","ENDTIME","QT_DESC"],"jt_huizong"));
+		  $("#jt_huizong tr").find('td:nth-child(6n+1)').css({textAlign:"left",paddingLeft:"10px"})
+		  //$table.find('td:nth-child(4n+1)').css({maxWidth:"125px",textAlign:'left'});   
 	   }   
    })
 }
@@ -129,8 +135,11 @@ $("#org_id").change(function(){
 $("#org_id").change()
 function addjz(orgId){
 	$("#g_id").html("<option value=''></option>");
-	
-	
+	//console.log(orgId)
+	if(!orgId){
+		
+		orgId="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"
+	}
 	var url = rootPath +"/portal/getLhJzInfo.do?orgId="+orgId;
 	$.ajax({
 		url:url,
@@ -151,6 +160,7 @@ function addjz(orgId){
 
 				}else{
 					j=arr[i];
+					continue;
 				}
 				
 				$("#g_id").append("<option value='"+j+"'>"+arr[i]+"</option>");
@@ -170,7 +180,7 @@ function jzqt_zonglan(orgID){
             method: "getJzqtNumByOrgid",
             orgid: orgID
         },
-         dataType:"json",
+        dataType:"json",
         success: function(data){
            
             var getTD = preparedata(data.pagedata,["G_ID","QDNUM","TJNUM","QDTIME","TJTIME","DAYS"],'zonglan');
@@ -184,9 +194,9 @@ function jzqt_zonglan(orgID){
            },function(){
            		$(this).find('a').css({color:"#000"})
            })
-           //转换电厂默认加载 #1启机；
-   
-           detail(orgID,'1','QD',1,true);
+           //版本1 传  1转换电厂默认加载 #1启机;//版本2  传空字符串的时候，默认显示电厂所有启动条目
+           
+           detail(orgID,'','',1,true);
         }
     })
 }
@@ -198,9 +208,9 @@ function preparedata(data,columns,table){
         for (var j = 0;j < columns.length; j++) {
             var columnValue = getColumnValue(table, columns[j], d[columns[j]],d);
             if(table == "zonglan"&&j == 1){
-            	htmlArray.push("<td "+columnValue+" class='tdhover' id='first' style='cursor:pointer'><a href='#'  title='"+d.QDNUM+"'>"+d.QDNUM+"</a></td>")
+            	htmlArray.push("<td "+columnValue+"  id='first' style='cursor:pointer'><a href='#' style='color:blue' title='"+d.QDNUM+"'>"+d.QDNUM+"</a></td>")
             }else if (table =="zonglan" && j == 2){
-            	htmlArray.push("<td style='cursor:pointer'class='tdhover' "+columnValue+"><a href='#' title='"+d.TJNUM+"'>"+d.TJNUM+"</a></td>")
+            	htmlArray.push("<td style='cursor:pointer'  "+columnValue+"><a href='#' style='color:blue'>"+d.TJNUM+"</a></td>")
             }else{
             	htmlArray.push("<td class='overflow'><a title='" + columnValue + "'>" + columnValue + "</a></td>");
             }
@@ -221,6 +231,7 @@ function getColumnValue(table,column,columnValue,d){
 	if(column == "TJNUM"){
 		return "onclick=detail('"+d.ORGID+"','"+d.G_ID+"','TJ','1','true')";
 	}
+	
 	return columnValue;
 }
 //detail("c21834b4-1cb0-490f-a2a8-deeaf7f7e065",'1','QD');
@@ -279,7 +290,7 @@ function detail(orgid,g_id,type,nub,flag){
             g_id:g_id,
             type:type,
             pagenum:nub,
-			pagesize:5 
+			pagesize:8 
         },
         dataType:"json",
         success: function(data){
@@ -288,7 +299,7 @@ function detail(orgid,g_id,type,nub,flag){
         		$("#detail").html('<td colspan="9" >暂时没有数据</td>');
         		return;
         	}
-        	var page = Math.ceil(data.total/5)
+        	var page = Math.ceil(data.total/8)
         	if(query_flag||flag){
         		$("#Pagination").show()
 				initPagination(page);//分页加载
@@ -332,11 +343,43 @@ function detail(orgid,g_id,type,nub,flag){
 
 function preparedataDetail(data,type,orgId){
 	var htmlArray = [];
+	//console.log(type)
+	if(type=="TJ"){
+		$("#d_head td").eq(1).html("灭火时间")
+		$("#d_head td").eq(2).html("打闸时间")
+		$("#d_head td").eq(3).html("解列时间")
+		$("#d_head td").eq(4).html("盘车投入时间")
+	}
+	if(type == "QD"){
+		$("#d_head td").eq(1).html("点火时间")
+		$("#d_head td").eq(2).html("冲车时间")
+		$("#d_head td").eq(3).html("并网时间")
+		$("#d_head td").eq(4).html("至50%负荷时间")
+	}
+	if(type == ""){
+		$("#d_head td").eq(1).html("点火/灭火时间")
+		$("#d_head td").eq(2).html("冲车/打闸时间")
+		$("#d_head td").eq(3).html("并网/解列时间")
+		$("#d_head td").eq(4).html("至50%负荷/盘车投入时间")
+	}
+	
+	
 	for(var i = 0; i < data.expr.length; i++){
 		var d = data.expr[i];
 		htmlArray.push("<tr>");
-		if(type && type=='TJ'){
-			$("#d_head td").eq(5).html("解列时间")
+		//判断从数据里读取
+		
+		if(d.NAME.indexOf("启动")>-1){
+			type = "QD"
+		}
+		if(d.NAME.indexOf("停机")>-1){
+			type = "TJ" 
+		}
+
+
+		if(type=='TJ'){
+			
+			
 			var msg='';
 			if(d.ADUIT_STATUS=='A'  && orgId==d.ORG_ID){
 				msg='填写';
@@ -353,20 +396,21 @@ function preparedataDetail(data,type,orgId){
 				msg=d.QT_DESC;
 			}
 			//console.log(d);
-			htmlArray.push("<td>"+d.NAME+"</td><td>"+d.STARTTIME+"</td><td>"+d.ENDTIME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td class='button link' id="+d.ID+" onclick=getvalue('"+d.ID+"','"+d.NAME+"',this)>"+msg+"</td>")
-			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+			
+			htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td class='button link' id="+d.ID+" onclick=getvalue('"+d.ID+"','"+d.NAME+"',this)>"+msg+"</td>")
+			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 			
 			
 		}else{
-			$("#d_head td").eq(5).html("并网时间")
+			
 			 msg='';
 			if(d.QT_DESC && d.QT_DESC.length>0){
-				msg=d.QT_DESC+'后启机';
+				msg=d.QT_DESC;
 			}
 			//console.log(d);
-		    htmlArray.push("<td>"+d.NAME+"</td><td>"+d.STARTTIME+"</td><td>"+d.ENDTIME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td  class='button link'>"+msg+"</td>")
-			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+		    htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td  class='button link'>"+msg+"</td>")
+			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 		}
 		

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-table.min.css"/>
+    <style type="text/css">
+
+        body{
+            font-family: MicrosoftYaHei;
+            font-size:16px ;
+        }
+        .fl {
+            float: left;
+            font-weight:600;
+        }
+        .fr {
+            float: right;
+        }
+        .tc {
+            text-align: center;
+            background-color: #C5D9F1;
+        }
+        .tc tr .th{
+             background-color: #8DB4E2;
+        }
+        .bootstrap-table{
+            width:1500px;
+            margin: 0 auto;
+        }
+        #table2{
+            margin-bottom:20px;
+        }
+        /*table2 thead 最后几个宽度 修改*/
+        .t2-1 tr:nth-child(1) th:nth-last-child(3) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(2) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(1) .th-inner{
+            padding: 2px;
+            width: 39px!important;
+            line-height: 24px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        .fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner {
+            font-size: 12px;
+        }
+        .t1-boby .t-tr:nth-child(even),.t2-boby .t-tr:nth-child(even){
+             background-color: #ddd;
+        }
+         .t1-boby .t-tr:nth-child(even) td:not(.td),.t2-boby .t-tr:nth-child(even) td:not(.td){
+             border-left:1px solid #fff;
+         }
+        .bootstrap-table .table > thead > tr > th {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table>tbody>tr>td{
+             vertical-align: middle; 
+        }
+
+         .fixed-table-container table tr:nth-child(2) .th-inner {
+            padding: 2px;
+            margin:0px auto;
+            width: 38px;
+            line-height: 24px;
+            vertical-align: top;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        .fixed-table-container tbody td {
+            position: relative;
+            font-size: 12px;
+            text-align: center;
+            word-break: break-all;
+        }
+        /*  tbody 第一个td 加粗 ====  */
+        .fixed-table-container tbody tr td:first-child{
+            font-weight: 800;
+            min-width:95px;
+            background-color: #8DB4E2;
+            border: 1px solid #666;
+        }
+        .wrap{
+            width:1500px;
+            margin: 0 auto;
+        }
+        .notSupportInvestigate,.totalAmount,.ranking{
+            display:none;
+        }
+
+        .pop-up{
+           position:absolute;
+           top:0px;
+           left:0px;
+           width:100%;
+           height:100%;
+           border:1px solid #ddd;
+           padding:0px;
+           background-color: white;
+           z-index:999;
+        }
+        .pop-up input[type="text"]{
+            display:block;
+            width:100%;
+            height:100%;
+            padding:0px;
+            font-size:12px;
+            border:1px solid #ddd;
+        }
+          .bootstrap-table .table>thead>tr>th{
+                border-bottom: 2px solid #666;
+         }
+         .fixed-table-container{
+                border: 1px solid #666; 
+         }
+         .fixed-table-container thead th{
+                border-left: 1px solid #666;
+         }
+         .hd{
+            height:200px;
+         }
+         .table>tbody>tr .grey{
+            background-color: #ddd;
+            border-bottom: 1px solid #666;
+            border-top: 1px solid #666;
+         }
+        .table>thead:first-child>tr:first-child>th{
+            border-top:1px solid #666;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h3 class="text-center" style="font-weight: 600;"> 火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表</h3>
+    <div class="fl">
+        单位:<span></span>
+    </div>
+    <div class="fr">
+       <span></span>
+    </div>
+</div>
+<table id="table1" data-toggle="table">
+    <thead class="tc trd">
+        <tr>
+            <th rowspan="3" class="th">
+                类别
+            </th>
+            <th colspan="7">
+                可靠性
+            </th>
+            <th colspan="9">
+                检修
+            </th>
+            <th colspan="14">
+                生产
+            </th>
+            <th colspan="5">
+                技术监督
+            </th>
+
+        </tr>
+        <tr class="col-width">
+            <th class="kkxDXKYXS">等效可用系数</th>
+            <th class="kkxLYXSSSFDDDPJSP">利用小时数是否达当地平均水平</th>
+            <th class="kkxJPJZPB">金牌机组评比</th>
+            <th class="kkxLJFT">累计非停</th>
+            <th class="kkxSFDWDFHHZZBD">是否电网大负荷或政治保电</th>
+            <th class="kkxGZTJ">故障停机</th>
+            <th class="kkxGLMHJQT">锅炉灭火及其它</th>
+            <th class="jxAXHLXYX">A修后连续运行</th>
+            <th class="jxBCXHLXYX">B、C修后连续运行</th>
+            <th class="jxXHYGYNGZTJ">修后一个月内故障停机</th>
+            <th class="jxCJXGQ">超检修工期</th>
+            <th class="jxCJXJHND">超检修计划（年度）</th>
+            <th class="jxAXHRH">A修后热耗</th>
+            <th class="jxJZSJRH">机组设计热耗</th>
+            <th class="jxDWRLJXFY">单位容量检修费用</th>
+            <th class="jxJZAXFYCZ">机组A修费用超支</th>
+            <th class="scJDLYXSS">季度利用小时数</th>
+            <th class="scLYXSSDDDWPM">利用小时数当地电网排名</th>
+            <th class="scJZZRYX">机组增容运行</th>
+            <th class="scDJZJSHJQK">大机组竞赛获奖情况</th>
+            <th class="scLGXZJLKH">两个细则奖励（考核）</th>
+            <th class="scDWKF">电网扣罚</th>
+            <th class="scJGXMWCL">技改项目完成率</th>
+            <th class="scJGFYCZ">技改费用超支</th>
+            <th class="scZXDXFYCZ">专项大修费用超支</th>
+            <th class="scJDPXWCQK">季度培训完成情况</th>
+            <th class="scBBCWCSKH">报表错误次数考核</th>
+            <th class="scNDDWDLCLFY">年度单位电量材料费用</th>
+            <th class="scNDDWDLQTFY">年度单位电量其他费用</th>
+            <th class="scQNLYXSS">全年利用小时数</th>
+            <th class="jsjdJSJDGZBDMPP">技术监督工作被点名批评</th>
+            <th class="jsjdJSJDYZWTWJSCZ">技术监督严重问题未及时处置</th>
+            <th class="jsjdZXJCZGGZWASWC">专项检查整改工作未按时完成</th>
+            <th class="jsjdJSJDYBHFXBGWAS">技术监督月报或分析报告未按时</th>
+            <th class="jsjdSJAPDQTJSJDGZWAS">上级安排的其它技术监督工作未按时</th>
+
+        </tr>
+        <tr>
+            <th colspan="2">%</th>
+            <th>台</th>
+            <th colspan="2">次</th>
+            <th colspan="2">次</th>
+            <th colspan="2">天</th>
+            <th>次</th>
+            <th>天</th>
+            <th>-</th>
+            <th colspan="2">kj/kwh</th>
+            <th colspan="2">万元</th>
+            <th>小时</th>
+            <th>名</th>
+            <th>台</th>
+            <th>次</th>
+            <th colspan="2">万元</th>
+            <th>%</th>
+            <th colspan="2">万元</th>
+            <th colspan="10">次</th>
+
+        </tr>
+    </thead>
+    <tbody class="t1-boby">
+        <tr class="t-tr">
+            <td class="td" title="双击填写">申报完成情况</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+        <tr  class="t-tr" style="background-color: #f7f7f9;">
+            <td class="td">审核完成情况</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+
+        <tr class="t-tr">
+            <td class="td"title="双击填写">申报金额</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+        <tr class="t-tr" style="background-color: #f7f7f9;">
+            <td class="td" >核准金额</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+
+    </tbody>
+</table>
+<table id="table2" data-toggle="table">
+    <thead class="tc t2-1">
+    <tr>
+        <th rowspan="3" class="th">
+            类别
+        </th>
+        <th colspan="15">
+            指标
+        </th>
+        <th colspan="5">
+            专项工作
+        </th>
+        <th colspan="12">
+           集团排名
+        </th>
+
+        <th rowspan="2">瞒报迟报事故调查不配合</th>
+        <th rowspan="2">总金额合计</th>
+        <th rowspan="2"> 综合排名</th>
+    </tr>
+    <tr class="col-width">
+       <th class="zbGDMH">供电煤耗</th>
+        <th class="zbGDMHJZSJZ">供电煤耗机组设计值</th>
+        <th class="zbGDMHDBXYPM">供电煤耗对标行业排名</th>
+        <th class="zbCYDL">厂用电率</th>
+        <th class="zbCYDLDBXYPM">厂用电率对标行业排名</th>
+        <th class="zbZHGDMH">综合供电煤耗</th>
+        <th class="zbZHGDMHJHFJZ">综合供电煤耗计划分解值</th>
+        <th class="zbZHCYDL">综合厂用电率</th>
+        <th class="zbZHCYDLJHFJZ">综合厂用电率计划分解值</th>
+        <th class="zbJNJPPJDF">节能减排评价得分</th>
+        <th class="zbJNJGCXND">节能技改成效（年度）</th>
+        <th class="zbJNRWWCQK">节能任务完成情况</th>
+        <th class="zbDWFDYXXSL">单位发电用新鲜水量</th>
+        <th class="zbJZZKYMX">机组真空严密性</th>
+        <th class="zbJZFHL">机组负荷率</th>
+
+
+        <th class="scgldbzgl">生产管理对标整改率   *  △</th>
+        <th class="dqzxjczgl">电气专项检查整改率   *  △</th>
+        <th class="a">其他待查项目</th>
+        <th class="b">其它专项检查整改率</th>
+        <th class="c">虚报整改率情况</th>
+
+
+        <th class="jtpmKKX">可靠性</th>
+        <th class="jtpmSCPB">生产评比</th>
+        <th class="jtpmZHGDMH">综合供电煤耗</th>
+        <th class="jtpmZHCYDL">综合厂用电率</th>
+        <th class="jtpmDWFDYXXSL">单位发电用新鲜水量</th>
+        <th class="jtpmJZZKYMX">机组真空严密性</th>
+        <th class="jtpmJZFHL">机组负荷率</th>
+        <th class="jtpmNDDWDLCLFY">年度单位电量材料费用</th>
+        <th class="jtpmNDDWDLQTFY">年度单位电量其他费用</th>
+        <th class="jtpmQNLYXSS">全年利用小时数</th>
+        <th class="jtpmDWRLJXFY">单位容量检修费用</th>
+        <th class="jtpmJGXMWCL">技改项目完成率</th>
+
+        <th class="notSupportInvestigate"></th>
+        <th class="totalAmount"></th>
+        <th class="ranking"></th>
+    </tr>
+    <tr>
+        <th colspan="2">g/kwh</th>
+        <th>名</th>
+        <th>%</th>
+        <th>名</th>
+        <th colspan="2">g/kwh</th>
+        <th colspan="2">%</th>
+
+        <th>%</th>
+
+        <th>项</th>
+        <th>次</th>
+        <th>Kg/kWh</th>
+        <th>Pa</th>
+        <th>%</th>
+        <th colspan="5">%</th>
+        <th colspan="12">名</th>
+        <th>次</th>
+        <th>万元</th>
+        <th>名</th>
+
+
+    </tr>
+    </thead>
+    <tbody class="t2-boby">
+    <tr class="t-tr">
+        <td class="td" title="双击填写">申报完成情况</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+
+    </tr>
+    <tr class="t-tr" style="background-color: #f7f7f9;">
+        <td class="td">审核完成情况</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+
+    </tr>
+
+    <tr class="t-tr">
+        <td class="td" title="双击填写">申报金额</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+
+    </tr>
+    <tr class="t-tr" style="background-color: #f7f7f9;">
+        <td class="td">核准金额</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>申报说明</td>
+        <td colspan="36"><textarea class="textarea" style="width: 100%;height: 55px;resize: none;border: 0px;"></textarea>   </td>
+    </tr>
+    <tr>
+        <td>审核说明</td>
+        <td colspan="36" class="grey" >
+        </td>
+    </tr>
+    <tr>
+        <td class="hd">考核说明</td>
+        <td colspan="36" class="hd grey" >
+       
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="wrap" style="display:none;">
+    <div class="fl" style="width: 30%">批准：<input type="text" value="郭明星" style="border: none;"></div>
+    <div class="fl" style="width: 30%">校准：<input type="text" value="刘海峡" style="border: none;"></div>
+    <div class="fl" style="width: 30%">审核：<input type="text" value="金生祥" style="border: none;"></div>
+    <div class="fl" style="width: 10%">制表：<input type="text" value="王清" style="border: none;width:100px;"></div>
+</div>
+<div style="margin-bottom:120px;margin-top:50px;"><button class="btn btn-info bt"style="position: absolute;left: 46%;">保 存</button><button class="btn btn-info"style="position: absolute;left: 52%;" onclick="javascript:history.back(-1);">返 回</button></div>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-table.min.js"></script>
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/kaohe.js"></script>
+<script>
+    $(document).ready(function(){
+        //弹框
+        // for(var i=0;i<4;i++){
+        //     var b=1;
+        //     for(var j=8;j<10;j++){
+        //     $(".t1-boby .t-tr").eq(i).children("td").eq(j).bind("click",function(){                              
+        //             window.setTimeout(cc, 500)
+        //             function cc(){
+        //                 if(b==1){
+        //                     window.location.href="/jsjd/newNavIndex/jz-opration/html/jz_operation.html";     
+        //                 }else if(b==2){
+        //                     return b=3;    
+        //                 }else if(b==3){
+        //                     return b=4;
+        //                 }else if(b==4){
+        //                     return b=5;
+        //                 }else if(b==5){
+        //                     return b=1;
+        //                 }
+
+        //             } 
+        //         })
+        //         $(".t1-boby .t-tr").eq(i).children("td").eq(j).dblclick(function(){                          
+        //                 return b=2;
+        //         }) 
+        //     } 
+        // }  
+        //双击填写
+  
+        for(var i=0;i<2;i++){
+            var obj={};
+            $(".t1-boby tr").eq(2*i).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove();
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().data("index");
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key);
+                $('.text').on("blur",function(){
+                      $(this).parent().parent().html($(this).val()); 
+                });
+            });   
+
+            function key(event){
+                  if(event.keyCode==9 || event.keyCode==13){
+                        $(this).parent().parent().html($(this).val()); 
+                        var nexttab = $(".t1-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                        tab();
+                        function tab(){
+                             $(".t1-boby .pop-up").remove(); 
+                             var html = nexttab.html();
+                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                             nexttab.children(".pop-up").children(".text").focus(); 
+                             nexttab.children(".pop-up").children(".text").val(html);
+                             var index = nexttab.index();
+                             var index2 = nexttab.parent().data("index");
+                             obj.index=index;
+                             obj.index2=index2;
+                             $('.text').on("keydown",key);
+                             $('.text').on("blur",function(){
+                                $(this).focus();
+                             });
+                        };
+                    }
+            }
+
+            $(".t2-boby .t-tr").eq(2*i).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove(); 
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().data("index");
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key2);
+                $('.text').blur(function(){
+                        $(this).parent().parent().html($(this).val());
+                        $(this).focus();
+                });
+            });
+
+             function key2(event){
+                 if(event.keyCode==9 || event.keyCode==13){
+                        $(this).parent().parent().html($(this).val()); 
+                        var nexttab = $(".t2-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                        tab();
+                        function tab(){
+                             $(".t2-boby .pop-up").remove(); 
+                             var html = nexttab.html();
+                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                             nexttab.children(".pop-up").children(".text").focus(); 
+                             nexttab.children(".pop-up").children(".text").val(html);
+                             var index = nexttab.index();
+                             var index2 = nexttab.parent().data("index");
+                             obj.index=index;
+                             obj.index2=index2;
+                             $('.text').on("keydown",key2);
+                             $('.text').on("blur",function(){
+                                $(this).focus();
+                             });
+                        };
+                    }
+            }
+        }         
+})
+</script>
+</body>
+</html>

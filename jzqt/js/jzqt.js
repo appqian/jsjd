@@ -208,9 +208,9 @@ function preparedata(data,columns,table){
         for (var j = 0;j < columns.length; j++) {
             var columnValue = getColumnValue(table, columns[j], d[columns[j]],d);
             if(table == "zonglan"&&j == 1){
-            	htmlArray.push("<td "+columnValue+" class='tdhover' id='first' style='cursor:pointer'><a href='#'  title='"+d.QDNUM+"'>"+d.QDNUM+"</a></td>")
+            	htmlArray.push("<td "+columnValue+"  id='first' style='cursor:pointer'><a href='#' style='color:blue' title='"+d.QDNUM+"'>"+d.QDNUM+"</a></td>")
             }else if (table =="zonglan" && j == 2){
-            	htmlArray.push("<td style='cursor:pointer'class='tdhover' "+columnValue+"><a href='#' title='"+d.TJNUM+"'>"+d.TJNUM+"</a></td>")
+            	htmlArray.push("<td style='cursor:pointer'  "+columnValue+"><a href='#' style='color:blue'>"+d.TJNUM+"</a></td>")
             }else{
             	htmlArray.push("<td class='overflow'><a title='" + columnValue + "'>" + columnValue + "</a></td>");
             }
@@ -398,7 +398,7 @@ function preparedataDetail(data,type,orgId){
 			//console.log(d);
 			
 			htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td class='button link' id="+d.ID+" onclick=getvalue('"+d.ID+"','"+d.NAME+"',this)>"+msg+"</td>")
-			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 			
 			
@@ -410,7 +410,7 @@ function preparedataDetail(data,type,orgId){
 			}
 			//console.log(d);
 		    htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td  class='button link'>"+msg+"</td>")
-			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 		}
 		

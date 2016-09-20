@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--为了让 IE 浏览器运行最新的渲染模式-->
-    <meta name="renderer" content="webkit"><!--让国产浏览器启用高速模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--为了让 IE 浏览器运行最新的渲染模式-->
+    <meta name="renderer" content="webkit">
+    <!--让国产浏览器启用高速模式-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> 振动监督报表</title>
     <!--[if lt IE 9]>
@@ -12,127 +15,134 @@
     <![endif]-->
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/common.css">
-
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css"/>
+    <script src = '../js/jquery-1.8.3.min.js'></script>
+    
+    <!--<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css" />
     <script type="text/javascript" src="../js/SimpleTree.js"></script>
-   
+
 </head>
+
 <body>
 
 
-<div class="container right_common">
+    <div class="container right_common">
 
-    <div class="right_top">
-        <div class="right_tit b_color left b_radius">
-            振动监督报表
-        </div>
-        <a class="right_tit1 btn btn-default" href="zdjd.html">
+        <div class="right_top">
+            <div class="right_tit b_color left b_radius">
+                振动监督报表
+            </div>
+            <a class="right_tit1 btn btn-default" href="zdjd.html">
             查看电厂报表
         </a>
-        <a class="right_tit1 btn btn-default" href="jtindex.html">
+            <a class="right_tit1 btn btn-default" href="diy.html">
             返回
         </a>
 
+        </div>
+        <div class="clearfix"></div>
+        <div class="right_main">
+            <table style="margin:0 auto" id="unit">
+                <tbody>
+                    <tr>
+
+                        <td><a class="btn btn-default" target="_blank" href="jsp?resid=I4028e4f30da9facf01570e4bbad70ec1">冲车振动表</a></td>
+                        <td><a class="btn btn-default" target="_blank" href="jsp?resid=I4028e4f30da9facf01570e4dc8740ee6">惰走振动表</a></td>
+                        <td><a class="btn btn-default" target="_blank" href="jsp?resid=I4028e4f30da9facf01570e50d2780f12">辅机振动报警情况</a></td>
+                        <td><a class="btn btn-default" target="_blank" href="jsp?resid=I4028e4f30da9facf01570e3b884b0d9f">运行振动表</a></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
-    <div class="clearfix"></div>
-    <div class="right_main">
-        <table style="margin:0 auto" id="unit">
-            <tbody>
-                <tr>
-                    <td><a class="btn btn-default" target="_blank" href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I8a8a8aa04302553e0152434502a71010&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan">主机振动报表</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-</div>
- <script type="text/javascript" src="../js/base.js"></script>
-<script>
-    //定义全局变量
-    var ctx = window.location.origin;
-    var table = $("#unit");
-    //判断当前用户具不具有权限填写报表
-    var flag = 0;
-    $.ajax({
-        url:ctx +"/jsjd/portal/isForword.do?role_code=zdjd",
-        dataType:"json",
-        success: function(data) {
-            flag = data[0].NUM_USER;
-        }
-    });
-
-    //加上模态框
-    table.find('td').append("<h1 class='modal_x'></h1>");
-    //返回JSON格式 url的请求字符串
-    function GetRequest(url) {
-        url = url.split('?')[1]; //获取url中"?"符后的字串
-        var theRequest ={};
-        var  strs = url.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
-        }
-        return theRequest;
-    }
-    // a 事件委托于 table;单击选中，并改变报表填写的路径
-    table.on('click',function(e){
-        var ev = e||window.event;
-        if(ev.target && ev.target.nodeName == "A"){
-            var _href ="",
-                    $this   = $(ev.target),// target
-                    _url    = $this.get(0).href,
-                    _resid  = GetRequest(_url).resid; //获取当前 id;
-
-            //加上选中效果！
-            $(this).find(".modal_x").hide(); //table 中其他的modal
-            $this.siblings('.modal_x').show();
-            //console.log(_resid);
-            switch (_resid){
-                case "I8a8a8aa04302553e0152434502a71010":
-                    _href ="/main?xwl=23Z1BSER0PHW&repordCode=ZZDBB";
-                    break;
-                default:
-                    _href="";
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script>
+        //定义全局变量
+        var ctx = window.location.origin;
+        var table = $("#unit");
+        //判断当前用户具不具有权限填写报表
+        var flag = 0;
+        $.ajax({
+            url: ctx + "/jsjd/portal/isForword.do?role_code=zdjd",
+            dataType: "json",
+            success: function(data) {
+                flag = data[0].NUM_USER;
             }
-            var $tb = $("#tianbao");
-            if(flag){
-                $tb.get(0).href=ctx+"/jsjd"+_href;
-            }else{
-                $tb.get(0).href="#";
-                $tb.attr("disabled","disabled");
+        });
+
+        //加上模态框
+        table.find('td').append("<h1 class='modal_x'></h1>");
+        //返回JSON格式 url的请求字符串
+        function GetRequest(url) {
+            url = url.split('?')[1]; //获取url中"?"符后的字串
+            var theRequest = {};
+            var strs = url.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
             }
+            return theRequest;
         }
-        //去除a链接的跳转;
-        return false;
-    });
+        // a 事件委托于 table;单击选中，并改变报表填写的路径
+        table.on('click', function(e) {
+            var ev = e || window.event;
+            if (ev.target && ev.target.nodeName == "A") {
+                var _href = "",
+                    $this = $(ev.target), // target
+                    _url = $this.get(0).href,
+                    _resid = GetRequest(_url).resid; //获取当前 id;
 
-    //双击跳转
-    table.on("dblclick", function (e) {
-        var ev = e||window.event;
-        var org_id = localStorage.getItem("orgid_baobiao");
-        var org_name;
-       
-        if(org_id == 'a61365e2-969d-4352-b3f8-805027ab9f1d'|| org_id == "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
-            org_id   = "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"
-           // console.log("岱海发电");
-            org_name = encodeURI("岱海发电");
-        }else if(org_id == "472212af-1977-462b-a74a-a1f36ed6562d"){
-            org_name = encodeURI("宁东发电")
-        }
-         //console.log(org_id);
+                //加上选中效果！
+                $(this).find(".modal_x").hide(); //table 中其他的modal
+                $this.siblings('.modal_x').show();
+                //console.log(_resid);
+                switch (_resid) {
+                    case "I8a8a8aa04302553e0152434502a71010":
+                        _href = "/main?xwl=23Z1BSER0PHW&repordCode=ZZDBB";
+                        break;
+                    default:
+                        _href = "";
+                }
+                var $tb = $("#tianbao");
+                /*if(flag){
+                    $tb.get(0).href=ctx+"/jsjd"+_href;
+                }else{
+                    $tb.get(0).href="#";
+                    $tb.attr("disabled","disabled");
+                }*/
+            }
+            //去除a链接的跳转;
+            return false;
+        });
 
-        if(ev.target&&ev.target.nodeName=="H1"){
-            var  _href     = $(ev.target).siblings().get(0).href,
-                 _resid    = GetRequest(_href).resid,
-                 _this_url = ctx+"/spreadsheet/vision/openresource.jsp?paramsInfo=[{'name':'org_id','value':'"+org_id+"','displayValue':'"+org_name+"'}]&resid="+_resid +"&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan";
+        //双击跳转
+        table.on("dblclick", function(e) {
+            var ev = e || window.event;
+            var org_id = localStorage.getItem("orgid_baobiao");
+            var org_name;
+
+            if (org_id == 'a61365e2-969d-4352-b3f8-805027ab9f1d' || org_id == "c21834b4-1cb0-490f-a2a8-deeaf7f7e065") {
+                org_id = "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"
+                    // console.log("岱海发电");
+                org_name = encodeURI("岱海发电");
+            } else if (org_id == "472212af-1977-462b-a74a-a1f36ed6562d") {
+                org_name = encodeURI("宁东发电")
+            }
+            //console.log(org_id);
+
+            if (ev.target && ev.target.nodeName == "H1") {
+                var _href = $(ev.target).siblings().get(0).href,
+                    _resid = GetRequest(_href).resid,
+                    _this_url = ctx + "/spreadsheet/vision/openresource.jsp?paramsInfo=[{'name':'org_id','value':'" + org_id + "','displayValue':'" + org_name + "'}]&resid=" + _resid + "&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan";
                 // console.log(_this_url);
-            window.open(_this_url, "_blank");
-        }
-        //return false;
-    });
-
-</script>
+                window.open(_this_url, "_blank");
+            }
+            //return false;
+        });
+    </script>
 </body>
 
 </html>

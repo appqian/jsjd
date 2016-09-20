@@ -1,8 +1,3 @@
-
-
-
-
-
 function rootpath() {
 	var url = $('<input id="url" type="hidden" value="">');
 	$("body").prepend(url);
@@ -17,9 +12,6 @@ function rootpath() {
 rootpath();
 var rootPath = $('#url').val();
 var data1={};
-
-//alert(1);
-
 $(".level1").show();
 $(".level4").hide();
 $(".wu_top").hide();
@@ -27,92 +19,221 @@ $("#table1_huizong").hide();
 $("#Pagination").hide();
 $(".wu_main").css({"marginTop":23});
 $('#lh_name').html("岱海电厂");
-
 function getTree() {
-
-	var org_id = localStorage.getItem("orgid");
-	if(org_id !== "a61365e2-969d-4352-b3f8-805027ab9f1d"){
-		var url = rootPath　 + 　"/portal/getSYTreeMenu.do?orgid=" + org_id;	
-		$.ajax({
-			type: "GET",
-			url: url,
-			
-			dataType:"JSON",
-			success: function(data){		
-
-				data1=data;
-				//console.log(data1);
-			},
-			complete:function(msg){
-				var setting = {
-					callback: {
-						onClick: zTreeOnClick
-					}
-				};
-				$.fn.zTree.init($("#tree"), setting, data1);
-
-				//默认展开机组；
-				$("#tree_1_switch").click();
-				//默认显示电厂的相关信息；
-				$("#tree_1_span").click();
-			}
-
-			
-		})
-	}else{
-		var url = rootPath + "/portal/getJTSYTreeMenu.do" ;
-		$.ajax({
-			type: "GET",
-			url: url,
-			
-			dataType:"JSON",
-			success: function(data){		
-
-				data1=data;
-			},
-			complete:function(msg){
-				var setting = {
-					callback: {
-						onClick: zTreeOnClick
-					}
-				};
-				$.fn.zTree.init($("#tree"), setting, data1);
-
-				//默认展开机组；
-				$("#tree_1_switch").click();
-				//默认显示电厂的相关信息；
-				$("#tree_1_span").click();
-			}
-
-			
-		})
-	}
+    var org_id = localStorage.getItem("orgid");
+    var url =rootPath + "/portal/getSYTreeMenu.do";   
+    getTreeData(url);
 }
-//data1=[{"children":[{"children":[{"children":[{"children":[],"id":"15","name":"#1轴加风机切换至#2轴加风机运行"},{"children":[],"id":"16","name":"#2轴加风机切换至#1轴加风机运行"},{"children":[],"id":"17","name":"#1氢侧交流油泵切换至#2氢侧交流油泵运行"},{"children":[],"id":"18","name":"#2氢侧交流油泵切换至#1氢侧交流油泵运行"},{"children":[],"id":"19","name":"#1氢冷闭式泵切换至#2氢冷闭式泵运行"},{"children":[],"id":"20","name":"#2氢冷闭式泵切换至#1氢冷闭式泵运行"},{"children":[],"id":"21","name":"#1氢冷开式泵切换至#2氢冷开式泵运行"},{"children":[],"id":"22","name":"#2氢冷开式泵切换至#1氢冷开式泵运行"},{"children":[],"id":"23","name":"#1润滑油冷却水泵切换至#2润滑油冷却水泵运行"},{"children":[],"id":"24","name":"#2润滑油冷却水泵切换至#1润滑油冷却水泵运行"},{"children":[],"id":"25","name":"#1EH油泵切换为#2EH油泵运行"},{"children":[],"id":"26","name":"#2EH油泵切换为#1EH油泵运行"},{"children":[],"id":"27","name":"#1定冷水泵切换为#2定冷水泵运行"},{"children":[],"id":"28","name":"#2定冷水泵切换为#1定冷水泵运行"},{"children":[],"id":"29","name":"#1闭式水泵切换至#2闭式水泵运行"},{"children":[],"id":"30","name":"#2闭式水泵切换至#1闭式水泵运行"},{"children":[],"id":"31","name":"#1小机#1交流润滑油泵切换至#2交流油泵运行"},{"children":[],"id":"32","name":"#1小机#2交流润滑油泵切换至#1交流油泵运行"},{"children":[],"id":"33","name":"#2小机#1交流润滑油泵切换至#2交流油泵运行"},{"children":[],"id":"34","name":"#2小机#2交流润滑油泵切换至#1交流油泵运行"},{"children":[],"id":"35","name":"#1循环水泵切换至#2循环水泵运行"},{"children":[],"id":"36","name":"#2循环水泵切换至#1循环水泵运行"},{"children":[],"id":"37","name":"主机#1排烟风机切换至#2排烟风机运行"},{"children":[],"id":"38","name":"主机#2排烟风机切换至#1排烟风机运行"},{"children":[],"id":"39","name":"#1密封油箱排烟风机切换至#2密封油箱排烟风机运行"},{"children":[],"id":"40","name":"#2密封油箱排烟风机切换至#1密封油箱排烟风机运行"}],"id":"6","name":"汽机专业"},{"children":[{"children":[],"id":"41","name":"#1引风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"42","name":"#1引风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"43","name":"#2引风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"44","name":"#2引风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"45","name":"#1引风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"46","name":"#1引风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"47","name":"#2引风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"48","name":"#2引风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"49","name":"#1送风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"50","name":"#1送风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"51","name":"#2送风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"52","name":"#2送风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"53","name":"#1一次风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"54","name":"#1一次风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"55","name":"#2一次风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"56","name":"#2一次风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"57","name":"#1一次风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"58","name":"#1一次风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"59","name":"#2一次风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"60","name":"#2一次风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"61","name":"#1引风机#1轴冷风机切换至#2轴冷风机"},{"children":[],"id":"62","name":"#1引风机#2轴冷风机切换至#1轴冷风机"},{"children":[],"id":"63","name":"#2引风机#1轴冷风机切换至#2轴冷风机"},{"children":[],"id":"64","name":"#2引风机#2轴冷风机切换至#1轴冷风机"},{"children":[],"id":"65","name":"#1火检风机切换至#2火检风机运行"},{"children":[],"id":"66","name":"#2火检风机切换至#1火检风机运行"},{"children":[],"id":"67","name":"#1密封风机切换至#2密封风机运行"},{"children":[],"id":"68","name":"#2密封风机切换至#1密封风机运行"},{"children":[],"id":"69","name":"SCR#1、#3稀释风机切换至#2、#3稀释风机运行"},{"children":[],"id":"70","name":"SCR#1、#2稀释风机切换至#2、#3稀释风机运行"},{"children":[],"id":"71","name":"SCR#2、#3稀释风机切换至#1、#3稀释风机运行"},{"children":[],"id":"72","name":"SCR#1、#2稀释风机切换至#1、#3稀释风机运行"},{"children":[],"id":"73","name":"SCR#2、#3稀释风机切换至#1、#2稀释风机运行"},{"children":[],"id":"74","name":"SCR#1、#3稀释风机切换至#1、#2稀释风机运行"}],"id":"7","name":"锅炉专业"},{"children":[{"children":[],"id":"75","name":"#1空压机切换至#2空压机运行"},{"children":[],"id":"76","name":"#1空压机切换至#3空压机运行"},{"children":[],"id":"77","name":"#1空压机切换至#4空压机运行"},{"children":[],"id":"78","name":"#2空压机切换至#1空压机运行"},{"children":[],"id":"79","name":"#2空压机切换至#3空压机运行"},{"children":[],"id":"80","name":"#2空压机切换至#4空压机运行"},{"children":[],"id":"81","name":"#3空压机切换至#1空压机运行"},{"children":[],"id":"82","name":"#3空压机切换至#2空压机运行"},{"children":[],"id":"83","name":"#3空压机切换至#4空压机运行"},{"children":[],"id":"84","name":"#4空压机切换至#1空压机运行"},{"children":[],"id":"85","name":"#4空压机切换至#2空压机运行"},{"children":[],"id":"86","name":"#4空压机切换至#3空压机运行"}],"id":"8","name":"公用系统专业"}],"id":"2","name":"#1机组"},{"children":[{"children":[{"children":[],"id":"87","name":"#1EH油泵切换为#2EH油泵运行"},{"children":[],"id":"88","name":"#2EH油泵切换为#1EH油泵运行"},{"children":[],"id":"89","name":"#1小机#1交流润滑油泵切换至#2交流油泵运行"},{"children":[],"id":"90","name":"#1小机#2交流润滑油泵切换至#1交流油泵运行"},{"children":[],"id":"91","name":"#1定冷水泵切换为#2定冷水泵运行"},{"children":[],"id":"92","name":"#2定冷水泵切换为#1定冷水泵运行"},{"children":[],"id":"93","name":"#1闭式水泵切换至#2闭式水泵运行"},{"children":[],"id":"94","name":"#2闭式水泵切换至#1闭式水泵运行"},{"children":[],"id":"95","name":"#2小机#1交流润滑油泵切换至#2交流油泵运行"},{"children":[],"id":"96","name":"#2小机#2交流润滑油泵切换至#1交流油泵运行"},{"children":[],"id":"97","name":"#1循环水泵切换至#2循环水泵运行"},{"children":[],"id":"98","name":"#2循环水泵切换至#1循环水泵运行"},{"children":[],"id":"99","name":"主机#1排烟风机切换至#2排烟风机运行"},{"children":[],"id":"100","name":"主机#2排烟风机切换至#1排烟风机运行"},{"children":[],"id":"101","name":"#1密封油箱排烟风机切换至#2密封油箱排烟风机运行"},{"children":[],"id":"102","name":"#2密封油箱排烟风机切换至#1密封油箱排烟风机运行"},{"children":[],"id":"103","name":"#1轴加风机切换至#2轴加风机运行"},{"children":[],"id":"104","name":"#2轴加风机切换至#1轴加风机运行"},{"children":[],"id":"105","name":"#1氢侧交流油泵切换至#2氢侧交流油泵运行"},{"children":[],"id":"106","name":"#2氢侧交流油泵切换至#1氢侧交流油泵运行"},{"children":[],"id":"107","name":"#1氢冷闭式泵切换至#2氢冷闭式泵运行"},{"children":[],"id":"108","name":"#2氢冷闭式泵切换至#1氢冷闭式泵运行"},{"children":[],"id":"109","name":"#1氢冷开式泵切换至#2氢冷开式泵运行"},{"children":[],"id":"110","name":"#2氢冷开式泵切换至#1氢冷开式泵运行"},{"children":[],"id":"111","name":"#1润滑油冷却水泵切换至#2润滑油冷却水泵运行"},{"children":[],"id":"112","name":"#2润滑油冷却水泵切换至#1润滑油冷却水泵运行"}],"id":"9","name":"汽机专业"},{"children":[{"children":[],"id":"113","name":"#1引风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"114","name":"#1引风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"115","name":"#2引风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"116","name":"#2引风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"117","name":"#1引风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"118","name":"#1引风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"119","name":"#2引风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"120","name":"#2引风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"121","name":"#1送风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"122","name":"#1送风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"123","name":"#2送风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"124","name":"#2送风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"125","name":"#1一次风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"126","name":"#1一次风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"127","name":"#2一次风机润滑油站#1油泵切换至#2油泵运行"},{"children":[],"id":"128","name":"#2一次风机润滑油站#2油泵切换至#1油泵运行"},{"children":[],"id":"129","name":"#1一次风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"130","name":"#1一次风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"131","name":"SCR#1、#3稀释风机切换至#2、#3稀释风机运行"},{"children":[],"id":"132","name":"SCR#1、#2稀释风机切换至#2、#3稀释风机运行"},{"children":[],"id":"133","name":"SCR#2、#3稀释风机切换至#1、#3稀释风机运行"},{"children":[],"id":"134","name":"SCR#1、#2稀释风机切换至#1、#3稀释风机运行"},{"children":[],"id":"135","name":"SCR#2、#3稀释风机切换至#1、#2稀释风机运行"},{"children":[],"id":"136","name":"SCR#1、#3稀释风机切换至#1、#2稀释风机运行"},{"children":[],"id":"137","name":"#2一次风机液压油站#1油泵切换至#2油泵运行"},{"children":[],"id":"138","name":"#2一次风机液压油站#2油泵切换至#1油泵运行"},{"children":[],"id":"139","name":"#1引风机#1轴冷风机切换至#2轴冷风机"},{"children":[],"id":"140","name":"#1引风机#2轴冷风机切换至#1轴冷风机"},{"children":[],"id":"141","name":"#2引风机#1轴冷风机切换至#2轴冷风机"},{"children":[],"id":"142","name":"#2引风机#2轴冷风机切换至#1轴冷风机"},{"children":[],"id":"143","name":"#1火检风机切换至#2火检风机运行"},{"children":[],"id":"144","name":"#2火检风机切换至#1火检风机运行"},{"children":[],"id":"145","name":"#1密封风机切换至#2密封风机运行"},{"children":[],"id":"146","name":"#2密封风机切换至#1密封风机运行"}],"id":"10","name":"锅炉专业"}],"id":"3","name":"#2机组"},{"children":[{"children":[{"children":[],"id":"147","name":"#1开式泵切换至#2开式泵运行"},{"children":[],"id":"148","name":"#2开式泵切换至#1开式泵运行"},{"children":[],"id":"149","name":"#1开式泵切换至#3开式泵运行"},{"children":[],"id":"150","name":"#3开式泵切换至#1开式泵运行"},{"children":[],"id":"151","name":"#2开式泵切换至#3开式泵运行"},{"children":[],"id":"152","name":"#3开式泵切换至#2开式泵运行"},{"children":[],"id":"153","name":"#1EH油泵切换为#2EH油泵运行"},{"children":[],"id":"154","name":"#2EH油泵切换为#1EH油泵运行"},{"children":[],"id":"155","name":"#1定冷水泵切换为#2定冷水泵运行"},{"children":[],"id":"156","name":"#2定冷水泵切换为#1定冷水泵运行"},{"children":[],"id":"157","name":"#1闭式水泵切换至#2闭式水泵运行"},{"children":[],"id":"158","name":"#2闭式水泵切换至#1闭式水泵运行"},{"children":[],"id":"159","name":"#1真空泵切换至#2真空泵运行"},{"children":[],"id":"160","name":"#2真空泵切换至#1真空泵运行"},{"children":[],"id":"161","name":"#1真空泵切换至#3真空泵运行"},{"children":[],"id":"162","name":"#3真空泵切换至#1真空泵运行"},{"children":[],"id":"163","name":"#2真空泵切换至#3真空泵运行"},{"children":[],"id":"164","name":"#3真空泵切换至#2真空泵运行"},{"children":[],"id":"165","name":"主机#1排烟风机切换至#2排烟风机运行"},{"children":[],"id":"166","name":"主机#2排烟风机切换至#1排烟风机运行"},{"children":[],"id":"167","name":"#1密封油箱排烟风机切换至#2密封油箱排烟风机运行"},{"children":[],"id":"168","name":"#2密封油箱排烟风机切换至#1密封油箱排烟风机运行"},{"children":[],"id":"169","name":"#1轴加风机切换至#2轴加风机运行"},{"children":[],"id":"170","name":"#2轴加风机切换至#1轴加风机运行"},{"children":[],"id":"171","name":"#1氢侧交流油泵切换至#2氢侧交流油泵运行"},{"children":[],"id":"172","name":"#2氢侧交流油泵切换至#1氢侧交流油泵运行"}],"id":"11","name":"汽机专业"},{"children":[{"children":[],"id":"173","name":"#1引风机油站#1油泵切换至#2油泵运行"},{"children":[],"id":"174","name":"#1引风机油站#2油泵切换至#1油泵运行"},{"children":[],"id":"175","name":"#2引风机油站#1油泵切换至#2油泵运行"},{"children":[],"id":"176","name":"#2引风机油站#2油泵切换至#1油泵运行"},{"children":[],"id":"177","name":"#1送风机液压油站#1油泵切换至#2油泵运行"}],"id":"12","name":"锅炉专业"}],"id":"4","name":"#3机组"},{"children":[{"children":[],"id":"13","name":"汽机专业"},{"children":[],"id":"14","name":"锅炉专业"}],"id":"5","name":"#4机组"}],"id":"1","name":"岱海发电"}];
 
-/*$("#tree").ajaxComplete(function(){
-	var setting = {
-		callback: {
-			onClick: zTreeOnClick
+
+
+//集团视图========================================================
+
+var jt_query=true;
+function jtview(){	
+	$('.dc').hide();
+	$('.jt').show();
+	//默认加载 集团 全部
+	$('#org_id option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
 		}
-	};
-	$.fn.zTree.init($("#tree"), setting, data1);
+	})
+	//集团级返回到首页 --return 
+	$('#fanhui_test').unbind('click').click(function (){
+		 window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
+	//集团name 清空
+	$("#jt_name").val("");
+	$('#g_id_jt option').each(function(){
+		if(this.value == ""){							
+			this.selected = "selected";										
+		}
+	})
+	//年份清空
+	$("#annual").val("")
+	//集团name 清空
+	$("#jt_name").val("");
+	$(".wu_main").css({"marginTop":22});
+	//集团汇总	
+	$("#lh_name").html("京能集团")
+	jt_summary()
+	//集团detail
+	jt_detail(1);
+	jt_query=true;
+}
+
+//集团查询
+$("#jt_submit").click(function(){
+	jt_detail(1);
+	jt_query=true;
+})
+
+//返回按钮处理 -- 处理在所在电厂级和集团级
+//-- todo 如果在机组和名称层级处理
+/*$("#fanhui_test").click(function(){
+	var now_org_name = $('.curSelectedNode').attr('title')
+	switch (now_org_name) {
+		case "京能集团":
+			jtview();
+			break;
+		case "岱海发电":
+			level1(now_org_name);
+			break;
+		case "宁东发电":
+			level1(now_org_name);
+			break;
+		default:
+			break;
+	}
 })*/
+
+//集团分页
+var jt_lh_pagenation = function(page) {
+   	var num_entries = page;
+  	// 创建分页
+  	$("#Pagination_query").pagination(num_entries, {
+	    num_edge_entries: 1, //边缘页数
+	    num_display_entries: 4, //主体页数
+	    callback: jt_query_pagenation,
+	    items_per_page: 1, //每页显示1项
+	    prev_text: "前一页",
+	    next_text: "后一页"
+  	});
+};
+//集团分页callback
+function jt_query_pagenation(page_index, jq){
+	jt_detail(page_index+1) 
+}
+//集团 汇总
+function jt_summary(){
+	var url = rootPath + "/portal/getJTSYTotal.do";
+	ajax(url,"jthz",["YSCOUNT","YCOUNT","YEARRATE","MSCOUNT","MCOUNT","MONTHRATE"]);
+	
+}
+//集团 detail
+function jt_detail(jt_page_index){
+	
+	var orgid = $("#org_id").val();	
+	var g_id  = $("#g_id_jt").val();
+	var year  = $("#annual").val();
+	var name  = $("#jt_name").val();	
+	var url = rootPath +"/portal.do";
+	var sentData = {
+			"method":"getJTSYinfos",
+			"orgid":orgid,
+			"g_id":g_id,
+			"name":name,
+			"year":year,
+			'pagenum':jt_page_index,
+			'pagesize':10			
+	};
+	
+	
+	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
+}
+
+//集团页面 end=================================================================================================
+function getTreeData(url){
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType:"JSON",
+        success: function(data){
+            var setting = {callback: {onClick: zTreeOnClick}};
+            $.fn.zTree.init($("#tree"), setting, data);
+           // $("#tree_1_switch").click();//默认展开机组
+            //$("#tree_1_span").click();//默认显示电厂的相关信息
+            
+            
+            var org_name = "";
+			//默认展开机组；
+			$("#tree_1_switch").click();
+			user_org_id=localStorage.getItem("orgid_baobiao");
+			//默认显示电厂的相关信息；
+			if(user_org_id =="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
+				org_name = "岱海发电"
+			}
+			if(user_org_id =="472212af-1977-462b-a74a-a1f36ed6562d"){
+				org_name = "宁东发电"
+			}
+			if(user_org_id == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
+				org_name = "京能集团"
+			}
+			 
+			
+			$("#tree").find(".node_name").each(function(){
+				var $this = $(this)
+				if($this.html() == org_name ){
+					//展开本条
+					$this.click();
+					if(user_org_id!="a61365e2-969d-4352-b3f8-805027ab9f1d"){
+						$this.parent().siblings().click();
+					}
+				}
+			})
+        }
+
+    })
+}
+
 getTree();
-function ajax(url, tableId, columns) {
+
+
+//处理函数 --start
+function ajax(url, tableId, columns,sentData) {
+	if(!sentData){
+		sentData ={};
+	}
     $.ajax({
         url : url,
         type:"post",
+		data:sentData,
         dataType : "json",
         success : function(data) {
             var tableHtml = '';
-            if(data&&data.length>0){
-                
-                tableHtml = prearData(data, columns);
-                
-            }
+			
+			if(data.total){
+				var page = Math.ceil(data.total/10)
+			}
+			switch (tableId){	
+				case "level1"://header 电厂汇总
+					if(data&&data.length>0){               
+                		tableHtml = prearData(data, columns);               
+            		}
+					break;
+
+				case 'jthz': //header 集团汇总
+					if(data&&data.length>0){               
+                		tableHtml = prearData(data, columns);               
+            		}
+					break;
+
+				case "level1_query": //电厂 level1
+					if(query_flag){
+						dc_lh_pagenation(page);//分页加载
+					}
+					query_flag=false;
+					if(data.exper.length =="0"){
+						tableHtml ="<div>暂时没有数据.....<div>"
+					}else{
+						jt_query = false; 
+						tableHtml = prearData(data.exper, columns);
+					}	 
+					break;
+				case "jt_detail": //jt_detail
+					page = Math.ceil(data.total/10)
+					if(jt_query){
+						var page = Math.ceil(data.total/10)
+						jt_lh_pagenation(page);//分页加载
+					}
+					jt_query = false; 
+					tableHtml = prearData(data.exper, columns);
+					break;
+			}
+           	
             $("#" + tableId).html(tableHtml);
-           // styleTable("#" + tableId); 对生成的table的样式重写；
+           
         }
     });
 }
@@ -120,14 +241,23 @@ function prearData(data, columns) {
     var htmlArray = [];
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
+		var fun ="onclick='chuantou("+JSON.stringify(d)+")'";
         htmlArray.push("<tr>");
         for (var j = 0;j < columns.length; j++) {
-        	if(j==0){
+			//处理第一列为序号的
+        	if(columns[0]=="x" && j==0){
         		k=i+1;
         		htmlArray.push("<td >"+k+"</td>");
         	}else{
         		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
-                 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
+				 if(columns[j]=="NAME"|| columns[j]=="name"){
+        			  htmlArray.push("<td  title=" + columnValue + " "+fun+" style='text-align:left'><a>" + columnValue + "</a></td>");
+        			 
+        		 }else{
+					 
+        			 htmlArray.push("<td title=" + columnValue + ">" + columnValue + "</td>");
+        		 }
+                 	
         	}
            
         }
@@ -136,27 +266,35 @@ function prearData(data, columns) {
     return htmlArray.join('');
 }
 
-function getColumnValue(column, columnValue) {
-   
-    if(column =='W_DATE'){
-        columnValue = columnValue.replace(/\s/g,"&#13;")
-    }
-    if(column == "gId"){
-    	columnValue = "#"+columnValue;
-    }
-    	
-    
-    return columnValue;
+function getColumnValue(column, colValue) {
+	switch (column) {
+		case "W_DATE":
+			colValue = colValue.replace(/\s/g,"&#13;")
+			break;
+		case "startTime":
+			colValue = timefixed(colValue)
+			break;	
+		case "G_ID":
+		case "gId":
+			if(Number(colValue)){
+				colValue = "#"+colValue;	
+			} 
+			break;	
+	}
+		    
+    return colValue;
 }
+//处理函数 -- end
 var query_flag=true;
 //查询事件
 
 $("#submit").on("click",function(){
 	var g_id=sessionStorage.getItem("g_id");
+	query_flag=true;
 	query_sy(event,1,g_id);
 	$("#Pagination_query").show();
 });
-$("#submit").click();
+//$("#submit").click();
 //level1        查询=====================================================
 function query_sy(event,pageNum,gid){
 	var orgId = sessionStorage.getItem("orgid");
@@ -165,6 +303,7 @@ function query_sy(event,pageNum,gid){
 	var name    = $("#name").val();
 	var startTime = $("#startTime").val();
     var endTime   = $("#endTime").val();
+    var conditionType = $("#add_type").val();
     if(!name){
     	name = ""; 
     }
@@ -175,41 +314,22 @@ function query_sy(event,pageNum,gid){
     	g_id="";
     } 
     data1 = {
-  		  "pageSize":7,  //页大小
-  		  "pageNum":pageNum,   //当前页
-  		  "orgId":orgId, //组织
-  		  "gId":g_id,//机组
-  		  "specialId":spec_id,//专业
-  		  "name":name,//轮换名称
-  		  "beginStart":startTime, 
-  		  "endStart"  :endTime
+  		  "pageSize"    :10,  //页大小
+  		  "pageNum"     :pageNum,   //当前页
+  		  "orgId"       :orgId, //组织
+  		  "gId"         :g_id,//机组
+  		  "specialId"   :spec_id,//专业
+  		  "name"		:name,//轮换名称
+  		  "beginStart"  :startTime, 
+  		  "endStart"    :endTime,
+  		 "conditionType":conditionType
   		};
     var url = rootPath+"/portal/getsydetailinfo.do"
-    $.ajax({
-        url:url,
-		type:"POST",
-		contentType:"application/json",
-		data:JSON.stringify(data1),
-        success: function(data) {
-        	var page = Math.ceil(data.total/7);
-        	//分页 
-        	if(!page){
-        		$("#Pagination_query").hide();
-        	}else{
-        		$("#Pagination_query").show();
-			}
-			if(query_flag){
-				initPagination1(page);//分页加载
-			}
-        	query_flag=false;
-        	$("#level1_query").html("");
-        	$("#level1_query").html(querypre(data.pagedata));
-          
-        } 
-      })
+	ajax(url,'level1_query',['x','gId','name','startTime','ysCount','yCount','msCount','mCount','fCount'],data1);
+    
     
 }
-var initPagination1 = function(page) {
+var dc_lh_pagenation = function(page) {
    	var num_entries = page;
   	// 创建分页
   	$("#Pagination_query").pagination(num_entries, {
@@ -224,9 +344,6 @@ var initPagination1 = function(page) {
 
 
 function pageselectCallback_query(page_index, jq){
-	/*if(page_index==0){
-		return;
-	}*/
 	var g_id=sessionStorage.getItem("g_id");
 	query_sy(event,page_index + 1,g_id);
   	return false;
@@ -237,26 +354,320 @@ function pageselectCallback_query(page_index, jq){
 * return 2016-6-13
 */	
 function timefixed(time){
-	var date= new Date(time);
-	return date.toLocaleDateString();
+	if(time){
+		var date= new Date(time);
+		var x = date.toLocaleDateString()
+	}else{
+		x = ""
+	}
+	
+	return x;
 }
-function querypre(data){
-	var htmlArray =[];
-	if(data.length<=0){
-		return;
+function chuantou(d){
+    var flag=true;
+	jt_query=true;
+    $('.jt').hide();
+	if(!d.gId){
+		d.gId = d.G_ID
 	}
-	
-	for(var i = 0;i<data.length;i++){
-		d = data[i];
-		var j=i+1;
-		htmlArray.push("<tr><td >"+j+"</td><td>#" + d.gId+ "</td><td>" + d.name+ "</td><td>" + timefixed(d.startTime)+ "</td><td>" + d.ysCount+ "</td><td>" + d.yCount+ "</td><td>" + d.msCount+ "</td><td>" + d.mCount+ "</td><td>" + d.fCount+ "</td></tr>");
+	if(d.name){
+		d.NAME = d.name
 	}
+	$("#fanhui_test").unbind('click').click(function () {
+		var now_org_name = $('.curSelectedNode').attr('title')
+		//cosnole.log(now_org_name)
+		switch (now_org_name) {
+			case "京能集团":
+				jtview();
+				break;
+			case "岱海发电":
+			case "宁东发电":
+				level1(now_org_name);
+				break;
+			default:
+				//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+				var cur_org_id = sessionStorage.getItem('orgid');
+				now_org_name = idToName(cur_org_id);
+				level1(now_org_name);
+				break;
+		}
+	})
+    $("#Pagination_query").hide();
+    $(".select").hide();
+    $("table.level1").hide();
+    $(".wu_top").show();
+    $("table.level4").show();
+    $(".wu_top1").show();
+    $("#table1_huizong").show();
+    $("#Pagination").show();
+    $(".wu_main").css({"marginTop":112});
+    var initPagination = function(page) {
+        var num_entries = page;
+        // 创建分页
+        $("#Pagination").pagination(num_entries, {
+            num_edge_entries: 1, //边缘页数
+            num_display_entries: 4, //主体页数
+            callback: pageselectCallback,
+            items_per_page: 1, //每页显示1项
+            prev_text: "前一页",
+            next_text: "后一页"
+        });
+    };
+
+
+
+    function pageselectCallback(page_index, jq){
+        expr(page_index + 1);
+        return false;
+    }
+    name = encodeURIComponent(trim(d.NAME));
+    var url = rootPath + "/portal.do?name="+name;
+    expr(1);
+    function expr(pagenum){
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            data: {
+                method: "getSYTime",
+                org_id: d.ORG_ID,
+                year:'',
+                month:'',
+                g_id: d.gId,
+                special_id: d.professionName,
+               // name:d.name,
+                ispage:true,
+                pagenum:pagenum,
+                pagesize:5
+            },
+            success: function(data) {
+                $("#sblhcounter").html("");
+                var page = Math.ceil(data.total/5)
+                if(flag){
+                    initPagination(page);//分页加载
+                }
+                flag=false;
+                $('#sblhcounter').html(prepearData(data.exper));
+                var line_width = ($(window).width() - 700) / 2 + "px";
+                //var line_height=($(window).height()-365)/2+"px";
+                var line_height = 100;
+                $(".lineDiv").css({
+                    "left": line_width,
+                    "top": line_height
+                });
+                //改变窗口浏览器大小重置相对定位
+                $(window).resize(function() {
+                    var line_width = ($(window).width() - 700) / 2 + "px";
+                    var line_height = ($(window).height() - 365) / 2 + "px";
+                    $(".lineDiv").css({
+                        "left": line_width,
+                        "top": line_height
+                    });
+                });
+                var d_flag= true;
+                //弹窗淡入淡出
+                $(".zhexian").on("click",
+
+                    function(event) {
+                        var i = $(this).parent().index() -1 ;
+                        //console.log($(this).parent().index());
+
+                        var dataT = $(this).find('.drsMoveHandle').get(0).id;
+                        var arr = dataT.split(";");
+                        var code = arr[0];
+                        var name = arr[1];
+                        var starttime = arr[2];
+                        var endtime = arr[3];
+                        //console.log(name);
+
+                        if(d_flag){
+                            sbjiaohu("zx"+i,code,name,starttime,endtime);
+                            d_flag = false;
+                        }
+                        $(this).children(".lineDiv").fadeIn();
+                        var index = $(this).index();
+                    }
+                );
+                //弹出层关闭按钮
+                $(".drsMoveHandle span").bind("click",
+                    function(event) {
+                        $(this).parent().parent(".lineDiv").fadeOut();
+                        event.stopPropagation();
+                    }
+                )
+            }
+        });
+
+    }
+	$("#lh_name").html(d.NAME);
+	var l4sentdata ={ 
+		method: "getSYCount",
+		org_id: d.ORG_ID,
+		g_id: d.gId,
+		special_id: d.professionName	
+	}
+	level4_header(url,l4sentdata);
+    
+}
+function level4_header(url,dataIN){
+	$.ajax({
+			url: url,
+			type: "POST",
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			dataType: "json",
+			data: dataIN,
+			success: function(data) {
+				var data_level4 = data.lhlist[0];
+				
+				var table1_huizong_td = $("#table1_huizong").find("td");
+				var header_h3 = $('.wu_top1').find("h3");
+				
+				if (data.lhlist.length == 0) {
+					table1_huizong_td.each(function(i) {
+						if (i > 4) {
+							$(this).html("暂时无数据");
+						}
+
+					});
+					//lh_name.html("");
+					header_h3.each(function() {
+						$(this).html("");
+					});
+					//lh_name.html("本条记录无数据");
+				}
+
+				if (data.lhlist.length !== 0) {
+					/*轮换说明*/
+					header_h3.eq(0).html(data_level4.VALID_BASIC)
+					header_h3.eq(1).html(data_level4.LH_METHOD);
+					header_h3.eq(2).html(data_level4.SYSTEM_LOGIC);
+					header_h3.eq(3).html(data_level4.START_BASIC);
+					header_h3.eq(4).html(data_level4.END_BASIC)
+
+					/*轮换的名称*/
+					//lh_name.html(dataIN.name);
+
+					/*轮换的具体数据*/
+					table1_huizong_td.eq(5).html(data_level4.YSCOUNT);
+					table1_huizong_td.eq(6).html(data_level4.YCOUNT);
+					table1_huizong_td.eq(7).html(data_level4.MSCOUNT);
+					table1_huizong_td.eq(8).html(data_level4.MCOUNT);
+					table1_huizong_td.eq(9).html(data_level4.NOEXPER);
+
+				}
+
+			}
+
+		})
+}
+
+
+function level1(now_org_name){
+	sessionStorage.setItem("g_id", "");
+	$("table.level1").show();
+	$("table.level4").hide();
+	$(".wu_top").hide();
+	$(".wu_top1").hide();
+	$("#table1_huizong").hide();
+	$("#Pagination").hide();
+	$(".select.dc").show();	
+	$(".wu_main").css({"marginTop":23});
+	$('#lh_name').html(now_org_name);
+	$("#wu_top1").hide();
+
+	//电厂级 返回到首页 --return
+	$('#fanhui_test').unbind('click').click(function (){
+		window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
+	//返回电厂时候清空搜索条件
+	$('#name').val("");
+	$('#startTime').val("");
+	$('#endTime').val("");
 	
-	return htmlArray.join(''); 
-}	
+	var orgId = sessionStorage.getItem("orgid");
+	var url = rootPath + "/portal/getSYSummaryInfo.do?orgId="+orgId;
+	//summary
+	ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
+	$("#g_id").html("").fadeIn().siblings().fadeIn();
+	addjz();
+	addzy('');
+	query_flag=true;
+	//detail
+	$("#submit").click();
+	return false;
+}
+//根据电厂 添加机组========================================================
+function addjz(){
+	$("#g_id").html("<option value=''></option>");
+	var orgId = sessionStorage.getItem("orgid")
+	var url = rootPath +"/portal/getSyJzInfo.do?orgId="+orgId;
+	$.ajax({
+		url:url,
+		type:"POST",
+		success:function(data){
+			var arr = [];
+			for(var i in data){
+				arr.push(data[i]);
+			}
+			arr.sort()//机组排序
+			//机组信息插入到页面当中
 
+			for(var i = 0;i<arr.length;i++){ 
+				var j = i+1;
+				
+				if(Number(arr[i])){
+					arr[i] = "#"+arr[i];
 
+				}else{
+					j=arr[i];
+				}
+				
+				$("#g_id").append("<option value='"+j+"'>"+arr[i]+"</option>");
+			}
+		}
+	})
+}
+//根据=电厂=机组=添加专业============================================================
+function addzy(gid){
+	$("#spec_id").html("<option value=''></option>");
+	var orgId = sessionStorage.getItem("orgid");
+	//var g_id = $("#g_id").val();
+	var url="";
+	//
+	if(!gid){
+		url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId
+	}
+	else{
+		url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+gid;
+	}
+	//var url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+g_id;
+	$.ajax({
+		url:url,
+		type:"POST",
+		success:function(data){
+			for(var key in data){
+				$("#spec_id").append("<option value='"+key+"'>"+ifFix(data[key])+"</option>");
+			}		
+		}
+	})
+}
 
+function ifFix(x){
+	return x.replace(/专业/,"")
+}
+
+//机组改变的时候加载对应的专业！==================================================
+$("#g_id").on("change",function(){
+	var g_id = $(this).val();
+	addzy(g_id);	
+	query_flag = true;//重新加载分页
+})
+
+$("#spec_id").on("change",function(){
+	
+	query_flag = true;//重新加载分页
+})
 
 function zTreeOnClick(ev, treeId, treeNode) {
 	
@@ -265,21 +676,29 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	var special_id = $(event.target).parent().parent().parent().siblings().text();
 	var name = treeNode.name;
 	switch (treeNode.level) {
-		//电厂级别
+		//集团级别
 		case 0:
+			jtview();
+			break;
+			//alert("jt")
+		//电厂级别
+		case 1:
+			$('.jt').hide();
 			g_id = "";
 			special_id = "";
 			if(name == "岱海发电"){
 				sessionStorage.setItem("orgid", "c21834b4-1cb0-490f-a2a8-deeaf7f7e065");	
 			}else if(name == "宁东发电"){	
 				sessionStorage.setItem("orgid", "472212af-1977-462b-a74a-a1f36ed6562d");
-			}			
+			}	
+			level1(name);		
 			name = "";
 			//console.log(1);
-			level1();
+			
 			break;
 			//机组级别
-		case 1:
+		case 2:
+			$('.jt').hide();
 			g_id = name.substring(1, 2);
 			special_id = "";
 			sessionStorage.setItem("g_id", g_id);
@@ -287,7 +706,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			level2();
 			break;
 			//专业级别
-		case 2:
+		case 3:
+			$('.jt').hide();
 			g_id = special_id.substring(1, 2);
 			sessionStorage.setItem("g_id", g_id);
 			special_id = name;
@@ -295,7 +715,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			
 			break;
 			//试验名称级别
-		case 3:
+		case 4:
+			$('.jt').hide();
 			g_id = g_id.substring(1, 2);
 			//console.log('4')
 			level4();
@@ -312,8 +733,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	function level2(){
 		
 		$("#Pagination_query").show();
-		$(".select").show();
-		
+		$(".select.dc").show();		
 		$("table.level1").show();
 		$("table.level4").hide();
 		$(".wu_top").hide();
@@ -323,7 +743,26 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$(".wu_main").css({"marginTop":23});
 		$('#lh_name').html(treeNode.name);
 		$("#wu_top1").hide();
-		
+		//fixed 返回
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 		var orgId = sessionStorage.getItem("orgid")
 		var url = rootPath + "/portal/getSYSummaryInfo.do?orgId="+orgId+"&gId="+g_id;
 		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
@@ -332,88 +771,13 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		addzy(g_id);//加载专业
 		query_flag=true;
 		query_sy(event,1,g_id);//执行查询
-	}
-	//level1=====================================================
-	function level1(){
-		sessionStorage.setItem("g_id", "");
-		$("table.level1").show();
-		$("table.level4").hide();
-		$(".wu_top").hide();
-		$(".wu_top1").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide();
-		$(".wu_main").css({"marginTop":23});
-		$('#lh_name').html(treeNode.name);
-		$("#wu_top1").hide();
-		var orgId = sessionStorage.getItem("orgid");
-		var url = rootPath + "/portal/getSYSummaryInfo.do?orgId="+orgId;
-		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
-		$("#g_id").html("").fadeIn().siblings().fadeIn();
-		addjz();
-		addzy();
-		query_flag=true;
-		$("#submit").click();
-	}
-	//根据电厂 添加机组========================================================
-	
-	function addjz(){
-		$("#g_id").html("<option value=''></option>");
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath +"/portal/getSyJzInfo.do?orgId="+orgId;
-		$.ajax({
-			url:url,
-			type:"POST",
-			success:function(data){
-				var arr = [];
-				for(var i in data){
-					arr.push(data[i]);
-				}
-				arr.sort()//机组排序
-				//机组信息插入到页面当中
-				for(var i = 0;i<arr.length;i++){ 
-					var j = i+1;
-					$("#g_id").append("<option value='"+j+"'>#"+arr[i]+"</option>");
-				}
-			}
-		})
-	}
-	//机组改变的时候加载对应的专业！==================================================
-	$("#g_id").on("change",function(){
-		addzy(g_id);
-		$("#spec_id").html("")
-		query_flag = true;//重新加载分页
-	})
-	
-	$("#spec_id").on("change",function(){
-		//addzy(g_id);
-		query_flag = true;//重新加载分页
-	})
-	//根据=电厂=机组=添加专业============================================================
-	function addzy(gid){
-		$("#spec_id").html("<option value=''></option>");
-		var orgId = sessionStorage.getItem("orgid");
-		var g_id = $("#g_id").val();
-		if(!$("#g_id").val()){
-			g_id=gid
-		}
-		if(!g_id){
-			g_id=1;
-		}
-		var url = rootPath +"/portal/getSyZyInfo.do?orgId="+orgId+"&gId="+g_id;
-		$.ajax({
-			url:url,
-			type:"POST",
-			success:function(data){
-				for(var key in data){
-					$("#spec_id").append("<option value='"+key+"'>"+ifFix(data[key])+"</option>");
-				}		
-			}
-		})
+		return false;
 	}
 	
-	function ifFix(x){
-		return x.replace(/专业/,"")
-	}
+	
+	
+	
+	
 				
 	
 	
@@ -432,7 +796,26 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$(".wu_top1").show();
 		$("#table1_huizong").show();
 		$("#Pagination").show();
-
+		//fixed 返回
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 		$(".wu_main").css({"marginTop":112});
 		var initPagination = function(page) {
 		   	var num_entries = page;
@@ -626,8 +1009,8 @@ function prepearData(data){
 		var j=i+1;
 		var d = data[i];
 		//htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>是</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
-		htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>说明</td><td>是</td>")
-		htmlArray.push('<td onclick=daocu("'+d.ID+'","'+d.EXCEL_ID+'") class="link">导出</td></tr>')
+		htmlArray.push("<tr><td>"+j+"</td><td>" + d.STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>"+d.SY_DESC+"</td><td>"+zunsi(d.NOEXPER)+"</td>")
+		htmlArray.push('<td onclick=daocu("'+d.ID+'","'+d.EXCEL_ID+'") class="link">查看</td></tr>')
 
 	}
 	if(data.length!==5){
@@ -644,6 +1027,13 @@ function prepearData(data){
 	return htmlArray.join('');
 
 }
+function zunsi(x){
+	if(x==0){
+		return "是"
+	}else{
+		return "否"
+	}
+}
 if (!window.location.origin) {
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }
@@ -658,6 +1048,29 @@ function daocu(id,type){
 		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f3285e1cc2015528bcd02a0964&user=admin&password=manager&refresh=true' 
 	}else if(type == "ZJJZL"){
 		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f377a7776001557ad86df40469&user=admin&password=manager&refresh=true' 
+	}else if(type == "LQ"){
+		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f323a64585015524621c280efa&user=admin&password=manager&refresh=true'
+	}else if(type == "SQ"){
+		url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f31af9c762015523579e932ab6&user=admin&password=manager&refresh=true'
+		
+	}
+	
+	switch(type){
+		case "zk":
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			break;
+		case "ZJFM":
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f3285e1cc2015528bcd02a0964&user=admin&password=manager&refresh=true'
+			break;
+		case "ZJJZL":
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			break;
+		case "LQ":
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			break;
+		case "SQ":
+			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
+			break;
 	}
 	//window.open(url2);
 	
@@ -914,7 +1327,25 @@ Date.prototype.format = function(format) {
 	}
 	return format;
 }
+function idToName(id){
+	var _name ="";
+	switch (id) {
+		case "a61365e2-969d-4352-b3f8-805027ab9f1d":
+			_name = "京能集团"
+			break;
+		case "c21834b4-1cb0-490f-a2a8-deeaf7f7e065":
+			_name = "宁东发电"
+			break;
+		case "472212af-1977-462b-a74a-a1f36ed6562d":
+			_name = "岱海发电"
+			break;
+	
+		default:
+			break;
+	}
+	return _name;
 
+}
 
 
 
@@ -1280,13 +1711,6 @@ dragresize.ondragmove = function(isResize) {};
 dragresize.ondragend = function(isResize) {};
 dragresize.ondragblur = function() {};
 dragresize.apply(document);
-
-
-
-
-
-
-
 
 
 

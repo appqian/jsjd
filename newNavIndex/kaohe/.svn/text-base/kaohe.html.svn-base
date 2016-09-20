@@ -1,763 +1,381 @@
-
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>京能集团实时技术监督生产管理系统</title>
 
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="js/tree_themes/SimpleTree.css"/>
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="js/tree_themes/SimpleTree.css" />
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/news.css"/>
-<body>
-<div class="wu_top">
-
-    <div class="fengge"></div>
-</div>
-
-
-<div class="wu_left">
-    <div class="st_tree">
-        <ul>
-            <li title=""><a href="#">京能集团</a></li>
-
-            <ul show="true">
-                <li title="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"><a href="#" title="岱海发电">岱海发电</a></li>
-                <li title="472212af-1977-462b-a74a-a1f36ed6562d"><a href="#" title="宁东发电">宁东发电</a></li>
-            </ul>
-
-    </div>
-
-
-</div>
-
-
-<div class="wu_main" style="border: 1px solid #ccc;    margin-top: 21px;">
-    <div class="wu_top0 select" style="">
-        <form class="form-inline">
-        	<div class="form-group ">
-                <label class=" control-label left" for="des">考核项目</label>
-                <input name="choose" class="form-control col-sm-1" id="des">
-                   
-                </input>
+    
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
+    <!--<link rel="stylesheet" href="../css/bootstrap-table.min.css">-->
+    <script src="../../common/js/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/news.css" />
+    <body>
+        <div class="wu_top">
+            <div class="fengge"></div>
+        </div>
+        <div class="wu_left">
+            <div class="st_tree">
+                <ul>
+                    <li title="a61365e2-969d-4352-b3f8-805027ab9f1d"><a href="#">京能集团</a></li>
+                    <ul show="true">
+                        <li title="c21834b4-1cb0-490f-a2a8-deeaf7f7e065"><a href="#" title="岱海发电">岱海发电</a></li>
+                        <li title="472212af-1977-462b-a74a-a1f36ed6562d"><a href="#" title="宁东发电">宁东发电</a></li>
+                    </ul>
             </div>
-            <div class="form-group ">
-            
-            <div class="form-group ">
-                <label class="w60 control-label left" for="org_id">单位</label>
-                <select name="choose" class="form-control col-sm-1" id="org_id">
+        </div>
+        <div class="wu_main" style="border: 1px solid #ccc; margin-top: 21px;height:900px;">
+            <div class="wu_top0 select" style="height:38px;">
+                <form class="form-inline">
+                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#guize" style="float: left;position: relative; padding: 6px;margin-left:5px;">
+            考核规则
+             </button>
+                    <div class="form-group ">
+                        <label class=" control-label left" for="des">考核项目</label>
+                        <input name="choose" class="form-control col-sm-1" id="des" style="width:60px;">
+
+                    </div>
+                    <div class="form-group ">
+
+                        <div class="form-group ">
+                            <label class="w60 control-label left" for="org_id">单位</label>
+                            <select name="choose" class="form-control col-sm-1" id="org_id">
                    <!--  <option value="" ></option> -->
                     <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
-
                     <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
-                    <option value="">京能集团</option>
+                    <option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
                 </select>
-            </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="startTime" class=" control-label left">考核时间</label>
-                <!--<input class="form-control col-sm-1" type="text" id="startTime" >-->
+                        <div class="form-group">
+                            <label for="startTime" class=" control-label left">考核时间</label>
+                            <!--<input class="form-control col-sm-1" type="text" id="startTime" >-->
+                            <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
+                                <input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:105px" id="startTime">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
 
+                            <input type="hidden" id="dtp_input1" value=""><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime" class=" control-label left" style="margin-left:0;">至</label>
+                            <!-- <input class="form-control col-sm-1" type="text" id="endTime" >-->
+                            <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
+                                <input class="form-control col-sm-12" size="16" type="text" value="" id="endTime" readonly="" style="width:105px">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
 
-                <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
-                    <input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:105px" id="startTime">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                </div>
-
-                <input type="hidden" id="dtp_input1" value=""><br>
-            </div>
-            <div class="form-group">
-                <label for="endTime" class=" control-label left" style="margin-left:0;">至</label>
-                <!-- <input class="form-control col-sm-1" type="text" id="endTime" >-->
-                <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
-                    <input class="form-control col-sm-12" size="16" type="text" value="" id="endTime" readonly="" style="width:105px">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label for="status" class=" control-label left">考核类型</label>
-                <select name="choose" class="form-control col-sm-1" id="type">
-                	<option value ="" selected></option>
-                    <option value="0" >数据有效性</option>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class=" control-label left">考核类型</label>
+                            <select name="choose" class="form-control col-sm-1" id="type" style="width:60px;">
+                  <option value ="" selected></option>
+                    <option value="0">数据有效性</option>
                     <option value="1">参数超限</option>
                     <option value="2">故障</option>
                     <option value="3">定期工作未完成</option>
                     <option value="4">系统维护</option> 
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="status" class=" control-label left">是否考核</label>
-                <select name="choose" class="form-control col-sm-1" id="status">
-                	<option value = ""></option>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label for="status" class=" control-label left">是否考核</label>
+                            <select name="choose" class="form-control col-sm-1" id="status">
+                  <option value = ""></option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
-            </div>
+                        </div>
 
 
 
-            <div class="form-group"  style="margin-left:22px;">
-                <button class ="form-control col-sm-1 btn btn-primary" type="button"  style="position: relative;top: -2px;" id='query'>查询</button>
-            </div>
-        </form>
+                        <div class="form-group" style="margin-left:10px;">
+                            <button class="form-control col-sm-1 btn btn-primary" type="button" style="" id='query'>查询</button>
+                        </div>
+                </form>
 
 
-    </div>
-    <div style="clear:both;"></div>
-
-    <div class="wu_main1">
-    
-    	<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#guize" style="float: left;position: relative;top: -6px; padding: 6px;">
-		  考核规则
-		</button>
-        <p id="lh_name">考核统计</p>
-        <table class="wu_tab1">
-            <thead>
-            <tr>
-                <td>本年考核次数</td>
-                <td>本年考核金额(元)</td>
-                <!--<td>已申诉考核</td>-->
-                <td>本月考核次数</td>
-                <td>本月考核金额(元)</td>
-            </tr>
-
-            </thead>
-            <tbody id="zonglan">
-            <tr>
-                <td>5</td>
-                <td>3</td>
-             <!--   <td>1</td>-->
-                <td>2</td>
-                <td>1</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="select" style="">
-            <form class="form-inline">
-
-                    <button class="form-control col-sm-1 btn btn-default" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">手动添加</button>
-                    <!-- <button class="form-control col-sm-1 btn btn-default" type="button" id="submit" style="margin: 3px 5px 0 ">保存</button> -->
-                 <!--   <button class="form-control col-sm-1 btn btn-default" type="button" id="submit" style="margin: 3px 5px 0 ">删除</button>-->
-                    <button class="form-control col-sm-1 btn btn-default" type="button"  style="margin: 3px 5px 0 " id="ssbtn" data-toggle="modal" data-target="#myModal1">申诉</button>
-                    <button class="form-control col-sm-1 btn btn-default" type="button"  style="margin: 3px 5px 0 "><a href="kaohe_query.html">申诉历史查询</a></button>
-
-            </form>
-
-
-        </div>
-        <table class="wu_tab1 level4">
-
-            <thead>
-                <tr>
-                	
-                	<td style="width:4%;">选择</td>
-                    <td style="width:4%;">序号</td>
-                    <td style="width:38%;">考核项目</td>
-                    <td>考核时间</td>
-                    <td>考核金额(元)</td>
-                    <td>被考核单位</td>
-                    <td>考核类型</td>
-                    <td>是否已申诉</td>
-                    <td>申诉状态</td>
-                    <td>是否考核</td>
-                </tr>
-            </thead>
-            <tbody id="detail">
-               
-            </tbody>
-
-        </table>
-        
-
-        <div class="fengge"></div>
-        <div id="Pagination" class="pagination" style="float:right"><!-- 这里显示分页 --></div>
-    </div>
-
-    <div class="fengge"></div>
-    
-
-
-<!-- Modal add-->
-<div class="modal fade  bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">添加考核信息</h4>
-      </div>
-      <div class="modal-body">
-       	   <div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核项目</span>
-  				<input id="project" type="text" class="form-control" placeholder="请填写考核项目" aria-describedby="basic-addon1">
-			</div>
-			<br/>
-			<!-- <div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">被考核单位</span>
-  				<input id="kh_org_id" type="text" class="form-control" placeholder="请填写被考核的单位" aria-describedby="basic-addon1">
-  				 
-			</div> -->
-			
-			<div class="input-group ">
-                 <span class="input-group-addon" id="basic-addon1">被考核单位</span>
-                <select name="choose" class="form-control col-sm-3" id="kh_org_id">
-                    <option value="" ></option>
-                    <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
-
-                    <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
-                    <option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
-                </select>
-            </div>
-			<br/>
-			<div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核金额(元)</span>
-  				<input id="profit" type="text" class="form-control" placeholder="请填写金额" aria-describedby="basic-addon1">
-			</div>
-			<br/>
-			<div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核时间</span>
-  			    
-                <div class="input-group date input_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;;">
-                    <input id="kh_time" class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:405px;border-radius:0;" >
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
-  				<!-- <input type="text" class="form-control" placeholder="请填写时间" aria-describedby="basic-addon1"> -->
-			</div>
-			<br/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" id="add_submit">提交</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+                <div style="clear:both;"></div>
 
-<!-- Modal 申述-->
-<div class="modal fade  bs-example-modal-lg" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">考核申诉</h4>
-      </div>
-      <div class="modal-body">
-       	   <div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核项目</span>
-  				<div id="" type="text" class="form-control" readonly  aria-describedby="basic-addon1"></div>
-			</div>
-			<br/>
-			<div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核时间</span>
-  				<div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1"></div>
-			</div>
-			<br/>
-			<div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">被考核单位</span>
-  				<div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1"></div>
-			</div>
-			<br/>
-			<div class="input-group">
-  			    <span class="input-group-addon" id="basic-addon1">考核金额(元)</span>
-  				<div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1"></div>
-			</div>
-			
-			<div class="form-group">
-                <label for="message-text" class="control-label" style='margin:10px 10px 10px 3px;font-size:12px;font-weight:normal'>申诉说明:</label>
-                
-                <textarea class="form-control" id="message-text"></textarea>
-             </div>
-			
-			
-			
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="ss_cancel">关闭</button>
-        <button type="button" class="btn btn-primary" id="ss_submit">提交</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<!--规则  -->
-<div class="modal fade" id="guize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document" style="width:1000px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">考核规则</h4>
-      </div>
-      <div class="modal-body">
-        	<img alt="" src="img/khgz.png">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="wu_main1">
+
+                    <!-- Button trigger modal -->
 
 
-<!--<script type="text/javascript" src="js/jquery.js"></script>-->
-<!--<script type="text/javascript" src="js/echarts2.js"></script>-->
+                    <table class=" jt table table-hover table-striped table-bordered" style="border:1px solid #666">
+                        <thead>
+                            <tr>
+                                <td rowspan="2" >单位</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'',true)">合计</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'1',true)">参数超限</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'3',true)">定期工作</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'2',true)">故障</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'0',true)">数据有效性</td>
+                                <td colspan="4" class="link" onclick="query('a61365e2-969d-4352-b3f8-805027ab9f1d',1,'4',true)">系统维护</td>
+                            </tr>
+                            <tr>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                            </tr>
+                        </thead>
+                        <tbody id="jt_huizong">
 
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
-<!--<script type="text/javascript" src="js/wj.js?v3"></script>-->
-<script type="text/javascript" src="js/SimpleTree.js"></script>
-<script type="text/javascript" src="js/jquery.pagination.js"></script>
-<script type="text/javascript" src="js/workflowUtil4.0.js"></script>
-<script type="text/javascript" src="js/Sweefty.js"></script>
-<script type="text/javascript" src="js/moaModal.minified.js"></script>
+
+                        </tbody>
+                    </table>
 
 
-<script src=  "../../webbuilder/controls/ext/ext-all.js" type="text/javascript" ></script>
-<script src=  "../../webbuilder/controls/ext/locale/ext-lang-zh_CN.js" type="text/javascript" ></script>
-<link href=   "../../webbuilder/controls/ext/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+                    <p id="lh_name" class="dc">考核统计</p>
+                    <table class="wu_tab1 tj dc">
+                        <thead>
+                            <tr>
+                                <td>本年考核次数</td>
+                                <td>本年考核金额(元)</td>
+                                <!--<td>已申诉考核</td>-->
+                                <td>本月考核次数</td>
+                                <td>本月考核金额(元)</td>
+                            </tr>
+
+                        </thead>
+                        <tbody id="zonglan">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="select " style="">
+                        <form class="form-inline">
+
+                            <button class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">手动添加</button>
+                            <!-- <button class="form-control col-sm-1 btn btn-default" type="button" id="submit" style="margin: 3px 5px 0 ">保存</button> -->
+                            <!--   <button class="form-control col-sm-1 btn btn-default" type="button" id="submit" style="margin: 3px 5px 0 ">删除</button>-->
+                            <button class="form-control col-sm-1 btn btn-default dc" type="button" style="margin: 3px 5px 0 " id="ssbtn" data-toggle="modal" data-target="#myModal1">申诉</button>
+                            <button class="form-control col-sm-1 btn btn-default" type="button" style="margin: 3px 5px 0 "><a href="kaohe_query.html">申诉历史查询</a></button>
+
+                        </form>
+
+
+                    </div>
+                    <table class="wu_tab1 level4">
+                        <thead>
+                            <tr>
+
+                                <td style="max-width:4%;">选择</td>
+                                <td style="max-width:4%;">序号</td>
+                                <td style="max-width:31%;">考核项目</td>
+                                <td style="max-width:8%;">考核时间</td>
+                                <td style="max-width:22%;">考核原因</td>
+                                <td style="max-width:5.5%;">考核金额(元)</td>
+                                <td style="max-width:5%;">被考核单位</td>
+                                <td style="max-width:5%;">考核类型</td>
+                                <td style="max-width:5%;">是否已申诉</td>
+                                <td style="max-width:4%;">申诉状态</td>
+                                <td style="max-width:4%;">是否考核</td>
+                            </tr>
+                        </thead>
+                        <tbody id="detail">
+                        </tbody>
+                    </table>
+
+                    <div href="#" style="float: left;font-size: 18px;margin-right:20px;">考核条目数&nbsp;&nbsp;<span class="badge" style="font-size: 18px;"></span></div>
+                    <div href="#" style="float: left;font-size: 18px;">考核金额（元)&nbsp;&nbsp;<span class="badge" style="font-size: 18px;"></span></div>
+
+
+                    <div id="Pagination" class="pagination" style="float:right">
+                        <!-- 这里显示分页 -->
+                    </div>
+                    <div class="fengge" style="clear:both"></div>
+                </div>
+
+                <div class="fengge"></div>
+
+            </div>
+
+            <!-- Modal add-->
+            <div class="modal fade  bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">添加考核信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核项目</span>
+                                <input id="project" type="text" class="form-control" placeholder="请填写考核项目" aria-describedby="basic-addon1">
+                            </div>
+                            <br/>
+                            <!-- <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">被考核单位</span>
+                                    <input id="kh_org_id" type="text" class="form-control" placeholder="请填写被考核的单位" aria-describedby="basic-addon1">
+                                    
+                                </div> -->
+
+                            <div class="input-group ">
+                                <span class="input-group-addon" id="basic-addon1">被考核单位</span>
+                                <select name="choose" class="form-control col-sm-3" id="kh_org_id">
+                                    <option value="" ></option>
+                                    <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
+
+                                    <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
+                                    <option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核金额(元)</span>
+                                <input id="profit" type="text" class="form-control" placeholder="请填写金额" aria-describedby="basic-addon1">
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核时间</span>
+
+                                <div class="input-group date input_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;;">
+                                    <input id="kh_time" class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:405px;border-radius:0;">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                </div>
+                                <!-- <input type="text" class="form-control" placeholder="请填写时间" aria-describedby="basic-addon1"> -->
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="add_submit">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal 申述-->
+            <div class="modal fade  bs-example-modal-lg" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">考核申诉</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核项目</span>
+                                <div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1" style='height:auto'></div>
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核时间</span>
+                                <div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1"></div>
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">被考核单位</span>
+                                <div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1"></div>
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">考核金额(元)</span>
+                                <div id="" type="text" class="form-control" readonly aria-describedby="basic-addon1" style="height:auto"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message-text" class="control-label" style='margin:10px 10px 10px 3px;font-size:12px;font-weight:normal'>申诉说明:</label>
+
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
 
 
 
-<script type="text/javascript">
-function clickCheck(obj)
-{
-/* 	var $this = obj;
-	console.log($(obj).parent().siblings().eq(4));
-	var status = $(obj).parent().siblings().eq(7).attr("data-status");
-	console.log(status+"-----");
-	if(status=='D'||status=="E"||status=="C")
-	{
-		Ext.Msg.alert('警告','只可申诉未申诉过的记录该条记录不符合申诉状态',function(e){$("#ss_cancel").click();});
-		$(obj).prop("checked",false);
-	} */
-}
-var newflag=true;
-var rootPath = $('#url').val();
-    window.onload = function () {      
-        if (!window.location.origin) {
-            window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        }
-        var ctx = window.location.origin;
-        //申诉添加
-        $("#add_submit").on("click",function(){
-        	var project = $("#project").val();
-        	var time    = $("#kh_time").val();
-        	var org_id  = $("#kh_org_id").val();
-        	var profit  = $("#profit").val();
-        	var url = ctx+"/jsjd/getKaoheAction.do?method=addKaohe"
-        	$.ajax({
-        		url:url,
-        		type:"post",
-        		data:{
-        			org_id:org_id,
-        			info:project,
-        			date:time,
-        			amount:Number(profit),
-        			user_id:user_id
-        		},
-        		success:function(data){
-        			flag = true;
-        			kaohe_detail(org_id_orgin,1);
-        			alert("成功了")
-        		}
-        		
-        	})  
-        });
-        //申述点击
-        $("#ssbtn").click(function(){
-        	var control = $("#myModal1").find(".form-control");
-        	 control.eq(4).val("");
-        	 var project = null;
-        	 var time    = null;
-        	 var profit  = null;
-        	 var org     = null;
-        	 var id      = null;
-        	 var checked = $(".tdCheck:checked");
-        	 console.log("checked="+checked.length);
-        	 if(checked.length  == 0)
-        	 {
-        		 Ext.Msg.alert('警告','请选择一条记录',function(e){$("#ss_cancel").click();});
-	             return ; 
-        	 }
-        	 if(checked.length  >1)
-        	 {
-        		 Ext.Msg.alert('警告','请只选择一条记录',function(e){$("#ss_cancel").click();});
-	             return ; 
-        	 }
-        	 $(".tdCheck").each(function(){
-             	if(this.checked){
-             		$("#ssbtn").removeClass("disabled");
-             		  id = this.id;//获取申诉本条的id
-             		//获取本条数据的信息
-             		 project = $(this).parent().siblings().eq(1).html();
-             		 time = $(this).parent().siblings().eq(2).html();
-             		 profit =$(this).parent().siblings().eq(3).html();
-             		 org = $(this).parent().siblings().eq(4).html();
-             		//添加本条信息到弹出modal
-             		control.eq(0).html(project).attr("readonly","readonly");
-             		control.eq(1).html(time).attr("readonly","readonly");
-             		control.eq(2).html(org).attr("readonly","readonly");
-             		control.eq(3).html(profit).attr("readonly","readonly");
-             	}});
-             			/*
-             			ASS_INF_CON_NAME:考核内容名称
-             			ASS_INF_ID：考核通知单号
-             			ASS_INF_INFORMATION:通知内容
-             			ASS_INF_ORGS_NAME:考核电厂名称
-             			*/
-               
-               var json={ASS_INF_INFORMATION:project,ASS_INF_ID:id,ASS_INF_ORGS_NAME:org};
-       			   console.log(json); 
-       				$("#ss_submit").click(function(){
-       				   var app_case = $("#myModal1").find("textarea").val();//获取申诉内容
-       	               if(app_case.length==0)
-       	               {
-       	            	   Ext.Msg.alert('警告','申诉说明必须填写');
-       	            	   return ;
-       	               }
-             		startAndSubmitByEntityCode('KHSS',json,function(e){
-       				   if(e.flag==1)
-       				   {
-       				       console.log(e);
-       					   alert(e.msg);
-       				   }else{ 
-       					    var inst_code = e.instanceCode;
-       						var curWwwPath = window.document.location.href;
-       						var pathName = window.document.location.pathname;
-       						var pos = curWwwPath.indexOf(pathName);
-       						var localhostPath = curWwwPath.substring(0, pos);
-       						var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-       						var rootPath = localhostPath + projectName;
-       						
-       	             		console.log(control.eq(4));
-       	             		console.log("app_case="+app_case);
-       				        Ext.Ajax.request({
-       				          url: rootPath + '/main?xwl=240G5CGHTRGW',
-       				          params: {inst_code:inst_code,app_case:app_case,id:id},
-       				         // params: {id:ids,INST_CODE_JZQT:inst_code,qt_desc:qt_desc},
-       				          success: function(response){
-       				         	console.log({inst_code:inst_code,app_case:app_case,id:id});
-       				           console.log(Ext.Msg.alert('提示','流程提交成功!'));
-       				            $("#ss_cancel").click();
-                                   //提交后就变成审批中的状态
-       				           /**$.ajax({
-       				        		url : "../portal/upateAduitStatus.do",
-       				        		async: false,
-       				        		type : "POST", 
-       				        		data: {id:ids},
-       				        		success : function(data) {
-       				        			
-       				        		}
-       				        	})**/
-       				            
-       				          },
-       				          failure:function(response){
-       				        	  alert(response);
-       				          }
-       				        });
-       				       }
-       				 });
-             		
-       				});
-             	}
-        );
-        
-        
-        
-		//$('input:radio:last').attr('checked', 'true');
-        if(localStorage.getItem("orgid_baobiao")){
-            var org_id_orgin = localStorage.getItem("orgid_baobiao");
-            snyc(org_id_orgin);
-        }else{
-            alert("请返回到首页")
-        }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="ss_cancel">关闭</button>
+                            <button type="button" class="btn btn-primary" id="ss_submit">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--规则  -->
+        <div class="modal fade" id="guize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style="width:1169px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">考核规则</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img alt="" src="img/khgz.png">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        
-       
-        
-        
-      
-        kaohe_zonglan(org_id_orgin);
-      // console.log(org_id_orgin)
-        function kaohe_zonglan(org_id){
-            var url= ctx+"/jsjd/getKaoheAction.do?method=getTongJi&org_id="+org_id;
-            $.ajax({
-                url:url,
-                dataType:"json",
-                success:function(data){
-                    var d = data;
-                    var arr=[d.yearnum,d.yearAmount,d.monthnum,d.monthAmount];
-                    $("#zonglan td").each(function(i){
-                        $(this).html(arr[i]);
-                    })
-                    
 
-                }
-            })
-        };
-        var initPagination = function(page) {
-            var num_entries = page;
-            // 创建分页
-            $("#Pagination").pagination(num_entries, {
-                num_edge_entries: 1, //边缘页数
-                num_display_entries: 4, //主体页数
-                callback: pageselectCallback,
-                items_per_page: 1, //每页显示1项
-                prev_text: "前一页",
-                next_text: "后一页"
-            });
-        };
+        <!--<script type="text/javascript" src="js/jquery.js"></script>-->
+        <!--<script type="text/javascript" src="js/echarts2.js"></script>-->
 
-      
-        function pageselectCallback(page_index, jq){
-            kaohe_detail(org_id_orgin,page_index + 1);
-            return false;
-        }
-      
-        var flag = true;
-        function kaohe_detail(org_id,pageNum){
+        <script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+        <!--<script type="text/javascript" src="../js/bootstrap-table.min.js"></script>-->
+        <script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+        <script type="text/javascript" src="js/SimpleTree.js"></script>
 
-            var url= ctx+"/jsjd/getKaoheAction.do?method=getKaoheShow&org_id="+org_id;
-            $.ajax({
-                url:url,
-                type:"post",
-                dataType:"json",
-                data:{
-                    pageSize:5,
-                    pageNum:pageNum
-                },
-                success:function(data){
-                    var page = Math.ceil(data.total/5)
-                   // console.log(page)
-                    /* if(!page){
-                		$("#Pagination").hide();
-                	}else{
-                		$("#Pagination").show();
-        			} */
-                    $("#detail").html(prepare(data.pagedata));
-                    if(flag||newflag){
-                        initPagination(page);//分页加载
+        <script type="text/javascript" src="js/jquery.pagination.js"></script>
+        <script type="text/javascript" src="js/workflowUtil4.0.js"></script>
+        <script type="text/javascript" src="js/Sweefty.js"></script>
+        <script type="text/javascript" src="js/moaModal.minified.js"></script>
+        <script src="../../webbuilder/controls/ext/ext-all.js" type="text/javascript"></script>
+        <script src="../../webbuilder/controls/ext/locale/ext-lang-zh_CN.js" type="text/javascript"></script>
+        <link href="../../webbuilder/controls/ext/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="js/kaohe.js"></script>
+        <script type="text/javascript">
+            window.onload = function() {
+                var stree = $(".st_tree");
+                stree.SimpleTree({
+                    click: function(a) {
+                        sessionStorage.setItem("type_outer", '');
+                        newflag = true;
+                        org_id_orgin = $(a).parent().attr("title");
+                        snyc(org_id_orgin)
                     }
-                    
-                    flag=false;
-                    newflag=false;
-                }
-            })
-
-        }
-        function prepare(data){
-            var htmlArray = [];
-            for(var i= 0;i<data.length;i++){
-                var d=data[i];
-                var j = i+1;
-                htmlArray.push("<tr><td><input type='checkbox' onClick='clickCheck(this)'  class='tdCheck' id="+d.id+"></td><td>"+j+"</td><td style='text-align:left;'>"+d.infomation+"</td><td>"+d.date+"</td><td>"+d.amount+"</td><td>"+d.orgName+"<td>"+d.type+"</td><td>"+ds_fixed(d.tag)+"</td><td data-status="+d.status+">"+ds_fixed(d.status)+"</td><td>"+d.key+"</td></tr>");
-            }
-            return htmlArray.join("");
-
-        }
-
-       // 
-		var qureyflag;
-        $("#query").click(function(){
-        	qureyflag = true;
-            query(org_id_orgin,1);
-            if(org_id_orgin=="a61365e2-969d-4352-b3f8-805027ab9f1d"){
-            	org_id_orgin=""
-            }
-            kaohe_detail(org_id_orgin,1);                         
-        })
-        //console.log(org_id_orgin);
-        $("#query").click();
-        function query(orgid,pageNum){
-            var org_id    = $("#org_id").val();
-            var startTime = $("#startTime").val();
-            var endTime   = $("#endTime").val();
-            var type      = $("#type").val();
-            var status    = $("#status").val(); 
-            var dis       = $("#des").val();    
-            if(!org_id){
-            	org_id=orgid;
-            }
-            //console.log(pageNum);
-
-           var url= ctx+"/jsjd/getKaoheAction.do?method=getKaoheShow&org_id="+org_id;
-            $.ajax({
-                url:url,
-                type:"post",
-                dataType:"json",
-                data:{
-                    pageSize:5,
-                    pageNum:pageNum,
-                    startTime:startTime,
-                    endTime:endTime,
-                    type:type,
-                    key:status,
-                    dis:dis
-                },
-                success:function(data){
-                    var page = Math.ceil(data.total/5)
-                    console.log(page)
-                    $("#detail").html(prepare(data.pagedata));
-					console.log(qureyflag)
-                    if(qureyflag){
-                    	 console.log(page)
-                        initPagination(page);//分页加载
-                    }
-                    qureyflag=false;   
-                }
-            })
-
-        }
-        var initPagination = function(page) {
-            var num_entries = page;
-            // 创建分页
-            $("#Pagination").pagination(num_entries, {
-                num_edge_entries: 1, //边缘页数
-                num_display_entries: 4, //主体页数
-                callback: pageselectCallback1,
-                items_per_page: 1, //每页显示1项
-                prev_text: "前一页",
-                next_text: "后一页"
-            });
-        };
-        function pageselectCallback1(page_index, jq){
-        	
-        	var org_id    = $("#org_id").val();
-            query(org_id,page_index + 1);
-            return false;
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-
-        $('.form_datetime').datetimepicker({
-            weekStart: 1,
-            todayBtn:  1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 4,
-            minView: 2,
-            forceParse: 0,
-            //format: "yyyy-mm"
-            format: "yyyy-mm-dd"
-        });
-        $('.input_datetime').datetimepicker({
-            weekStart: 1,
-            todayBtn:  1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 4,
-            minView: 2,
-            forceParse: 0,
-            //format: "yyyy-mm"
-            format: "yyyy-mm-dd"
-        });
-      
-        $('.button').modal({
-            target: '#modal',
-            speed: 500,
-            easing: 'easeInOutBounce',
-            animation: 'top',
-            position: '200px auto',
-            overlayClose: true,
-            on: 'click'
-        });
-
-       
-        var stree = $(".st_tree");
-        stree.SimpleTree({
-            click: function (a) {
-            	newflag=true;
-                org_id_orgin = $(a).parent().attr("title");
-                snyc(org_id_orgin)
-               /* if(org_id_orgin == '472212af-1977-462b-a74a-a1f36ed6562d'){
-                    $("#org_id option").each(function(){
-                        if(this.value ==  "472212af-1977-462b-a74a-a1f36ed6562d"){
-                            this.selected = "selected"
-                        }
-                        
-                    })
-                }*/
-
-                kaohe_zonglan(org_id_orgin);
-                kaohe_detail(org_id_orgin,1);
-
-            }
-        })
-        
-            function snyc(orgid){
-           		//console.log(orgid);
-                $("#org_id option").each(function(){
-                    if(this.value ==  orgid){
-                        this.selected = "selected"
-                    }
-                     if(orgid =="a61365e2-969d-4352-b3f8-805027ab9f1d" ){
-                    	this.selected = "selected"
-                    }
-                     
-                    
                 })
-
             }
-           
-        
-        
-        function ds_fixed(data){
-            
-        	switch (data){
-        	
-        	case "N": 
-        		data = "否"; 
-        		break;
-        	case "Y":
-        		data = "是";
-        		break;
-        	case '1':
-        		data = "未申诉";
-        		break;
-        	case 'C':
-        		data = "审核中";
-        		break;
-        	case 'E':
-        		data = "<font color='green'>审核通过</font>";
-        		break;
-        	case 'D':
-        		data = "<font color='red'>驳回</font>";
-        		break;
-        	}
-        	return data;
-        }  
+        </script>
+    </body>
 
-
-    }
-    
-
-</script>
-</body>
 </html>

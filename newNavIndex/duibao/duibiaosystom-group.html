@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>京能集团实时技术监督生产管理系统</title>
+
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+    <link type="text/css" rel="stylesheet" href="css/news.css"/>
+    <script src="../../common/js/jquery.min.js"></script>
+<body>
+<div class="wu_top">
+    <div class="fengge"></div>
+</div>
+
+<div class="" style=" margin-top: 0px;height:900px;">
+    <div class="wu_main1">
+        <div class="select " style="">
+            <form class="form-inline"> 
+                    <button id="tj" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">发布</button>
+                    <div class="form-group"  style="margin-left:30px;margin-right:50px;float:right;">
+                        <button class ="form-control col-sm-1 btn btn-primary" type="button"  style="" id='query'>查询</button>
+                    </div>
+                    <div class="form-group" style="float:right;">
+                        <label for="startTime" class=" control-label left"style="margin-left:100px;">时间查询</label>
+                        <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
+                            <input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:150px" id="startTime">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+
+                        <input type="hidden" id="dtp_input1" value=""><br>
+                    </div>
+                    
+            </form>
+        </div>
+        <table class="wu_tab1 level4" >
+            <thead>
+                <tr>
+                    <td style="max-width:3%;"></td>
+                    <td style="max-width:3%;">序号</td>
+                    <td style="max-width:30%;">编号</td>
+                    <td style="max-width:10%;">季度</td>
+                    <td style="max-width:30%;">描述</td>
+                    <td style="max-width:5%;">发布状态</td>
+                    <td style="max-width:5%;display:none">创建时间</td>
+                </tr>
+            </thead>
+            <tbody id="detail">             
+            </tbody>
+        </table>
+         <div class="fengge" style="clear:both"></div>  
+    </div>
+
+    <div class="fengge"></div>
+    
+</div>
+
+<script>
+    $(document).ready(function(){
+        //使用datetimepicker
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy',  
+            weekStart: 1,  
+            autoclose: true,  
+            startView: 4,  
+            minView: 4,  
+            forceParse: false,  
+            language: 'zh-CN'  
+        });
+    })
+</script>
+<script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.pagination.js"></script>
+<script src=  "../../webbuilder/controls/ext/ext-all.js" type="text/javascript" ></script>
+<script src=  "../../webbuilder/controls/ext/locale/ext-lang-zh_CN.js" type="text/javascript" ></script>
+<link href=   "../../webbuilder/controls/ext/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/duibiaosys-group.js"></script>
+<script type="text/javascript" src="../kaohe/js/SimpleTree.js"></script>
+<script type="text/javascript" src="../kaohe/js/jquery.pagination.js"></script></body>
+<script type="text/javascript" src="../kaohe/js/workflowUtil4.0.js"></script></html>
+<script type="text/javascript" src="../kaohe/js/Sweefty.js"></script>
+<script type="text/javascript" src="../kaohe/js/moaModal.minified.js"></script>

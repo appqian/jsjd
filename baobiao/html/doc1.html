@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--为了让 IE 浏览器运行最新的渲染模式-->
+    <meta name="renderer" content="webkit"><!--让国产浏览器启用高速模式-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>报表</title>
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+    <!--<link rel="stylesheet" href="../css/common.css">-->
+    <link rel="stylesheet" href="../css/common1.css">
+
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css"/>
+    <script type="text/javascript" src="../js/SimpleTree.js"></script>
+    
+
+</head>
+<body>
+<div class="wu_left">
+    <div class="st_tree">
+        <ul>
+            <li><a href="#">集团报表</a></li>
+
+            <ul show="true">
+            
+                <li><a  href="#">振动监督报表</a></li>
+                <ul show="false">
+                    <li><span   id="I8a8a8aa04302553e0152434502a71010">主机振动报表</a></li>
+                </ul>
+                <li><a href="#">金属监督报表</a></li>
+                <ul show="false">
+                    <li>
+                        <span  id="I4028e4f363d6611a0152676d92461a32">火力发电厂金属技术监督报表</a>
+                    </li>
+
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a0152675a76f81684">金属超温超压报表</a>
+                    </li>
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a01526765f343191b">受热面超温统计表</a>
+                    </li>
+                </ul>
+                
+                <li><a href="#">节能监督报表</a></li>
+                <ul show="false">
+                    <li><span  target="_blank"  id="I4028e4f355e85dea0153647e2e586538">节能月报空冷</a></li>
+                    <li><span  target="_blank" id="I4028e4f355e85dea01535f7f387625c4">节能月报水冷</a></li>
+
+                </ul>
+                <li><a href="#" >化学监督报表</a></li>
+                <ul show="false">
+                    <li><span  id="I8a8a8aa03a95a71201523e1b424a215e">变压器油色谱及理化化验报告</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523e32e3e9283d">大宗材料消耗报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523eb7741f3c08">锅炉补给水质量月报</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523ee789914831">化学在线仪表的水汽质量合格率统计报表</a></li>
+
+                    <li><span  id="I8a8a8aa03a95a71201523f16c9025e67">化验水汽质量合格率统计报表（二）</a></li>
+                    <li><span  id="I4028e4f306ac6bee015341143150306b">机组水汽合格率汇总报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f12b7e75db9">精处理水质监测</a></li>
+                    <li><span  id="I4028e4f363d6611a01526768a9671976">抗燃油监督报表</a></li>
+
+                    <li><span  id="I4028e4f363d6611a0152675266ea1599">汽轮机油监督报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523eec9a1e4c14">氢气质量统计报表</a></li>
+                    <li><span  id="I4028e4f3045da63e015384769dcc078e">燃油质量月报表</a></li>
+                    <li><span  id="I4028e4f35e84c1190152630c70404953">入炉燃煤质量报表</a></li>
+
+                    <li><span  id="I4028e4f379c0425401540330fa6a1e9f">水处理及制氢主要运行参数监测</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f8ddacd7fdd">水处理自用水率统计月报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523fc7b3e208a4">水汽平衡统计报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523e1b72322161">循环冷却水化验报告单</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f64007a7473">油耗监督报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f347e0867ed">在线仪表三率统计表</a></li>
+                </ul>         
+                <li><a href="#">环保监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span  target="_blank" id="I8a8a8aa04302553e015243e9dac833b4">环保指标报表</a></li>
+                </ul>
+                <li><a href="#">热工监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span   id="I4028e4f306ac6bee015331fb1a7f2ebe">技术监督报表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523fb64cce045b">热工保护装置投入情况统计表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523fcda9470943">热工保护装置完好率情况统计表</a></li>
+                    <li><span   id="I8a8a8aa04302553e0152431de3ac07dc">热工主要检测参数合格率统计表</a></li>
+
+                    <li><span   id="I8a8a8aa04302553e01524345c5c71040">热工自动装置完好率情况统计表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523f7a71a47a84">数采合格率统计</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523f88a07e7ef7">主要仪表抽检合格率统计表</a></li>
+                    <li><span   id="I8a8a8aa04302553e01524330092f0ab9">自动动调节投入情况统计表</a></li>
+
+                </ul>
+              
+                <li><a href="#" >绝缘监督报表</a></li>
+                <ul show ="false">
+                    <li><span  id="I4028e4f30275d574015286238d973b80" >绝缘监督报表</a></li>
+                </ul>
+                
+                <li><a  href="#">励磁监督报表</a></li>
+                <ul show="false">
+                    <li><span  target="_blank" id="I8a8a8aa07e099ad7015205e50db27a81">发电机励磁系统监督报表</a></li>
+                </ul>
+
+                <li><a href="#">继电保护监督报表</a></li>
+                <ul show="false">
+                    <li><span   id="I4028e4f363d6611a0152675a0b91165d" >110KV及以上系统故障及保护动作情况报表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523e21c73521ee" >电力继电保护与安全自动装置动作统计分析报表</a></li>
+                    <li><span   id="I4028e4f363d6611a0152680662082069" >继电保护及安全自动装置年度检验计划表</a></li>
+                    <li><span   id="I4028e4f363d6611a015268069363206c" >继电保护投入率报表</a></li>
+
+
+                </ul>
+                
+                <li><a href="#">电能质量监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab26e403a9">电能质量AVC报表</a></li>
+                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab54b503ac">电能质量报表</a></li>
+                </ul>
+                
+                <li><a href="#">电测监督报表</a></li>
+                <ul show = 'false'>
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a015267329e5909b5">电测技术监督工作年终报告</a></li>
+                    <li>
+                        <span target="_blank" id="I8a8a8aa0308027e3015233aafc1b03a6">电测仪器仪表检验报告</a>
+                    </li>
+                </ul>
+                 <li><a href="#">压力容器报表</a></li>
+                <ul show="false">
+                    <li><span id="I4028e4f373859fcb0155fd16ab8d565c">压力容器定检/年检情况表</span></li>
+                    <li><span id="I4028e4f373859fcb0155fd2768395986">压力容器管理表</span></li>
+                </ul>
+            
+                
+
+            </ul>
+
+
+
+        </ul>
+        <ul>
+            <li><a href="#">生产报表</a></li>
+            <ul show="true">
+                <li>
+                    <span id="I4028e4f30119d42d015581c17cef36b2">生产日报汇总</a>
+                </li>
+                <li>
+                    <span id="I4028e4f30b366d2901528ca3dd783064">生产周报汇总</a>
+                </li>
+                <li>
+                    <span id="I8a8a8aa04302553e01524399691e1ca3">生产月报汇总</a>
+                </li>
+                <li>
+                    <span id="I4028e4f30b366d2901528c82a05e268f">生产年报汇总</a>
+                </li>
+
+            </ul>
+        </ul>
+                <ul>
+            <li><a href="#">电厂报表</a></li>
+
+            <ul show="true">
+            
+                <li><a  href="#">振动监督报表</a></li>
+                <ul show="false">
+                    <li><span   id="I8a8a8aa04302553e0152434502a71010">主机振动报表</a></li>
+                </ul>
+                <li><a href="#">金属监督报表</a></li>
+                <ul show="false">
+                    <li>
+                        <span  id="I4028e4f363d6611a0152676d92461a32">火力发电厂金属技术监督报表</a>
+                    </li>
+
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a0152675a76f81684">金属超温超压报表</a>
+                    </li>
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a01526765f343191b">受热面超温统计表</a>
+                    </li>
+                </ul>
+                
+                <li><a href="#">节能监督报表</a></li>
+                <ul show="false">
+                    <li><span  target="_blank"  id="I4028e4f355e85dea0153647e2e586538">节能月报空冷</a></li>
+                    <li><span  target="_blank" id="I4028e4f355e85dea01535f7f387625c4">节能月报水冷</a></li>
+
+                </ul>
+                <li><a href="#" >化学监督报表</a></li>
+                <ul show="false">
+                    <li><span  id="I8a8a8aa03a95a71201523e1b424a215e">变压器油色谱及理化化验报告</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523e32e3e9283d">大宗材料消耗报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523eb7741f3c08">锅炉补给水质量月报</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523ee789914831">化学在线仪表的水汽质量合格率统计报表</a></li>
+
+                    <li><span  id="I8a8a8aa03a95a71201523f16c9025e67">化验水汽质量合格率统计报表（二）</a></li>
+                    <li><span  id="I4028e4f306ac6bee015341143150306b">机组水汽合格率汇总报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f12b7e75db9">精处理水质监测</a></li>
+                    <li><span  id="I4028e4f363d6611a01526768a9671976">抗燃油监督报表</a></li>
+
+                    <li><span  id="I4028e4f363d6611a0152675266ea1599">汽轮机油监督报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523eec9a1e4c14">氢气质量统计报表</a></li>
+                    <li><span  id="I4028e4f3045da63e015384769dcc078e">燃油质量月报表</a></li>
+                    <li><span  id="I4028e4f35e84c1190152630c70404953">入炉燃煤质量报表</a></li>
+
+                    <li><span  id="I4028e4f379c0425401540330fa6a1e9f">水处理及制氢主要运行参数监测</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f8ddacd7fdd">水处理自用水率统计月报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523fc7b3e208a4">水汽平衡统计报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523e1b72322161">循环冷却水化验报告单</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f64007a7473">油耗监督报表</a></li>
+                    <li><span  id="I8a8a8aa03a95a71201523f347e0867ed">在线仪表三率统计表</a></li>
+                </ul>         
+                <li><a href="#">环保监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span  target="_blank" id="I8a8a8aa04302553e015243e9dac833b4">环保指标报表</a></li>
+                </ul>
+                <li><a href="#">热工监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span   id="I4028e4f306ac6bee015331fb1a7f2ebe">技术监督报表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523fb64cce045b">热工保护装置投入情况统计表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523fcda9470943">热工保护装置完好率情况统计表</a></li>
+                    <li><span   id="I8a8a8aa04302553e0152431de3ac07dc">热工主要检测参数合格率统计表</a></li>
+
+                    <li><span   id="I8a8a8aa04302553e01524345c5c71040">热工自动装置完好率情况统计表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523f7a71a47a84">数采合格率统计</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523f88a07e7ef7">主要仪表抽检合格率统计表</a></li>
+                    <li><span   id="I8a8a8aa04302553e01524330092f0ab9">自动动调节投入情况统计表</a></li>
+
+                </ul>
+              
+                <li><a href="#" >绝缘监督报表</a></li>
+                <ul show ="false">
+                    <li><span  id="I4028e4f30275d574015286238d973b80" >绝缘监督报表</a></li>
+                </ul>
+                
+                <li><a  href="#">励磁监督报表</a></li>
+                <ul show="false">
+                    <li><span  target="_blank" id="I8a8a8aa07e099ad7015205e50db27a81">发电机励磁系统监督报表</a></li>
+                </ul>
+
+                <li><a href="#">继电保护监督报表</a></li>
+                <ul show="false">
+                    <li><span   id="I4028e4f363d6611a0152675a0b91165d" >110KV及以上系统故障及保护动作情况报表</a></li>
+                    <li><span   id="I8a8a8aa03a95a71201523e21c73521ee" >电力继电保护与安全自动装置动作统计分析报表</a></li>
+                    <li><span   id="I4028e4f363d6611a0152680662082069" >继电保护及安全自动装置年度检验计划表</a></li>
+                    <li><span   id="I4028e4f363d6611a015268069363206c" >继电保护投入率报表</a></li>
+
+
+                </ul>
+                
+                <li><a href="#">电能质量监督报表</a></li>
+                <ul show = 'false'>
+                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab26e403a9">电能质量AVC报表</a></li>
+                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab54b503ac">电能质量报表</a></li>
+                </ul>
+                
+                <li><a href="#">电测监督报表</a></li>
+                <ul show = 'false'>
+                    <li>
+                        <span  target="_blank" id="I4028e4f363d6611a015267329e5909b5">电测技术监督工作年终报告</a></li>
+                    <li>
+                        <span target="_blank" id="I8a8a8aa0308027e3015233aafc1b03a6">电测仪器仪表检验报告</a>
+                    </li>
+                </ul>
+                 <li><a href="#">压力容器报表</a></li>
+                <ul show="false">
+                    <li><span id="I4028e4f373859fcb0155fd16ab8d565c">压力容器定检/年检情况表</span></li>
+                    <li><span id="I4028e4f373859fcb0155fd2768395986">压力容器管理表</span></li>
+                </ul>
+            
+                
+
+            </ul>
+
+
+
+        </ul>
+    </div>
+</div>
+
+<div class="container h670">
+    <div class="titlebaobiao">
+        <div class="subtitle" style="margin-right:33px"><span>电厂报表</span></div>
+        <div class="subtitle" style="margin-right:83px"><span>集团报表</span></div>
+    </div>
+    <!--<a class="btn btn-default" style="position: absolute;left: 74%;top:48px;"  href="jtindex.html">查看集团报表</a>
+    <a class="btn btn-default"  style="position: absolute;left: 74%;top: 90px;" href="zonglan.html">返回</a>-->
+    <div class="row">
+        <div class="left baobiao_left">
+            <div class="baobiao_left1 right">
+                <span>监督</span><br/><span>报表</span>
+            </div> 
+            <div class="baobiao_left1 right" style="padding:53px 0 48px 0;">
+                <span>生产</span><br/><span>报表</span>
+            </div>
+        </div>
+        <div class="left baobiao_right">
+            <div class="right_top">
+                <div class="baobiao_right1 left">
+
+                </div>
+            </div>
+            <div class="right_right " style="margin-left:0px">
+                <table style="border-spacing: 15px 29px;">
+                    <tbody>
+                        <tr>
+                            <td><a class="btn btn-default" href="jtzdjd.html">振动监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jtjsjd.html">金属监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jtjnjd.html">节能监督报表</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="jthxjd.html">化学监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jthbjd.html">环保监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jtrgjd.html">热工监督报表</a></td>
+                            
+
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="jtjyjd.html" >绝缘监督报表</a></td>
+                            <td><a class="btn btn-default" href="jtlcjd.html">励磁监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jtjdbhjd.html">继保监督报表</a></td>
+                            
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="jtdnjd.html">电能监督报表</a></td>
+                            
+                            <td><a  class="btn btn-default" href="jtdcjd.html">电测监督报表</a></td>                            
+                            <td><a  class="btn btn-default" href="jtylrq.html">压力容器报表</a></td>    
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="right_right " style="float:right">
+                <table style="border-spacing: 15px 29px;">
+                    <tbody>
+                        <tr>
+                            <td><a class="btn btn-default" href="zdjd.html">振动监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jsjd.html">金属监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jnjd.html">节能监督报表</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="hxjd.html">化学监督报表</a></td>
+                            <td><a  class="btn btn-default" href="hbjd.html">环保监督报表</a></td>
+                            <td><a  class="btn btn-default" href="rgjd.html">热工监督报表</a></td>
+                            
+
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="jyjd.html" >绝缘监督报表</a></td>
+                            <td><a class="btn btn-default" href="lcjd.html">励磁监督报表</a></td>
+                            <td><a  class="btn btn-default" href="jdbhjd.html">继保监督报表</a></td>
+                            
+                        </tr>
+                        <tr>
+                            <td><a  class="btn btn-default" href="dnjd.html">电能监督报表</a></td>
+                            
+                            <td><a  class="btn btn-default" href="dcjd.html">电测监督报表</a></td>                            
+                            <td><a  class="btn btn-default" href="ylrq.html">压力容器报表</a></td>    
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="right_top">
+                <div class="baobiao_right1 left">
+
+                </div>
+            </div>
+
+            <div class="right_right" style="height: 180px;margin: 13px 0 0 0">
+                <table class="table2" style="border-spacing: 15px 24px;">
+                    <tr>
+                        <td>
+                            <a  class="btn btn-default"  href="scbb.html">生产日报汇总</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default"  href="sczb.html">生产周报汇总</a>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <a  class="btn btn-default"  href="scyb.html">生产月报汇总</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default"  href="scnb.html">生产年报汇总</a>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/base.js"></script>
+
+</body>
+</html>

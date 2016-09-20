@@ -352,7 +352,10 @@ function jtview(){
 	$('.dc').hide();
 	$('.jt').show();
 	$(".wu_main").css({"marginTop":22});
-
+	//集团级返回到首页 --return 
+	$('#fanhui_test').unbind('click').click(function (){
+		 window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
 	//默认加载 集团 全部
 	$('#org_id option').each(function(){
 		if(this.value == ""){							
@@ -366,6 +369,8 @@ function jtview(){
 	})
 	//年份清空
 	$("#annual").val("")
+	//集团name 清空
+	$("#jt_name").val("");
 	//集团汇总	
 	$("#lh_name").html("京能集团")
 	jt_summary()
@@ -376,7 +381,7 @@ function jtview(){
 //集团查询
 $("#jt_submit").click(function(){
 	jt_detail(1);
-	jt_query=true;
+	jt_query=true; 
 });
 $('#org_id').change(function(){
 	var org_id = $(this).val();
@@ -384,7 +389,7 @@ $('#org_id').change(function(){
 })
 //返回按钮处理 -- 处理在所在电厂级和集团级
 //-- todo 如果在机组和名称层级处理
-$("#fanhui_test").click(function(){
+/*$("#fanhui_test").click(function(){
 	var now_org_name = $('.curSelectedNode').attr('title')
 	switch (now_org_name) {
 		case "京能集团":
@@ -399,7 +404,7 @@ $("#fanhui_test").click(function(){
 		default:
 			break;
 	}
-})
+})*/
 
 
 //处理函数 --start
@@ -443,7 +448,7 @@ function ajax(url, tableId, columns,sentData,type) {
 			if( tableId == 'jt_detail'){				 	
             	if(jt_query){
 					var page = Math.ceil(data.total/10)
-    				jt_lh_pagenation(page);//分页加载
+    				jt_lh_pagenation(1);//分页加载
     			}
             	jt_query = false; 
             	tableHtml = prearData(data.exper, columns);
@@ -486,21 +491,23 @@ function prearData(data, columns,tableId) {
     return htmlArray.join('');
 }
 
-function getColumnValue(column, columnValue) {
-   
-    if(column =='W_DATE'){
-        columnValue = columnValue.replace(/\s/g,"&#13;")
-    }
-    if(column == "gId" || column == "G_ID"){
-    	if(Number(columnValue)){
-    		columnValue = "#"+columnValue;	
-    	} 	
-    }
-	if(column == "startTime"){
-		columnValue = timefixed(columnValue)
-
+function getColumnValue(column, colValue) {
+	switch (column) {
+		case "W_DATE":
+			colValue = colValue.replace(/\s/g,"&#13;")
+			break;
+		case "startTime":
+			colValue = timefixed(colValue)
+			break;	
+		case "G_ID":
+		case "gId":
+			if(Number(colValue)){
+				colValue = "#"+colValue;	
+			} 
+			break;	
 	}
-    return columnValue;
+		    
+    return colValue;
 }
 //处理函数 --end
 //集团分页
@@ -543,7 +550,7 @@ function jt_detail(jt_page_index){
 			'pagesize':10			
 	};
 	
-	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MSCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
+	ajax(url,'jt_detail',["x","ORG_NAME","G_ID",'NAME','YSCOUNT','YCOUNT','MCOUNT1','MCOUNT2','MCOUNT3','MCOUNT4','MCOUNT5','MCOUNT6','MCOUNT7','MCOUNT8','MCOUNT9','MCOUNT10','MCOUNT11','MCOUNT12'],sentData)
 }
 
 // 电厂查询事件 
@@ -624,7 +631,7 @@ function timefixed(time){
 
 function chuantou(d){
 	//穿透后 点击返回本页
-	$('#fanhui').attr("href","qchuizong.html")
+	//$('#fanhui').attr("href","qchuizong.html")
 	jt_query=true;
 	$('.jt').hide();
 	
@@ -634,7 +641,25 @@ function chuantou(d){
 	if(d.name){
 		d.NAME = d.name
 	}
-
+	$("#fanhui_test").unbind('click').click(function () {
+		var now_org_name = $('.curSelectedNode').attr('title')
+		//cosnole.log(now_org_name)
+		switch (now_org_name) {
+			case "京能集团":
+				jtview();
+				break;
+			case "岱海发电":
+			case "宁东发电":
+				level1(now_org_name);
+				break;
+			default:
+				//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+				var cur_org_id = sessionStorage.getItem('orgid');
+				now_org_name = idToName(cur_org_id);
+				level1(now_org_name);
+				break;
+		}
+	})
     var flag=true;
     $(".select").hide();
     $("table.level1").hide();
@@ -663,13 +688,9 @@ function chuantou(d){
         expr(page_index + 1);
         return false;
     };
-	//var name="";
-	// if(d.name){
-	// 	name = encodeURIComponent(d.name);
-	// }else if(d.NAME){
-		name = encodeURIComponent(d.NAME);
-	//}
-   // var name = encodeURIComponent(trim(d.name));
+	
+	name = encodeURIComponent(d.NAME);
+	
     var url = rootPath + "/portal.do?name="+name;
     expr(1);
 	// level4 detail
@@ -756,8 +777,6 @@ function chuantou(d){
 		org_id: d.ORG_ID,
 		g_id: d.gId,
 		special_id: d.professionName
-		
-
 	}
 	level4_header(url,l4sentdata)
 }
@@ -811,8 +830,7 @@ function addzy(gid){
 	if(!$("#g_id").val()){
 		url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId
 	}
-	else{
-		
+	else{		
 		url = rootPath +"/portal/getLhZyInfo.do?orgId="+orgId+"&gId="+g_id;
 	}
 	$.ajax({
@@ -842,36 +860,86 @@ $("#spec_id").on("change",function(){
 });
 
 
-
-
 //level 1 new======================================================
-	function level1(now_org_name){
-		//
-		sessionStorage.setItem("g_id", "");
-		$("#Pagination_query").show();
-		$(".select").show();
-		$(".jt_select").hide();
-		$("table.level1").show();
-		$("table.level4").hide();
-		$(".wu_top").hide();
-		$(".wu_top1").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide();
-		$(".wu_main").css({"marginTop":23});
-		$('#lh_name').html(now_org_name);
-		$("#wu_top1").hide();
-		
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
-		//summary
-		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
-		addjz("");//加载机组
-		addzy();//默认加载#1机组的专业
-		$("#g_id").show().siblings().show();
-		query_flag=true;
-		//detail
-		$("#submit").click();
-	}
+function level1(now_org_name){
+	//
+	sessionStorage.setItem("g_id", "");
+	$("#Pagination_query").show();
+	$(".select").show();
+	$(".jt_select").hide();
+	$("table.level1").show();
+	$("table.level4").hide();
+	$(".wu_top").hide();
+	$(".wu_top1").hide();
+	$("#table1_huizong").hide();
+	$("#Pagination").hide();
+	$(".wu_main").css({"marginTop":23});
+	$('#lh_name').html(now_org_name);
+	$("#wu_top1").hide();
+	//电厂级 返回到首页 --return
+	$('#fanhui_test').unbind('click').click(function (){
+		window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
+	//返回电厂时候清空搜索条件
+	$('#name').val("")
+	$('#startTime').val("");
+	$('#endTime').val("");
+	
+	var orgId = sessionStorage.getItem("orgid")
+	var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId;
+	//summary
+	ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
+	addjz("");//加载机组
+	addzy();//默认加载#1机组的专业
+	$("#g_id").show().siblings().show();
+	query_flag=true;
+	//detail
+	$("#submit").click();
+}
+//leve2 new=====================================================
+function level2(name){
+	$("#fanhui_test").unbind('click').click(function () {
+		var now_org_name = $('.curSelectedNode').attr('title')
+		//cosnole.log(now_org_name)
+		switch (now_org_name) {
+			case "京能集团":
+				jtview();
+				break;
+			case "岱海发电":
+			case "宁东发电":
+				level1(now_org_name);
+				break;
+			default:
+				//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+				var cur_org_id = sessionStorage.getItem('orgid');
+				now_org_name = idToName(cur_org_id);
+				level1(now_org_name);
+				break;
+		}
+	})
+	
+	$("#Pagination_query").show();
+	$(".select.dc").show();	
+	$("table.level1").show();
+	$("table.level4").hide();
+	$(".wu_top").hide();
+	$(".wu_top1").hide();
+	$("#table1_huizong").hide();
+	$("#Pagination").hide();
+	$(".wu_main").css({"marginTop":22});
+	$('#lh_name').html(name);
+	$("#wu_top1").hide();
+	
+	var orgId = sessionStorage.getItem("orgid");
+	var g_id =  sessionStorage.getItem("g_id");
+	var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId+"&gId="+g_id;
+	ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
+	$("#g_id").html("").fadeOut().siblings().fadeOut();
+	addzy(g_id);
+	query_flag=true;
+	query_lh(event,1,g_id);
+	
+}
 function zTreeOnClick(ev, treeId, treeNode) {	
 	var event = ev || window.event;
 	var g_id = $(event.target).parent().parent().parent().siblings().parent().parent().siblings().text();
@@ -905,7 +973,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			sessionStorage.setItem("g_id", g_id);
 			special_id = "";
 			name = "";
-			level2();
+			level2(treeNode.name);
 			break;
 			//专业级别
 		case 3:
@@ -918,8 +986,8 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		case 4:
 			g_id = g_id.substring(1, 2);
 			$('.jt').hide();
-			level4();
-			$fanhui.attr("href","qchuizong.html")
+			level4(treeNode.name);
+			//$fanhui.attr("href","qchuizong.html")
 			break;
 		default:
 			g_id = "";
@@ -928,44 +996,28 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			break;
 	}
 	
-//level1 && level2 are same interface;
 	
-	
-	//leve2 new=====================================================
-	function level2(){
-		
-		$("#Pagination_query").show();
-		$(".select.dc").show();
-		
-		$("table.level1").show();
-		$("table.level4").hide();
-		$(".wu_top").hide();
-		$(".wu_top1").hide();
-		$("#table1_huizong").hide();
-		$("#Pagination").hide();
-		$(".wu_main").css({"marginTop":22});
-		$('#lh_name').html(treeNode.name);
-		$("#wu_top1").hide();
-		
-		var orgId = sessionStorage.getItem("orgid")
-		var url = rootPath + "/portal/getLHSummaryInfo.do?orgId="+orgId+"&gId="+g_id;
-		ajax(url,"level1",["x","gId","ysCount","yCount","msCount","mCount","fCount"]);
-		$("#g_id").html("").fadeOut().siblings().fadeOut();
-		addzy(g_id);
-		query_flag=true;
-		query_lh(event,1,g_id);
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	function level4(){
+	function level4(name){
 		var flag=true;
-		
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 		$("#Pagination_query").hide();
 		$(".select").hide();
 		$("table.level1").hide();
@@ -975,7 +1027,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 		$("#table1_huizong").show();
 		$("#Pagination").show();
 		
-
+		$("lh_name").html(name)
 		$(".wu_main").css({"marginTop":112});
 		var initPagination = function(page) {
 		   	var num_entries = page;
@@ -1021,9 +1073,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 				},
 				success: function(data) {
 					$("#sblhcounter").html("");
-					//var i = 0;
-					var page = Math.ceil(data.total/5)
-					//console.log(page);
+					var page = Math.ceil(data.total/5)				
 					if(flag){
 						initPagination(page);//分页加载
 					}
@@ -1050,9 +1100,7 @@ function zTreeOnClick(ev, treeId, treeNode) {
 					var d_flag= true;
 					//弹窗淡入淡出
 					$(".zhexian").on("click",
-
 						function(event) {
-
 							var i = $(this).parent().index() -1 ;
 							//console.log($(this).parent().index());
 
@@ -1108,43 +1156,33 @@ function level4_header(url,dataIN){
 			dataType: "json",
 			data: dataIN,
 			success: function(data) {
-				var data_level4 = data.lhlist[0];
+				var d = data.lhlist[0];
 				
 				var table1_huizong_td = $("#table1_huizong").find("td");
 				var header_h3 = $('.wu_top1').find("h3");
-				//var lh_name = $('#lh_name');
+				
 				if (data.lhlist.length == 0) {
 					table1_huizong_td.each(function(i) {
 						if (i > 4) {
 							$(this).html("暂时无数据");
 						}
-
-					});
-					lh_name.html("");
+					});					
 					header_h3.each(function() {
 						$(this).html("");
 					});
-					lh_name.html("本条记录无数据");
 				}
-
+				var tit_arr =[d.validbasic,d.lhmethod,d.systemlogic,d.startbasic,d.endbasic];
+				var hz_arr = [d.yscount,d.ycount,d.mscount,d.mcount,d.noexper]
 				if (data.lhlist.length !== 0) {
 					/*轮换说明*/
-					header_h3.eq(0).html(data_level4.validbasic)
-					header_h3.eq(1).html(data_level4.lhmethod);
-					header_h3.eq(2).html(data_level4.systemlogic);
-					header_h3.eq(3).html(data_level4.startbasic);
-					header_h3.eq(4).html(data_level4.endbasic)
-
-					/*轮换的名称*/
-					//lh_name.html(dataIN.name);
-
-					/*轮换的具体数据*/
-					table1_huizong_td.eq(5).html(data_level4.yscount);
-					table1_huizong_td.eq(6).html(data_level4.ycount);
-					table1_huizong_td.eq(7).html(data_level4.mscount);
-					table1_huizong_td.eq(8).html(data_level4.mcount);
-					table1_huizong_td.eq(9).html(data_level4.noexper);
-
+					header_h3.each(function(i){						
+						$(this).html(tit_arr[i]);						
+					});
+					table1_huizong_td.each(function(i){
+						if(i>4){
+							$(this).html(hz_arr[i-5]);
+						}
+					})						
 				}
 
 			}
@@ -1188,14 +1226,20 @@ function trim(str) {
 $(".wu_top1 h2").each(function(i) {
 	$(this).hover(
 		function() {
+			$(this).parent().find("h3").stop(true);
 			$(".wu_top1 h3").hide();
-			$(this).parent().find("h3").slideDown();
+			$(".wu_top1 h3").animate({
+				"opacity":"0"
+			},200);
+			$(this).parent().find("h3").show();
+			$(this).parent().find("h3").animate({
+				"opacity":"1"
+			},200);
 		},
 		function() {
 			$(document).click(
 				function() {
-
-					$(".wu_top1 h3").slideUp();
+					$(".wu_top1 h3").hide();
 				});
 			$(".wu_top1 h2,.wu_top1 h3").click(
 				function(event) {
@@ -1206,8 +1250,6 @@ $(".wu_top1 h2").each(function(i) {
 	);
 
 });
-
-
 
 //折线图
 
@@ -1393,34 +1435,7 @@ function sblunhuan(name,time, data,id) {
 	myChart.setOption(option);
 
 }
-Date.prototype.format = function(format) {
-	/*
-	 * format="yyyy-MM-dd hh:mm:ss";
-	 */
-	var o = {
-		"M+": this.getMonth() + 1,
-		"d+": this.getDate(),
-		"h+": this.getHours(),
-		"m+": this.getMinutes(),
-		"s+": this.getSeconds(),
-		"q+": Math.floor((this.getMonth() + 3) / 3),
-		"S": this.getMilliseconds()
-	}
 
-	if (/(y+)/.test(format)) {
-		format = format.replace(RegExp.$1, (this.getFullYear() + "")
-			.substr(4 - RegExp.$1.length));
-	}
-
-	for (var k in o) {
-		if (new RegExp("(" + k + ")").test(format)) {
-			format = format.replace(RegExp.$1,
-				RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-
-		}
-	}
-	return format;
-}
 
 
 
@@ -1507,149 +1522,7 @@ $(document).ready(
 	}
 )
 
-/*$('.wu_top1b').click(function(){
-	var year 	   =  $('.select_showbox').eq(0).attr("title");
-	var mouth	   =  $('.select_showbox').eq(1).attr("title"); 
-	var $current   =  $(".curSelectedNode");
-	var name 	   =  $current.attr("title");
-	var special_id =  $current.parent().parent().siblings('a').attr("title");
-	var g_id       =  getNum($current.parent().parent().siblings('a').parent().parent().siblings("a").attr("title"));//#1机组;
-	var org_id     =  "";
-	var org_name   =  $current.parent().parent().siblings('a').parent().parent().siblings("a").parent().parent().siblings("a").attr("title");
-	if(org_name == "岱海发电"){
-		org_id ="c21834b4-1cb0-490f-a2a8-deeaf7f7e065";
 
-	}else if(org_name == "宁东发电"){
-		org_id = "472212af-1977-462b-a74a-a1f36ed6562d";
-	}
-
-	var initPagination = function(page) {
-		   	var num_entries = page;
-		  	// 创建分页
-		  	$("#Pagination").pagination(num_entries, {
-			    num_edge_entries: 1, //边缘页数
-			    num_display_entries: 4, //主体页数
-			    callback: pageselectCallback,
-			    items_per_page: 1, //每页显示1项
-			    prev_text: "前一页",
-			    next_text: "后一页"
-		  	});
-		};
-
-		
-
-		function pageselectCallback(page_index, jq){
-			
-			expr(page_index + 1);
-			
-			
-		  	return false;
-		} 
-
-
-	name = encodeURIComponent(trim(name));
-
-	var url = rootPath + "/portal.do?name=" + name;
-	var flag = true;
-	expr(1);
-	//level4 轮换详情；
-		function expr(pagenum){
-			$.ajax({
-				url: url,
-				type: "POST",
-				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-				dataType: "json",
-				data: {
-					method: "getLHTime",
-					org_id: org_id,
-					year:year,
-             		month:mouth,
-					g_id: g_id,
-					special_id: special_id,
-					ispage:true,
-					pagenum:pagenum,
-					pagesize:5			
-				},
-				success: function(data) {
-					$("#sblhcounter").html("");
-					//var i = 0;
-					var page = Math.ceil(data.total/5)
-					//console.log(page);
-					if(flag){
-						initPagination(page);//分页加载
-					}
-					flag=false;
-					//console.log(data);
-					$('#sblhcounter').html(prepearData(data.exper));//处理ajax返回的数据添加到html中
-
-					//$('#sblhcounter').html("<tr><td>1</td><td>" + dataP1.starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent'id='zx"+i+"'></div></div></td><td>" + dataP1.name + "</td><td>是</td></tr>")
-					
-					//newPop(".lineDiv","zhexian",".drsMoveHandle span");
-					//初始化弹窗的相对定位
-					var line_width = ($(window).width() - 700) / 2 + "px";
-					//var line_height=($(window).height()-365)/2+"px";
-					var line_height = 100;
-					$(".lineDiv").css({
-						"left": line_width,
-						"top": line_height
-					});
-					//改变窗口浏览器大小重置相对定位
-					$(window).resize(function() {
-						var line_width = ($(window).width() - 700) / 2 + "px";
-						var line_height = ($(window).height() - 365) / 2 + "px";
-						$(".lineDiv").css({
-							"left": line_width,
-							"top": line_height
-						});
-					});
-					var d_flag= true;
-					//弹窗淡入淡出
-					$(".zhexian").on("click",
-
-						function(event) {
-
-							var i = $(this).parent().index() -1 ;
-							//console.log($(this).parent().index());
-
-							var dataT = $(this).find('.drsMoveHandle').get(0).id;
-							var arr = dataT.split(";");
-							var code = arr[0];
-							var name = arr[1];
-							var starttime = arr[2];
-							var endtime = arr[3];
-							//console.log(name);
-							
-							if(d_flag){
-								sbjiaohu("zx"+i,code,name,starttime,endtime);
-								d_flag = false;
-								
-							}
-
-							$(this).children(".lineDiv").fadeIn();
-							var index = $(this).index();
-							//zhexian($(this).find('.linecontent div').attr('id'))  
-						}
-					)
-					//弹出层关闭按钮
-					$(".drsMoveHandle span").bind("click",
-						function(event) {
-							$(this).parent().parent(".lineDiv").fadeOut();
-							event.stopPropagation();
-						}
-					)
-
-					function tiaozhuan() {
-						var s = document.getElementById('fadeIn');
-					}
-				} 
-			});
-			
-		}
-
-
-
-
-})*/
 
 
 
@@ -1657,4 +1530,51 @@ $(document).ready(
 function getNum(text){
 	var value = text.replace(/[^0-9]/ig,""); 
  	return value;
+}
+function idToName(id){
+	var _name ="";
+	switch (id) {
+		case "a61365e2-969d-4352-b3f8-805027ab9f1d":
+			_name = "京能集团"
+			break;
+		case "c21834b4-1cb0-490f-a2a8-deeaf7f7e065":
+			_name = "宁东发电"
+			break;
+		case "472212af-1977-462b-a74a-a1f36ed6562d":
+			_name = "岱海发电"
+			break;
+	
+		default:
+			break;
+	}
+	return _name;
+
+}
+Date.prototype.format = function(format) {
+	/*
+	 * format="yyyy-MM-dd hh:mm:ss";
+	 */
+	var o = {
+		"M+": this.getMonth() + 1,
+		"d+": this.getDate(),
+		"h+": this.getHours(),
+		"m+": this.getMinutes(),
+		"s+": this.getSeconds(),
+		"q+": Math.floor((this.getMonth() + 3) / 3),
+		"S": this.getMilliseconds()
+	}
+
+	if (/(y+)/.test(format)) {
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+			.substr(4 - RegExp.$1.length));
+	}
+
+	for (var k in o) {
+		if (new RegExp("(" + k + ")").test(format)) {
+			format = format.replace(RegExp.$1,
+				RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+
+		}
+	}
+	return format;
 }

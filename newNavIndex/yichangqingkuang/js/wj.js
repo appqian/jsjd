@@ -30,7 +30,7 @@ $('#gz').on('show.bs.modal', function (event) {
 	  targetbutton = $(event.relatedTarget) // Button that triggered the modal
 	  var recipient = targetbutton.data('id') // Extract info from data-* attributes
 	  var targetHtml = targetbutton.html();
-	  console.log(targetHtml)
+	  //console.log(targetHtml)
 	  $("#targetHtml").val(targetHtml)
 	  var modal = $(this)
 	  modal.find('#record-id').val(recipient)	 	
@@ -82,29 +82,33 @@ $("#jt_submit").click(function(){
 function jtview(){
 	$('.jt').show();
 	$('.dc').hide();
+	//集团级返回到首页 --return 
+	$('#fanhui_test').unbind('click').click(function (){
+		 window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	})
 	jt_hz(1);
 	$('#lh_name').html('京能集团');	
 }
-//返回按钮处理 -- 处理在所在电厂级和集团级
-//-- todo 如果在机组和名称层级处理
-$("#fanhui_test").click(function(){
-	var now_org_name = $('.curSelectedNode').attr('title')
-	//cosnole.log(now_org_name)
-	switch (now_org_name) {
-		case "京能集团":
-			jtview();
+
+function idToName(id){
+	var _name ="";
+	switch (id) {
+		case "a61365e2-969d-4352-b3f8-805027ab9f1d":
+			_name = "京能集团"
 			break;
-		case "岱海发电":
-			level1(now_org_name);
+		case "c21834b4-1cb0-490f-a2a8-deeaf7f7e065":
+			_name = "宁东发电"
 			break;
-		case "宁东发电":
-			level1(now_org_name);
+		case "472212af-1977-462b-a74a-a1f36ed6562d":
+			_name = "岱海发电"
 			break;
+	
 		default:
 			break;
 	}
-})
+	return _name;
 
+}
 
 //集团汇总
 function jt_hz(jt_page_index){	
@@ -236,6 +240,7 @@ function jt_query_pagenation(page_index, jq){
 
 
 //处理函数结束========================================================
+//获取左侧树
 function getTree() {	
 	var url= rootPath+ "/portal/getJTGZTreeMenu.do" ;
 	$.ajax({
@@ -284,7 +289,7 @@ getTree();
 function level1(now_org_name){
 		$(".wu_main").css({"marginTop":23});
 		$("table.level1").show();
-		$("table.level4").hide();
+		$("table.level4").hide(); 
 		$("#table1_huizong").hide();
 		$("#Pagination").hide()
 		$('#lh_name').html(now_org_name);
@@ -296,6 +301,11 @@ function level1(now_org_name){
 			org_id: sessionStorage.getItem("orgid"),
 			g_id: g_id,			
 		};
+		//电厂级 返回到首页 --return
+		$('#fanhui_test').unbind('click').click(function (){
+		     window.location.replace(rootPath+"/newNavIndex/portal.jsp")  
+	    })
+		
 		ajax(url,'level1',['x','name','G_ID','totalnum','YCOUNT','MCOUNT'],sentData)
 	}
 
@@ -320,21 +330,20 @@ function zTreeOnClick(ev, treeId, treeNode) {
 				sessionStorage.setItem("orgid", "472212af-1977-462b-a74a-a1f36ed6562d");
 			}
 			level1(name);
-			name = "";
-			$('.jt').hide();
-						
+			//name = "";
+			$('.jt').hide();						
 			break;
 			//机组级别
 		case 2:			
 			g_id = name.substring(1, 2);
 			special_id = "";
 			name = "";
-			$('.jt').hide();
-			level1();
+			//$('.jt').hide();
+			//level1();
 			break;
 			//专业级别
 		case 3:
-			$('.jt').hide();			
+			//$('.jt').hide();			
 			g_id = special_id.substring(1, 2);
 			special_id = name;
 			//name = "";
@@ -342,9 +351,9 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			break;
 			//试验名称级别
 		case 4:
-			$('.jt').hide();			
+			//$('.jt').hide();			
 			g_id = g_id.substring(1, 2);
-			//console.log('4')
+			
 			$('.dc').hide();
 			level4();
 			break;
@@ -360,6 +369,25 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 	function level4(){
 		var flag=true;
+		$("#fanhui_test").unbind('click').click(function(){
+			var now_org_name = $('.curSelectedNode').attr('title')
+			//cosnole.log(now_org_name)
+			switch (now_org_name) {
+				case "京能集团":
+					jtview();
+					break;
+				case "岱海发电":			
+				case "宁东发电":
+					level1(now_org_name);
+					break;
+				default:
+					//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+					var cur_org_id = sessionStorage.getItem('orgid');
+					now_org_name = idToName(cur_org_id); 
+					level1(now_org_name);
+					break;
+			}
+		})
 
 		$("table.level1").hide();
 		$("table.level4").show();
@@ -518,6 +546,36 @@ function chuantou(d){
 	//穿透后 点击返回本页
 	var flag=true;
 	$('.jt').hide();
+	
+	if(!d.gId){
+		d.gId = d.G_ID
+	}
+	if(d.name){
+		d.NAME = d.name
+	}
+	$("#lh_name").html(d.NAME);
+	//返回按钮处理 -- 处理在所在电厂级和集团级
+	//-- todo 如果在机组和名称层级处理
+	$("#fanhui_test").unbind('click').click(function(){
+		var now_org_name = $('.curSelectedNode').attr('title')
+		//cosnole.log(now_org_name)
+		switch (now_org_name) {
+			case "京能集团":
+				jtview();
+				break;
+			case "岱海发电":			
+			case "宁东发电":
+				level1(now_org_name);
+				break;
+			default:
+				//-- todo 如果在机组和名称层级处理 逻辑-点击电厂级的时候会把当前的orgid存入到sessionStorage
+				var cur_org_id = sessionStorage.getItem('orgid');
+				now_org_name = idToName(cur_org_id); 
+				level1(now_org_name);
+				break;
+		}
+	})
+
 
 	$("table.level1").hide();
 	$("table.level4").show();

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--为了让 IE 浏览器运行最新的渲染模式-->
-    <meta name="renderer" content="webkit"><!--让国产浏览器启用高速模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--为了让 IE 浏览器运行最新的渲染模式-->
+    <meta name="renderer" content="webkit">
+    <!--让国产浏览器启用高速模式-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> 振动监督报表</title>
     <!--[if lt IE 9]>
@@ -14,324 +17,191 @@
     <link rel="stylesheet" href="../css/common.css">
 
     <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css"/>
+    <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css" />
     <script type="text/javascript" src="../js/SimpleTree.js"></script>
-   
+
 </head>
+
 <body>
-<div class="wu_left">
-	<div class="st_tree">
-        <ul>
-            <li><a href="#">监督报表</a></li>
+    
+    <div class="container right_common">
 
-            <ul show="true">
-                <li><a href="#" >绝缘监督报表</a></li>
-                <ul show ="false">
-                    <li><span  id="I4028e4f30275d574015286238d973b80" >绝缘监督报表</span></li>
-                </ul>
-
-                <li><a href="#" >化学监督报表</a></li>
-
-                <ul show="false">
-                    <li><span  id="I8a8a8aa03a95a71201523e1b424a215e">变压器油色谱及理化化验报告</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523e32e3e9283d">大宗材料消耗报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523eb7741f3c08">锅炉补给水质量月报</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523ee789914831">化学在线仪表的水汽质量合格率统计报表</span></li>
-
-                    <li><span  id="I8a8a8aa03a95a71201523f16c9025e67">化验水汽质量合格率统计报表（二）</span></li>
-                    <li><span  id="I4028e4f306ac6bee015341143150306b">机组水汽合格率汇总报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523f12b7e75db9">精处理水质监测</span></li>
-                    <li><span  id="I4028e4f363d6611a01526768a9671976">抗燃油监督报表</span></li>
-
-                    <li><span  id="I4028e4f363d6611a0152675266ea1599">汽轮机油监督报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523eec9a1e4c14">氢气质量统计报表</span></li>
-                    <li><span  id="I4028e4f3045da63e015384769dcc078e">燃油质量月报表</span></li>
-                    <li><span  id="I4028e4f35e84c1190152630c70404953">入炉燃煤质量报表</span></li>
-
-                    <li><span  id="I4028e4f379c0425401540330fa6a1e9f">水处理及制氢主要运行参数监测</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523f8ddacd7fdd">水处理自用水率统计月报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523fc7b3e208a4">水汽平衡统计报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523e1b72322161">循环冷却水化验报告单</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523f64007a7473">油耗监督报表</span></li>
-                    <li><span  id="I8a8a8aa03a95a71201523f347e0867ed">在线仪表三率统计表</span></li>
-
-                </ul>
-
-                <li><a href="#">金属监督报表</a></li>
-                <ul show="false">
-                    <li><span  id="I4028e4f363d6611a0152676d92461a32">火力发电厂金属技术监督报表</a></li>
-
-                   <!-- <li><span  target="_blank" id="I4028e4f363d6611a0152675a76f81684">金属超温超压报表</a></li>-->
-                    <li><span  target="_blank" id="I4028e4f30cfc711701561191ddd31fec">金属超温报表</a></li>
-                    <li><span  target="_blank" id="I4028e4f30cfc7117015611ce7a6d35f1">金属超压报表</a></li>
-                    <li><span  target="_blank" id="I4028e4f363d6611a01526765f343191b">受热面超温统计表</a></li>
-                    <!--新加入的-->
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_ZZRZQGDJDQG">主蒸汽管道和再热蒸汽管道及导汽管金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_ZDJJSJD">支吊架金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_GWLXJSJD">高温联箱金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_SRMGJSJD">受热面管金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_QBQSFLQJSJD">汽包或汽水分离器、储水罐金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_GSGDDWLXJSJD">给水管道和低温联箱金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_QLJBJJSJD">汽轮机部件金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_FDJBJJSJD">发电机部件金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_JGJJSJD">紧固件金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_DXZJJSJD">大型铸件金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_RJBJJSJD">燃机部件金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_QTSJBJJSJD">其它受监部件<!--（机组机炉电外其他重点受监部件（包括转动辅机））-->金属监督表</span></li>
-                    <li><span id="I4028e4f35e120c960155de2394ea3835,mix_FJGZJDYXXM">复检、跟踪和监督运行项目表 </span></li>
-                    <!--新加入结束-->
-
-
-
-                </ul>
-                <li><a href="#">电测监督报表</a></li>
-                <ul show = 'false'>
-                    <li><span  target="_blank" id="I4028e4f363d6611a015267329e5909b5">电测技术监督工作年终报告</span></li>
-                    <li><span target="_blank" id="I8a8a8aa0308027e3015233aafc1b03a6">电测仪器仪表检验报告</span></li>
-                </ul>
-                <li><a href="#">热工监督报表</a></li>
-                <ul show = 'false'>
-                    <li><span   id="I4028e4f306ac6bee015331fb1a7f2ebe">技术监督报表</span></li>
-                    <li><span   id="I8a8a8aa03a95a71201523fb64cce045b">热工保护装置投入情况统计表</span></li>
-                    <li><span   id="I8a8a8aa03a95a71201523fcda9470943">热工保护装置完好率情况统计表</span></li>
-                    <li><span   id="I8a8a8aa04302553e0152431de3ac07dc">热工主要检测参数合格率统计表</span></li>
-
-                    <li><span   id="I8a8a8aa04302553e01524345c5c71040">热工自动装置完好率情况统计表</span></li>
-                    <li><span   id="I8a8a8aa03a95a71201523f7a71a47a84">数采合格率统计</span></li>
-                    <li><span   id="I8a8a8aa03a95a71201523f88a07e7ef7">主要仪表抽检合格率统计表</span></li>
-                    <li><span   id="I8a8a8aa04302553e01524330092f0ab9">自动动调节投入情况统计表</span></li>
-
-                </ul>
-
-
-                <li><a href="#">环保监督报表</a></li>
-                <ul show = 'false'>
-                    <li><span  target="_blank" id="I8a8a8aa04302553e015243e9dac833b4">环保指标报表</span></li>
-                    <li><span id="I4028e4f373859fcb0155fd3a900161f6">备品配件更换表</span></li>
-                    <li><span id="I4028e4f373859fcb0155fd59615272f8">环保设备故障情况表</span></li>
-                </ul>
-                <li><a href="#">节能监督报表</a></li>
-                <ul show="false">
-                    <li><span  target="_blank"  id="I4028e4f355e85dea0153647e2e586538">节能月报空冷</span></li>
-                    <li><span  target="_blank" id="I4028e4f355e85dea01535f7f387625c4">节能月报水冷</span></li>
-
-                </ul>
-                <li><a href="#">电能质量监督报表</a></li>
-                <ul show = 'false'>
-                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab26e403a9">电能质量AVC报表</span></li>
-                    <li><span  target="_blank" id="I8a8a8aa0308027e3015233ab54b503ac">电能质量报表</span></li>
-                </ul>
-                <li><a href="#">继电保护监督报表</a></li>
-                <ul show="false">
-                    <li><span   id="I4028e4f363d6611a0152675a0b91165d" >110KV及以上系统故障及保护动作情况报表</span></li>
-                    <li><span   id="I8a8a8aa03a95a71201523e21c73521ee" >电力继电保护与安全自动装置动作统计分析报表</span></li>
-                    <li><span   id="I4028e4f363d6611a0152680662082069" >继电保护及安全自动装置年度检验计划表</span></li>
-                    <li><span   id="I4028e4f363d6611a015268069363206c" >继电保护投入率报表</span></li>
-
-
-                </ul>
-
-                <li><a  href="#">励磁监督报表</a></li>
-                <ul show="false">
-                    <li><span  target="_blank" id="I8a8a8aa07e099ad7015205e50db27a81">发电机励磁系统监督报表</span></li>
-
-
-                </ul>
-                <li><a  href="#">振动监督报表</a></li>
-                <ul show="false">
-                    <li><span   id="I8a8a8aa04302553e0152434502a71010">主机振动报表</span></li>
-                </ul>
-                <li><a href="#">压力容器报表</a></li>
-                <ul show="false">
-                    <li><span id="I4028e4f373859fcb0155fd16ab8d565c">压力容器定检/年检情况表</span></li>
-                    <li><span id="I4028e4f373859fcb0155fd2768395986">压力容器管理表</span></li>
-                </ul>
-
-            </ul>
-        </ul>
-        <ul>
-            <li><a href="#">生产报表</a></li>
-            <ul show="true">
-                <li><span id="I4028e4f30119d42d015581c17cef36b2">生产日报汇总</span></li>
-                <li><span id="I4028e4f30b366d2901528ca3dd783064">生产周报汇总</span></li>
-                <li><span id="I8a8a8aa04302553e01524399691e1ca3">生产月报汇总</span></li>
-                <li><span id="I4028e4f30b366d2901528c82a05e268f">生产年报汇总</span></li>
-            </ul>
-        </ul>
-    </div>
-</div>
-<div class="container right_common">
-
-    <div class="right_top">
-        <div class="right_tit b_color left b_radius">
-            压力容器 报表
-        </div>
-        <a class="right_tit1 btn btn-default" id="tianbao">
+        <div class="right_top">
+            <div class="right_tit b_color left b_radius">
+                压力容器报表
+            </div>
+            <a class="right_tit1 btn btn-default" id="tianbao">
             报表填写
         </a>
-        <a class="right_tit1 btn btn-default" href="diy.html">
+            <a class="right_tit1 btn btn-default" href="diy.html">
             返回
         </a>
 
+        </div>
+        <div class="clearfix"></div>
+        <div class="right_main">
+            <table style="margin:0 auto" id="unit">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a class="btn btn-default" href="jsp?resid=I4028e4f373859fcb0155fd16ab8d565c&general_type=mix_YLRQGLB">压力容器管理表</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="jsp?resid=I4028e4f373859fcb0155fd2768395986&general_type=mix_YLRQDJNJB">压力容器定检/年检情况表</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="jsp?resid=I4028e4f31c4350f80157216c65c34b44">压力容器统计表</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
-    <div class="clearfix"></div>
-    <div class="right_main">
-        <table style="margin:0 auto" id="unit">
-            <tbody>
-                <tr>
-                    <td> <a class="btn btn-default"   title="I4028e4f373859fcb0155fd16ab8d565c "  href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f373859fcb0155fd16ab8d565c&general_type=mix_YLRQGLB">压力容器管理表</a></td>
-                    <td> <a class="btn btn-default"  title="I4028e4f373859fcb0155fd2768395986"    href="http://172.168.100.110:7001/spreadsheet/vision/openresource.jsp?resid=I4028e4f373859fcb0155fd2768395986&general_type=mix_YLRQDJNJB">压力容器定检/年检情况表</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script>
+        //定义全局变量
+        var ctx = window.location.origin;
+        var table = $("#unit");
+        //判断当前用户具不具有权限填写报表
+        var flag = 0;
+        $.ajax({
+            url: ctx + "/jsjd/portal/isForword.do?role_code=zdjd",
+            dataType: "json",
+            success: function(data) {
+                flag = data[0].NUM_USER;
+            }
+        });
 
-
-</div>
- <script type="text/javascript" src="../js/base.js"></script>
-<script>
-    //定义全局变量
-    var ctx = window.location.origin;
-    var table = $("#unit");
-    //判断当前用户具不具有权限填写报表
-    var flag = 0;
-    $.ajax({
-        url:ctx +"/jsjd/portal/isForword.do?role_code=zdjd",
-        dataType:"json",
-        success: function(data) {
-            flag = data[0].NUM_USER;
+        //加上模态框
+        table.find('td').append("<h1 class='modal_x'></h1>");
+        //返回JSON格式 url的请求字符串
+        function GetRequest(url) {
+            url = url.split('?')[1]; //获取url中"?"符后的字串
+            var theRequest = {};
+            var strs = url.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+            }
+            return theRequest;
         }
-    });
-
-    //加上模态框
-    table.find('td').append("<h1 class='modal_x'></h1>");
-    //返回JSON格式 url的请求字符串
-    function GetRequest(url) {
-        url = url.split('?')[1]; //获取url中"?"符后的字串
-        var theRequest ={};
-        var  strs = url.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
-        }
-        return theRequest;
-    }
-    // a 事件委托于 table;单击选中，并改变报表填写的路径
-    table.on('click',function(e){
-        var ev = e||window.event;
-        if(ev.target && ev.target.nodeName == "A"){
-            var _href ="",
-                    $this   = $(ev.target),// target
-                    _url    = $this.get(0).href,
-                    _resid  = GetRequest(_url).resid, //获取当前 id;
+        // a 事件委托于 table;单击选中，并改变报表填写的路径
+        table.on('click', function(e) {
+            var ev = e || window.event;
+            if (ev.target && ev.target.nodeName == "A") {
+                var _href = "",
+                    $this = $(ev.target), // target
+                    _url = $this.get(0).href,
+                    _resid = GetRequest(_url).resid, //获取当前 id;
                     general_type = GetRequest(_url).general_type;
-                  
-            //加上选中效果！
-            $(this).find(".modal_x").hide(); //table 中其他的modal
-            $this.siblings('.modal_x').show();
-            //console.log(_resid);
-            switch (_resid){
-                case "I8a8a8aa04302553e0152434502a71010":
-                    _href ="/main?xwl=23Z1BSER0PHW&repordCode=ZZDBB";
-                    break;
-                default:
-                    _href="";
+
+                //加上选中效果！
+                $(this).find(".modal_x").hide(); //table 中其他的modal
+                $this.siblings('.modal_x').show();
+                //console.log(_resid);
+                switch (_resid) {
+                    case "I4028e4f31c4350f80157216c65c34b44": //压力容器统计表
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=YLRQTB";
+                        break;
+                    default:
+                        _href = "";
+                }
+                switch (general_type) {
+                    case "mix_ZZRZQGDJDQG":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=ZZRZQGDJDQG"
+                        break;
+                    case "mix_ZDJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=ZDJJSJD"
+                        break;
+                    case "mix_GWLXJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=GWLXJSJD"
+                        break;
+                    case "mix_SRMGJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=SRMGJSJD"
+                        break;
+                    case "mix_QBQSFLQJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=QBQSFLQJSJD"
+                        break;
+                    case "mix_GSGDDWLXJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=GSGDDWLXJSJD"
+                        break;
+                    case "mix_QLJBJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=QLJBJJSJD"
+                        break;
+                    case "mix_FDJBJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=FDJBJJSJD"
+                        break;
+                    case "mix_JGJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=JGJJSJD"
+                        break;
+                    case "mix_DXZJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=DXZJJSJD"
+                        break;
+                    case "mix_RJBJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=RJBJJSJD"
+                        break;
+                    case "mix_QTSJBJJSJD":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=QTSJBJJSJD"
+                        break;
+                    case "mix_FJGZJDYXXM":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=FJGZJDYXXM"
+                        break;
+                    case "mix_BPBJGHB":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=BPBJGHB"
+                        break;
+                    case "mix_SBHBGZQKB":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=SBHBGZQKB"
+                        break;
+
+                    case "mix_YLRQDJNJB":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=YLRQDJNJB"
+                        break;
+                    case "mix_YLRQGLB":
+                        _href = "/main?xwl=23Z5K1X3ZF2N&repordCode=YLRQGLB"
+                        break;
+
+
+                }
+                var $tb = $("#tianbao");
+
+                if (flag) {
+                    $tb.get(0).href = ctx + "/jsjd" + _href;
+                } else {
+                    $tb.get(0).href = "#";
+                    $tb.attr("disabled", "disabled");
+                }
             }
-            switch (general_type) {
-                case "mix_ZZRZQGDJDQG":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=ZZRZQGDJDQG" 
-                    break;						
-                case "mix_ZDJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=ZDJJSJD" 
-                    break;						
-                case "mix_GWLXJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=GWLXJSJD" 
-                    break;						
-                case "mix_SRMGJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=SRMGJSJD" 
-                    break;						
-                case "mix_QBQSFLQJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=QBQSFLQJSJD" 
-                    break;						
-                case "mix_GSGDDWLXJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=GSGDDWLXJSJD" 
-                    break;						
-                case "mix_QLJBJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=QLJBJJSJD" 
-                    break;						
-                case "mix_FDJBJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=FDJBJJSJD" 
-                    break;						
-                case "mix_JGJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=JGJJSJD" 
-                    break;						
-                case "mix_DXZJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=DXZJJSJD" 
-                    break;						
-                case "mix_RJBJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=RJBJJSJD" 
-                    break;						
-                case "mix_QTSJBJJSJD":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=QTSJBJJSJD" 
-                    break;						
-                case "mix_FJGZJDYXXM":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=FJGZJDYXXM" 
-                    break;						
-                case "mix_BPBJGHB":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=BPBJGHB" 
-                    break;						
-                case "mix_SBHBGZQKB":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=SBHBGZQKB" 
-                    break;
+            //去除a链接的跳转;
+            return false;
+        });
 
-                case "mix_YLRQDJNJB":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=YLRQDJNJB" 
-                    break;						
-                case "mix_YLRQGLB":
-                    _href="/main?xwl=23Z5K1X3ZF2N&repordCode=YLRQGLB" 
-                    break;						
+        //双击跳转
+        table.on("dblclick", function(e) {
+            var ev = e || window.event;
+            var org_id = localStorage.getItem("orgid_baobiao");
+            var org_name;
 
-                
+            if (org_id == 'a61365e2-969d-4352-b3f8-805027ab9f1d' || org_id == "c21834b4-1cb0-490f-a2a8-deeaf7f7e065") {
+                org_id = "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"
+                    // console.log("岱海发电");
+                org_name = encodeURI("岱海发电");
+            } else if (org_id == "472212af-1977-462b-a74a-a1f36ed6562d") {
+                org_name = encodeURI("宁东发电")
             }
-            var $tb = $("#tianbao");
+            //console.log(org_id);
 
-            if(flag){
-                $tb.get(0).href=ctx+"/jsjd"+_href;
-            }else{
-                $tb.get(0).href="#";
-                $tb.attr("disabled","disabled");
+            if (ev.target && ev.target.nodeName == "H1") {
+                var _href = $(ev.target).siblings().get(0).href,
+                    _resid = GetRequest(_href).resid,
+                    // general_type = GetRequest(_href).general_type,
+                    _this_url = ctx + "/spreadsheet/vision/openresource.jsp?paramsInfo=[{'name':'org_id','value':'" + org_id + "','displayValue':'" + org_name + "'}]&resid=" + _resid + "&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan"
+
+                window.open(_this_url, "_blank");
             }
-        }
-        //去除a链接的跳转;
-        return false;
-    });
-
-    //双击跳转
-    table.on("dblclick", function (e) {
-        var ev = e||window.event;
-        var org_id = localStorage.getItem("orgid_baobiao");
-        var org_name;
-       
-        if(org_id == 'a61365e2-969d-4352-b3f8-805027ab9f1d'|| org_id == "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
-            org_id   = "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"
-           // console.log("岱海发电");
-            org_name = encodeURI("岱海发电");
-        }else if(org_id == "472212af-1977-462b-a74a-a1f36ed6562d"){
-            org_name = encodeURI("宁东发电")
-        }
-         //console.log(org_id);
-
-        if(ev.target&&ev.target.nodeName=="H1"){
-            var  _href     = $(ev.target).siblings().get(0).href,
-                 _resid    = GetRequest(_href).resid,
-               // general_type = GetRequest(_href).general_type,
-                 _this_url = ctx+"/spreadsheet/vision/openresource.jsp?paramsInfo=[{'name':'org_id','value':'"+org_id+"','displayValue':'"+org_name+"'}]&resid="+_resid +"&id=displaycatalog&catalogid=I8a8a8aa0308027e30152339cf073025a&showbanner=false&user=liulan&password=liulan"
-
-            window.open(_this_url, "_blank");
-        }
-        //return false;
-    });
-
-</script>
+            //return false;
+        });
+    </script>
 </body>
 
 </html>

@@ -45,11 +45,11 @@ $(function(){
 				 * �����ǰ�ڵ���������Ӳ˵��������� show ���Ե�ֵΪ true�����޸��� show ����Ϊ false
 				 * �����޸��� show ����Ϊ true
 				 */
-				if($(this).next("ul").attr("show")=="true"){
+				/*if($(this).next("ul").attr("show")=="true"){
 					$(this).next("ul").attr("show","false");					
 				}else{
 					$(this).next("ul").attr("show","true");
-				}
+				}*/
 				
 				/* ��ʼ���˵� */
 				option._init();

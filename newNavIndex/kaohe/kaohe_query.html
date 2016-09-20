@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="js/tree_themes/SimpleTree.css"/>
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js "></script>
+    <script src="../../common/js/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="css/news.css"/>
 <body>
 <div class="wu_top">
@@ -42,10 +42,9 @@
 				<div class="form-group ">
                 	<label class="w60 control-label left" for="org_id">单位</label>
                 	<select name="choose" class="form-control col-sm-1" id="org_id">
-	                   <!--  <option value="" ></option> --> 
+	                    <option value="" ></option>
 	                    <option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
-	                    <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065" >岱海发电</option>
-	
+	                    <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
 	                    <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
                 	    
                	 	</select>
@@ -92,7 +91,7 @@
                 <tr>
 
                     <td style="width:4%;">序号</td>
-                    <td style="width:38%;">考核项目</td>
+                    <td style="width:20%;">考核项目</td>
                     <td>考核时间</td>
                     <td>考核金额(元)</td>
                     <td>被考核单位</td>
@@ -147,21 +146,13 @@
             var org_id_orgin = localStorage.getItem("orgid_baobiao");
         }else{
             alert("请返回到首页")
-        }
-
-       
-
-       
-        
-        
-      
-        
+        }        
         var initPagination = function(page) {
             var num_entries = page;
             // 创建分页
             $("#Pagination").pagination(num_entries, {
                 num_edge_entries: 1, //边缘页数
-                num_display_entries: 4, //主体页数
+                num_display_entries: 6, //主体页数
                 callback: pageselectCallback,
                 items_per_page: 1, //每页显示1项
                 prev_text: "前一页",
@@ -192,9 +183,7 @@
         
         kaohe_detail(org_id_orgin,1)
         function kaohe_detail(org_id,pageNum){
-
-            var url= ctx+"/jsjd/getKaoheAction.do";
-            
+            var url= ctx+"/jsjd/getKaoheAction.do";         
 			var org_id = $("#org_id").val();
 			if(org_id == ""){
 				org_id=org_id_orgin;
@@ -208,13 +197,13 @@
                 data:{
                 	method:"getAppList",
                 	org_id:org_id,
-                    pageSize:5,
+                    pageSize:10,
                     pageNum:pageNum,
                     startTime:startTime,
                     endTime:endTime
                 },
                 success:function(data){
-                    var page = Math.ceil(data.total/5)
+                    var page = Math.ceil(data.total/10)
                     $("#detail").html(prepare(data.pagedata));
 
                     if(flag){
@@ -231,27 +220,11 @@
 
                 var d=data[i];
                 var j = i+1;
-                htmlArray.push("<tr><td>"+j+"</td><td style='text-align:left;'>"+d.info+"</td><td>"+d.assDate+"</td><td>"+d.amount+"</td><td>"+d.orgName+"<td>"+d.appDate+"</td><td>"+d.appCase+"</td><td>"+ds_fixed(d.tag)+"</td></tr>");
+                htmlArray.push("<tr><td>"+j+"</td><td style='text-align:left;max-width:150px'>"+d.info+"</td><td>"+d.assDate+"</td><td>"+d.amount+"</td><td>"+d.orgName+"<td>"+d.appDate+"</td><td style='max-width:300px;text-align:left;'>"+d.appCase+"</td><td>"+ds_fixed(d.tag)+"</td></tr>");
 
             } 
             return htmlArray.join("");
-
         }
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
         $('.form_datetime').datetimepicker({
             weekStart: 1,
             todayBtn:  1,

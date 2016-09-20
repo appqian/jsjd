@@ -85,7 +85,7 @@ function huanxing(id,color,value,shiji){
 
 
 			
-setInterval(huanxingshuju,2*60*1000)
+setInterval(huanxingshuju,60*1000)
 
 
 
@@ -117,8 +117,11 @@ function huanxingshuju(){
         var currentDay = da.getDate();
         var currentMonth = da.getMonth() + 1;
         var currentYear = da.getFullYear();
+        var curHour = da.getHours();
+
         var dayNum = DayNumOfMonth(currentYear, currentMonth);
-        var dayPercent = (currentDay / dayNum).toFixed(2) * 100;
+        var dayPercent = (currentDay*24+curHour) / (dayNum*24);
+
         var monthPercent = (currentMonth/12).toFixed(2) * 100;
 
         var nowTime = new Date().getTime();
@@ -132,7 +135,8 @@ function huanxingshuju(){
 		
 		//"<a onclick=show('JNJT:PE:YXFH')  href='javascript:void(0)' >" + parseInt(a) + "%</a>"
 		
-		$("#totalFHL").html("<a onclick=show('JNJT:AF:FHLV')  href='javascript:void(0)' >" + parseInt(a) + "%</a>");
+		//$("#totalFHL").html("<a onclick=show('JNJT:AF:FHLV')  href='javascript:void(0)' >" + parseInt(a) + "%</a>");
+        $("#totalFHL").html("<a onclick=show('JNJT:AF:FHLV')  href='javascript:void(0)' >" + Math.round(a) + "%</a>");
 		$("#nd1").html("<a onclick=show('JNJT:AF:FDWCL_YEAR')  href='javascript:void(0)' >" + parseInt(b) + "%</a>");
 		
 		$("#yd1").html("<a onclick=show('JNJT:AF:FDWCL_MONTH')  href='javascript:void(0)' >" + parseInt(c) + "%</a>");
@@ -142,12 +146,12 @@ function huanxingshuju(){
 		//$("#yd1").html(parseInt(c)+"%");
 		
 		$("#nd").html(parseInt(res)+"%");
-		$("#yd").html(parseInt(dayPercent)+"%");
+		$("#yd").html(parseInt(dayPercent*100)+"%");
 		
 		jt_huanxing0(0,Number(a))
 		jt_huanxing(parseInt(res),Number(b));
 		//jt_huanxing(Number(monthPercent),Number(b));
-		jt_huanxing1(Number(dayPercent.toFixed()),Number(c));
+		jt_huanxing1(Math.round(dayPercent*100),Number(c));
 		//huanxing('huanxing2','#6CADE3',b,e);
 		//huanxing('huanxing3','#58CBC8',c,f);					
 	}
@@ -420,7 +424,7 @@ var timer_hightchart=null;
 	
 	hightjiaohu();
 
-	},2*60*1000)
+	},60*1000)
 
 //折线图的宽度
 function kuandu(){

@@ -138,7 +138,7 @@
  <!--  <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js"></script>
  -->
- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+ <script src="../common/js/jquery.min.js"></script>
  
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/wj0201.js"></script>

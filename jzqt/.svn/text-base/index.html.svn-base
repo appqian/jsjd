@@ -34,24 +34,28 @@
 <div class="wu_main" style="border: 1px solid #ccc;">
   <div class="wu_main1">
   	<div id="jt_view" style="display:none">
-  		<p style="margin:20px 0">京能集团</p>
-	  	<div class="wu_top0 select" style="">
+  		
+  		<p style="width:94%;float:left;">京能集团</p>
+  		<a class='btn btn-primary' href="../newNavIndex/portal.jsp">返回</a>
+  		<a class="btn btn-info pull-left" href="yxzt.html" >启机过程参数对比</a>
+	  	<div class="wu_top0 select" style="margin-top:10px;">
 	        <form class="form-inline">
 	            <!-- <div class="left form-group" style="margin-left:30px;"><a href="kaohe.html">返回</a></div> -->
 	           
 				<div style="float:left;margin-right:5%">
 					<div class="form-group ">
-	                	<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="org_id">电厂</label>
+	                	<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="org_id">单位</label>
 	                	<select name="choose" class="form-control col-sm-1" id="org_id">
-							<option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
-							<option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
-		                 	<option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
+											<option value=""></option>
+											<option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
+											<option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
+		                 	<option value="">京能集团</option>
 		                    
 	               	 	</select>
 	            	</div>
 					<div class="form-group ">
 	                	<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="g_id">机组</label>
-	                	<select name="choose" class="form-control col-sm-1" id="g_id" style="width:100px;">
+	                	<select name="choose" class="form-control col-sm-1" id="g_id" style="width:65px;">
 		                 	<option value="" ></option>
 		                    
 	               	 	</select>
@@ -114,11 +118,12 @@
 		      <thead>
 		        <tr>
 		          <td>启停机项目</td>
-		          <td>开始时间</td>
-		          <td>结束时间</td>
-		          <td>点火、灭火时间</td>
-		          <td>冲车/跳闸时间</td>
-		          <td>并网、解列时间</td>
+		          <!-- <td>开始时间</td>
+		          <td>结束时间</td> -->
+		          <td>点火/灭火时间</td>
+		          <td>冲车/打闸时间</td>
+		          <td>并网/解列时间</td>
+		          <td>至50%负荷/盘车投入时间</td>
 		          <td>启停机类别</td>
 		        </tr>
 		      </thead>
@@ -128,7 +133,9 @@
 	    <div class="fengge"></div>
     </div>
     <div id="dc_view">
-    	 <p id="lh_name">岱海发电</p>
+    	<!--  <p >岱海发电</p> -->
+    	 <p id="lh_name" style="width:94%;float:left;text-indent:5%"></p>
+  		<a class='btn btn-primary' href="../newNavIndex/portal.jsp">返回</a>
     	 <table class="wu_tab1"  style="">
 		      <thead>
 		        <tr>
@@ -149,13 +156,14 @@
 		        <tr id="d_head">
 		         <!--  <td>机组</td> -->
 		          <td>启停项目</td>
-		          <td>开始时间</td>
-		          <td>结束时间</td>
+		          <!-- <td>开始时间</td>
+		          <td>结束时间</td> -->
 		          <td>点火时间</td>
 		          <td>冲车时间</td>         
 		          <td>并网时间</td>
+		          <td>至50%负荷/盘车投入时间</td>
 		          <td>启停机类别</td>
-		          <td>查看趋势</td>
+		          <!-- <td>查看趋势</td> -->
 		          <td>查看报告</td>
 		        </tr>
 		      </thead>
@@ -171,7 +179,7 @@
       <input type="text" id="style"  name="style" value="" style="display: none"   >
       <input type="text" id="flowname"  name="flowname" value="" style="display: none"   >
       <label for="tj">停机类别</label>
-   <select name="tj" id="tj">
+   	  <select name="tj" id="tj">
           <option value="A级检修">A级检修</option>
           <option value="B级检修">B级检修</option>
           <option value="C级检修">C级检修</option>

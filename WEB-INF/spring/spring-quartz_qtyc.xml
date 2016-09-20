@@ -107,31 +107,58 @@
     	   <value>false</value>
     	 </property>
 	</bean>
-
+<!-- 主再热温度、金属壁温、环保考核取数 -->
+	<bean id="CXCBkaohe" class="com.xzsoft.interfaces.MetalBaojing"/>
+	<bean id="jobDetailaddCXCBkaohe" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+		    <ref bean="CXCBkaohe"/>
+		</property>  
+    	<property name="targetMethod">
+    	    <value>CXCBkaoheExecute</value>
+    	</property>
+    	<!-- 将并发设置为false   -->
+    	<property name="concurrent">
+    	   <value>false</value>
+    	 </property>
+	</bean>
+	<!-- 振动报表取数 -->
+	<bean id="ZzReportForm" class="com.xzsoft.interfaces.MetalBaojing"/>
+	<bean id="jobDetailaddZzReportForm" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+		    <ref bean="ZzReportForm"/>
+		</property>  
+    	<property name="targetMethod">
+    	    <value>getZzReportFormExecute</value>
+    	</property>
+    	<!-- 将并发设置为false   -->
+    	<property name="concurrent">
+    	   <value>false</value>
+    	 </property>
+	</bean>
       <!-- 设备轮换 -->
 	<bean id="testTriggeraddLH" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddLH"/>  
-       <property name="cronExpression" value="0 0/7 * * * ?"/><!-- 每十分钟执行一次   -->
+       <property name="cronExpression" value="0 0/7 * * * ?"/><!-- 每7分钟执行一次   -->
 	</bean> 
      <!--异常情况-->
 	<bean id="testTriggeraddYC" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddYC"/>  
-       <property name="cronExpression" value="0 0/13 * * * ?"/><!-- 每6分钟执行一次   -->
+       <property name="cronExpression" value="0 0/13 * * * ?"/><!-- 每13分钟执行一次   -->
 	</bean> 
 	<!--机组启停-->
 	<bean id="testTriggeraddQT" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddQT"/>  
-       <property name="cronExpression" value="0 0/5 * * * ?"/><!-- 每4分钟执行一次   -->
+       <property name="cronExpression" value="0 0/5 * * * ?"/><!-- 每5分钟执行一次   -->
 	</bean> 
 	<!--机组启停步序记录数-->
 	<bean id="testTriggeraddQTStep" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddQTStep"/>  
-       <property name="cronExpression" value="0 0/17 * * * ?"/><!-- 每4分钟执行一次   -->
+       <property name="cronExpression" value="0 0/17 * * * ?"/><!-- 每17分钟执行一次   -->
 	</bean> 
     <!--定期试验-->
 	<bean id="testTriggeraddSY" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddSY"/>  
-       <property name="cronExpression" value="0 0/6 * * * ?"/><!-- 每15分钟执行一次   -->
+       <property name="cronExpression" value="0 0/6 * * * ?"/><!-- 每6分钟执行一次   -->
 	</bean> 
    <!--金属超温超压报警-->
 	<bean id="testTriggeraddMetalBj" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
@@ -143,7 +170,16 @@
        <property name="jobDetail" ref="jobDetailaddMetalbjTotal"/>  
        <property name="cronExpression" value="0 0 0 1 * ?"/><!-- 每月1号0点执行 value="0 0 0 1 * ?"  -->
 	</bean> 
-
+     <!--主再热温度、金属壁温、环保考核取数-->
+	<bean id="testTriggeraddCXCBkaohe" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jobDetailaddCXCBkaohe"/>  
+       <property name="cronExpression" value="0 0/23 * * * ?"/><!-- 每23分钟执行一次   -->
+	</bean> 
+	<!--振动报表取数-->
+	<bean id="testTriggeraddZzReportForm" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jobDetailaddZzReportForm"/>  
+       <property name="cronExpression" value="0 0 0 1 * ?"/><!-- 每月1号0点执行 value="0 0 0 1 * ?"  -->
+	</bean> 
 	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序     -->
 	<bean id="addwork" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
         <property name="triggers">
@@ -157,7 +193,8 @@
                                  <ref bean="testTriggeraddSY" />  
 								 <ref bean="testTriggeraddMetalBj" />  <!--金属超温超压报警-->
 								 <ref bean="testTriggeraddMetalBjTotal" />  <!--金属超温超压报警统计表 -->
-							
+							     <ref bean="testTriggeraddCXCBkaohe" />  <!--主再热温度、金属壁温、环保考核取数-->
+								 <ref bean="testTriggeraddZzReportForm" />  <!--振动报表取数-->
             </list>  
     </property>  
 </bean>    
