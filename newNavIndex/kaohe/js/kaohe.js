@@ -160,10 +160,11 @@ function query(orgid, pageNum, type_outer, flag) {
             $('.badge').eq(1).html(data.totalAmount)
 
             $("#detail").html(prepare(data.pagedata));
-            if (qureyflag) {
+            if (qureyflag||flag) {
                 initPagination(page); //分页加载
             }
             qureyflag = false;
+            flag=false;
         }
     })
 
