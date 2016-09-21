@@ -1038,11 +1038,11 @@ if (!window.location.origin) {
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }
 var ctx = window.location.origin;
-function daocu(id,type){
+function daocu(id,typeSy){
 	var url = ctx+"/jsjd/SYExportAction.do?method=getSYExport&sy_id="+id;
 	var url2  = ""
-	switch(type){
-		case "zk":
+	switch(typeSy){
+		case "ZK":
 			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
 			break;
 		case "ZJFM":
