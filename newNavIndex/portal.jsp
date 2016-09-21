@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.DriverManager"%>
@@ -20,18 +19,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"
 	scope="request" />
 <style>
-	/* html{font-size: 16px;}
-			
-	@media only screen and (min-width: 900px) and (max-width: 1366px) {
-		html{font-size: 62.5%;}
-	}
-	@media only screen and (min-width: 1366px) and (max-width: 1650px) {
-		html{font-size: 75.2%;}
-	}
-	@media only screen and (min-width: 1650px) and (max-width: 1920px) {
-		html{font-size: 86.3%;}
-	}
-	 */
+	
 </style>
 <link rel="stylesheet" href="${ctx}/newNavIndex/css/style1-14.css" />
 <link rel="stylesheet" href="${ctx}/newNavIndex/css/yz.css" />
@@ -47,14 +35,11 @@
     	height: 37px;
 	}
 	
-	#jjjj{}
-
-
 </style>
 
 <script type="text/javascript">
 		var ctx = "${ctx}";
-		//alert(1);
+		
 </script>
 <%
 	HashMap map = (HashMap) session.getAttribute("XzSessionVars");
@@ -70,35 +55,12 @@
 				<span id="time" style="color:#666;width:"></span>
 				<div id="FontScroll" style="float: left; height: 28px;line-height: 31px;overflow: hidden;font-size: 16px; font-weight: 100; color: red;">
 				    <ul>
-				        <li> </li>
+				        <li></li>
 				        <li></li>
 				    </ul>
 				</div>
 				<ul>
-					<select id="spec" name="language" class="pull_down" style="display:none">
-						<!--<c:forEach items="${specList}" var="spec">
-							<option id="#wj_spec"  value="${spec.ID}">${spec.NAME}</option> 
-						
-						</c:forEach> -->
-
-						<c:forEach items="${specList}" var="spec">
-							<option id="wj_spec" value="${spec.ID}">${spec.NAME}</option>
-						</c:forEach>
-						<option value="2c89e177-26e1-48dd-a844-b4661bb6e00f">绝缘</option>
-						<option value="7ebef882-8cbf-4729-8c25-1b2558ed9a60">金属</option>
-						<option value="93188b01-4b8b-461a-8e28-65cd03fade65">化学</option>
-						<option value="af3f2df3-4030-47ce-828b-4f02f6f39243">电测</option>
-						<option value="4cfbad50-6b92-4b78-a6dd-fcadf6e5fdac">电能</option>
-						<option value="2dcd1a02-3b3d-4dd3-a554-c6b33f254de0">热工</option>
-						<option value="f2df9251-e408-4073-90a2-967f4c85cab6">环保</option>
-						<option value="5daeaa7d-5141-46b1-b857-ebd74be42118">节能</option>
-						<option value="e4fd5a5f-f21b-4608-9104-49d82b4a45f7">继保</option>
-						<option value="7491dd42-c94c-46fa-b82d-65e7c320593b">压力容器</option>
-						<option value="cca16d73-e72a-4643-9b95-a8e7328e9b94">计量</option>
-						<option value="12b4521c-090b-427d-800b-c23d2a6af8f5">励磁系统</option>
-						<option value="a9b32dc4-e5ee-44cf-b98e-9009d30b3a54">振动</option>
-						<option value="c8a1b764-b850-4f25-8dca-7ca1d9f6bfbc">特种设备</option>
-					</select>
+					
 					<select id="org" class="pull_down">
 						<option value="a61365e2-969d-4352-b3f8-805027ab9f1d">京能集团</option>
 						<option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
@@ -183,37 +145,16 @@
 							</div>
 						</div>
 					</div>
-					
+					<!--table2-->
 					<div class="table_v2 fr" style="">
 						<div id="dczb" class="wj_cen">
 
 						</div>
 					</div>
 
-					<!-- <table style="width: 100%; margin-top: 20px;">
-						<tr class="du_href">
-							<td style="background: #ffffff;"><a class="tiaozhuan"
-								style="float: left; width: 120px; height: 30px; margin: 0 0 0 60px; background: #f2f2f2; text-align: center; line-height: 30px; color: #177EDA">机组状态参数</a></td>
-							<td style="background: #ffffff;"><a
-								href="http://172.168.100.101/Coresight"
-								style="float: right; width: 120px; height: 30px; background: #f2f2f2; text-align: center; line-height: 30px; color: #177EDA;margin-right:60px;">全厂系统总览</a></td>
-						</tr>
-					</table> -->
+					
 				</div>
-				<!--table2-->
-
-				<!-- <div class="class_main1 class_main5  fl  wj_ma h293" style="display:none">
-					<h3 class="pointer wj_bod">
-						<b class="title_active1" onclick="zyzb_show()">重要指标一览</b>
-						<b class="" onclick="hbzb_show()" id="hb_title">环保指标一览</b>
-					</h3>
-					<div class="du_more">更多></div>
-					<div class="clearfix"></div>
-					<div id="dczb" class="wj_cen">
-					</div>
-					<div id="hbzb" class="wj_cen" style="display:none">				
-					</div>
-				</div> -->
+				
 			
 				<!--table3 -->
 				<div class="class_main1 class_main5 fl  wj_ma h293">
@@ -222,9 +163,9 @@
 						<b class="title_active1" onclick="zhibiao_show()">指标排名</b>
 						<!--<b onclick="kaohexinxi_show()">考核信息</b>-->
 					</h3>
-					<div id="wj_ckdb" class="du_more" style="text-decoration:underline">
+					<!--<div id="wj_ckdb" class="du_more" style="text-decoration:underline">
 						<a id='duibiaodizhi' href="">查看对标奖励兑现表</a>
-					</div>
+					</div>-->
 					<div class="clearfix"></div>
 					<div class="wj_cen" >
 						<div id="kaohe" style="display:none">
@@ -273,15 +214,10 @@
 				<!--table4 -->
 				<div class="class_main1 class_main5 fl  wj_ma h213  " style="height: 436px!important;">
 					
-					<!-- <h3 class="pointer wj_bod">
-						<b class="title_active1" onclick="baojing(1);">测点报警</b>
-						<b onclick="baojing(0)">停机机组报警</b>
-						<b onclick="yjtz_show()">预警通知单</b>
-					</h3> -->
+					
 					<h3 >
 						<b  onclick="baojing(1);">测点报警</b>
-						<!-- <b onclick="baojing(0)">停机机组报警</b> -->
-						<!-- <b onclick="yjtz_show()">预警通知单</b> -->
+					
 					</h3>
 					<div class="du_more"><a href="${ctx}/main?xwl=23WPD5TO7GWR">更多&gt;</a></div>
 					<div class="clearfix"></div>
@@ -384,9 +320,6 @@
 						<b id="wj_jz" class="title_active1">机组启停</b>
 						<b id="wj_sb"  >设备轮换</b>
 						<b id="wj_dq" >定期试验</b>
-						
-						
-
 					</h3>
 					<div class="du_more"><a id="dq_more" href="${ctx}/newNavIndex/shebeilunhuan/qchuizong.html"> 更多</a>
 						<%-- <a href="${ctx}/newNavIndex/jianduzhixing.jsp">更多></a> --%>
@@ -399,44 +332,14 @@
 								<td width="10%">机组</td>
 								<td width="44%">轮换项目</td>
 								<td width="44%">轮换时间</td>
-                                
 							</tr>
 						</thead>
 						<tbody id="table_5_1" style="display:none"></tbody>
 						<tbody id='table_5' >
 						<tbody id="table_5_2" style="display:none"></tbody>
 						</tbody>
-
 					</table>
-
 				</div>
-				
-				<!--table7  -->
-				<!--<div class="class_main1 class_main5 fl h213">
-
-					<h3 class="pointer">
-						<b  class="title_active1" onclick="zongjie(0)">监督计划</b>
-						<b onclick="zongjie(1)">监督总结</b>
-					</h3>
-					<div class="du_more">
-						<a href="${ctx}/smartBIjh.html">更多></a>
-					</div>
-					<div class="clearfix"></div>					
-					<div class="jdzj" style="width: 100%;">
-						<table class="wj_cen" id="jdjhzj">
-							<thead style="width: 100%;">
-								<tr style="width: 100%;">
-									<td style="width: 30%;">计划编号</td>
-									<td style="width: 40%;">计划名称</td>
-									<td style="width: 30%;">上报时间</td>
-								</tr>
-							</thead>
-							<tbody id="zongjieTable">
-							</tbody>
-						</table>
-					</div>
-				</div>-->
-
 				<!--table8-->
 				<div class="class_main1 fl h213">
 					<!-- 技改项目  -->
@@ -453,62 +356,19 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="profit">
-
-						
-
 					</div>
 					<div id='jg_yuan' style="position:absolute;left:20px;top:81px;z-index:999;display:none">(元)</div>
 					<!-- <div id="my_echart" style="width: 420px; height: 220px;margin:0 auto; display:none;position:absolute;top:31px;">
 					</div> -->
 					<div id="myChart_"  style="height:220px;margin:0 auto;position:relative;top:-49px;"></div>
 				</div>
-
-				<!--9table-->
-				<!-- <div class="class_main1 class_main5 fl h213 ">
-					<h3 class="pointer">
-						<b class="title_active1" onclick="jiandubaobiao_show()">监督报表</b> <b
-							onclick="shengchanbaobiao_show()">生产报表</b>
-					</h3>
-					<div class="du_more">
-						<a href="${ctx}/smartBI.html">更多></a>
-					</div>
-					<div class="clearfix"></div>
-					<table class="jiandubaobiao_view wj_cen">
-						<thead>
-							<tr>
-								<td style="width: 30%; overflow: hidden;">报表编号</td>
-								<td style="width: 40%; overflow: hidden;">报表名称</td>
-								<td style="width: 30%; overflow: hidden;">上报时间</td>
-							</tr>
-						</thead>
-						<tbody id="jianduTable">
-						</tbody>
-					</table>
-					<table style="display: none;" class="shengchanbaobiao_view wj_cen" id="yzs">
-						<thead>
-							<tr>
-								<td style="width: 30%; overflow: hidden;">报表编号</td>
-								<td style="width: 40%; overflow: hidden;">报表名称</td>
-								<td style="width: 30%; overflow: hidden;">上报时间</td>
-							</tr>
-						</thead>
-						<tbody id='scTable'>
-				
-						</tbody>
-					</table>
-				</div> -->
 			</div>
 
-
-
-
-
-
+			<!--集团view-->
 			<div id="d_jtyh" style="display:none">
 					<!-- 集团用户table1+table2 -->
 				<div  class="class_main1 fl  h293 " style="width:65.1%" >
-					<div style="" class="jt-left fl">
-						
+					<div style="" class="jt-left fl">						
 						<div class="jt-left-1 fl">
 							<div class="jt-left-1-1" style="margin-bottom:60px;">
 								<div>昨日发电量</div>
@@ -524,10 +384,9 @@
 						<div class="jt-left-canvas fl" style="positon:relative;padding-top:20px;position:relative; top:-10px;">
 							<div id="hightchart" style="width:470px;height:240px;position:absolute"></div>							
 						</div>
-						<!-- <div class="jt-cs"><a href="/jsjd/main?xwl=23Z6S7B7RZLA">查询各厂测点指标</a></div>
-						<div class="jt-cs jt-cs1"><a href="/jsjd/main?xwl=23YA0QJSVS7L">各厂机组主要参数</a></div> -->
-					
+						
 					</div>
+
 					<!-- 集团 canvas2 -->
 					<div class="jt-right fl" >
 						<div class="jt-right-h">
@@ -575,17 +434,12 @@
 								<div style="width: 45px;height: 5px;background: #4da9fe;position:absolute;margin: 6px 0;left: 7%;"></div>
 								发电量完成率
 							</div>
-
 						 </div>
 					</div>
 				</div>	
 				<!--table3 -->
 				<div class="class_main1 class_main5 fl  wj_ma h293">
-					<!-- <h3 class="pointer wj_bod">
-						<b id="wj_yxjz" class="title_active1" onclick="JTbaojing(1)">运行机组报警</b>
-						<b id="wj_tjjz" onclick="JTbaojing(0)">停机机组报警</b>
-						<b onclick="yjtz_show()">预警通知单</b>
-					</h3> -->
+					
 					<h3>
 						<b>测点报警</b>
 					</h3>
@@ -619,9 +473,7 @@
 					<b id="wj_db" onclick="JTdbgl_show()">对标管理</b>					
 				</h3>
 				
-				<div class="du_more">
-				 <a id="wj_db_more"></a>
-				</div>
+				<div class="du_more"><a href="/jsjd/newNavIndex/kaohe/kaohe.html">更多</a></div>
 				<div class="clearfix"></div>
 
 				<table class="JTkhhz wj_cen">
@@ -629,12 +481,9 @@
 						<tr>
 							<td style="width:10%">电厂</td>
 							<td style="width:22%">本年考核次数</td>
-							<td style="width:22%">本年考核金额</td>
-							
+							<td style="width:22%">本年考核金额</td>							
 							<td style="width:23%">本月考核次数</td>
-							<td style="width:23%">本月考核金额</td>
-							
-							
+							<td style="width:23%">本月考核金额</td>							
 						</tr>
 					</thead>
 					<tbody id="kaohehuizong">					
@@ -794,7 +643,6 @@
 					<div class='du_more'>
 					
 						<a href="${ctx}/main?xwl=23Z3QFWUNBT8">更多></a>
-						<!--<%-- <a href="${ctx}/newNavIndex/jianduzhixing.jsp">更多></a> --%>-->
 					</div>
 					<div class="clearfix"></div>
 
@@ -811,23 +659,6 @@
 					<div id="my_echart" style="width: 420px; height: 220px;margin:0 auto; display:none;position:absolute;top:31px;">
 					</div>
 					<div id="jt_myChart_"  style="height:220px;margin:0 auto;position:relative;top:-49px;"></div>
-
-
-					<!-- <table class="ycqk wj_cen">
-	 						<thead>
-	 							<tr>
-	 								<td style="width: 33%; overflow: hidden;">电厂</td>
-	 								<td style="width: 34%; overflow: hidden">技改名称</td>
-	 								<td style="width: 34%; overflow: hidden">专业</td>
-	 								<td style="width: 33%; overflow: hidden">投运时间</td>
-	 								
-	 							</tr>
-	 						</thead>
-	 						<tbody id="ycqktable"> 
-	 						
-	 						</tbody>
-	 					</table> -->
-					
 				</div>
 				<!--table9 -->
 				<div class="class_main1 class_main5 fl h213">
@@ -836,7 +667,6 @@
 						
 					</h3>
 					<div class="du_more"><a href="/jsjd/main?xwl=23WPD5TO7KQ1"> 更多></a>
-						<!--<%-- <a href="${ctx}/newNavIndex/jianduzhixing.jsp">更多></a> --%>-->
 					</div>
 					<div class="clearfix"></div>
 					<table class="ycqk wj_cen">
@@ -875,7 +705,7 @@
 		<div id="myChart" style="height: 300px; width: 660px"></div>
 		<!-- 测点数据的信息 -->
 		<div id="pointsInfo" style="_height:40px;min-height:40px; font-size: 17px"></div>
-		<!-- <div id="methods" style="height: 20px"></div> -->
+		
 	</div>
 	
 	
@@ -885,9 +715,6 @@
 	<script src="${ctx}/common/js/jquery.min.js"></script>
 	
 	<script type="text/javascript"  src="${ctx}/util/echarts-all.js"></script>
-
-
-
 	<script type="text/javascript" type="text/javascript" src="<%=path%>/final/js/line.js"></script>
 	<script type="text/javascript"  src="<%=request.getContextPath()%>/echars/dist/echarts.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/echars/asset/js/esl/esl.js"></script>
@@ -924,13 +751,11 @@
 					return false;
 			}
 			if (isIE()) {
-				document.getElementById
-				document.getElementById('spec').style.background = 'none';
+			
 				document.getElementById('org').style.background = 'none';
 			} else {
 
-				document.getElementById('spec').style.background = 'url(' + ctx
-						+ '/newNavIndex/img/icon.png) no-repeat right center';
+				
 				document.getElementById('org').style.background = 'url(' + ctx
 						+ '/newNavIndex/img/icon.png) no-repeat right center';
 			}

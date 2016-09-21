@@ -1812,7 +1812,7 @@ function shengchanbaobiao_show(){
 }
 
 //查看奖励对标兑现表href
-function dizhi() {
+/*function dizhi() {
 	var url2 = ctx + '/portal/getDuibiao.do';
 	$.ajax({
 		type: "get",
@@ -1826,7 +1826,7 @@ function dizhi() {
 	});
 }
 dizhi();
-
+*/
 //默认宁东电厂技隐藏
 function nindongjigaiHide(){
 	var id=$('#org').val();
