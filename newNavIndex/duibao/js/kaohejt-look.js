@@ -56,6 +56,22 @@ $(document).ready(function(){
                     $(".t2-boby tr").eq(2*k+1).children("td").eq(i+1).html(dataJson.result.data[2*k+1][$(".t2-1 tr").eq(1).children("th").eq(i).attr("class")]);
                 }
         }
+        var indexp1 = $(".trd .scQNLYXSS").index(); 
+        var indexp2 = $(".trd .scJDLYXSS").index(); 
+        var indexp3 = $(".t2-1 .zbZHCYDL").index(); 
+        var indexp4 = $(".t2-1 .zbCYDL").index(); 
+        var indexp5 = $(".t2-1 .zbZHGDMH").index(); 
+        var indexp6 = $(".t2-1 .zbJZFHL").index(); 
+        var indexp7 = $(".t2-1 .zbDWFDYXXSL").index(); 
+        for(var i=0;i<leth/2;i++){
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp7+2).addClass("bg-green");           
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp6+2).addClass("bg-green");     
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp5+2).addClass("bg-green");     
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp4+2).addClass("bg-green"); 
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp3+2).addClass("bg-green"); 
+            $(".t1-boby .t-tr").eq(2*i).children("td").eq(indexp2+2).addClass("bg-green"); 
+            $(".t1-boby .t-tr").eq(2*i).children("td").eq(indexp1+2).addClass("bg-green");
+        }
     }
   } 
 })

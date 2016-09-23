@@ -47,7 +47,8 @@
             background-color: white;
         }
         .table>tbody>tr>td{
-             vertical-align: middle; 
+             vertical-align: middle;
+             border-top: 1px solid #666; 
         }
          .fixed-table-container table tr:nth-child(2) .th-inner {
             padding: 2px;
@@ -64,6 +65,7 @@
             font-size: 12px;
             text-align: center;
             word-break: break-all;
+            border-left: 1px solid #666;
         }
         /*  tbody 第一个td 加粗 ====  */
         .fixed-table-container tbody tr td:first-child{
@@ -80,7 +82,9 @@
             width:1500px;
             margin: 0 auto;
         }
-
+       .fixed-table-container tbody .bg-green{
+            background-color:#BBF7BE;
+        }
         .t2-boby tr td:not(first-child){
             text-align: left;
         }
@@ -134,7 +138,7 @@
 </head>
 <body>
 <div class="wrap">
-    <h3 class="text-center" style="font-weight:600;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)</h3>
+    <h3 class="text-center" style="font-weight:600;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)<button class="btn btn-info bt"style="position: absolute;right:100px;">保 存</button><button class="btn btn-info"style="position: absolute;right: 10px;" onclick="javascript:history.back(-1);">返 回</button></h3>
     <div class="fl">
         考核期：<span></span>年<b></b>季度
     </div>
@@ -270,12 +274,12 @@
         <th rowspan="2"> 综合排名</th>
     </tr>
     <tr class="col-width">
-         <th class="zbZHGDMH">综合供电煤耗（年度）*</th>
+         <th class="zbGDMH">供电煤耗（年度）*</th>
         <th class="zbGDMHJZSJZ">供电煤耗机组设计值</th>
         <th class="zbGDMHDBXYPM">供电煤耗对标行业排名*</th>
         <th class="zbCYDL">厂用电率（年度）</th>
         <th class="zbCYDLDBXYPM">厂用电率对标行业排名（年度）*</th>
-        <th class="zbZHGDMHJD">综合供电煤耗△</th>
+        <th class="zbZHGDMH">综合供电煤耗△</th>
         <th class="zbZHGDMHJHFJZ">综合供电煤耗计划分解值</th>
         <th class="jtpmZHGDMH">综合供电煤耗集团排名*</th>
         <th class="zbZHCYDL">综合厂用电率△</th>
@@ -350,7 +354,7 @@
     <textarea style="display: block;width: 1750px;margin:30px auto;height:auto;min-height: 155px;border:1px solid #666;" id="auditInstruction" onfocus="document.getElementById('note1').style.display='none'" onblur="if(value=='  ')document.getElementById('note1').style.display='block'"></textarea>
     <div id="note1" class="note1"><font color="#777">在这里填写考核说明</font></div>  
 </div>
-<div style="margin-bottom:100px;"><button class="btn btn-info bt"style="position: absolute;left:45%;">保 存</button><button class="btn btn-info"style="position: absolute;left: 51%;" onclick="javascript:history.back(-1);">返 回</button></div>
+<div style="margin-bottom:50px;"></div>
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-table.min.js"></script>

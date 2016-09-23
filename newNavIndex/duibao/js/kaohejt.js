@@ -16,17 +16,18 @@ $(document).ready(function(){
 	}
   var summaryId=GetRequest(href).summaryId;
   var url =  ctx + "/jsjd/benchmark/getBenchmarkExtendBySummaryId.do?summaryId="+summaryId;
+  var leth;
   getdatas(url);
   function getdatas(url){   
    //ajax获取数据data
-   $.ajax({
-       url: url,	
-       type:"get",	
-       success: function(data){	
-           console.log(data);
-       	    chuli(data);
-       }
-   });  
+        $.ajax({
+            url: url,	
+            type:"get",	
+            success: function(data){	
+                console.log(data);
+                    chuli(data);
+            }
+        });  
 
    //处理数据 
    function chuli(dataJson){
@@ -42,98 +43,15 @@ $(document).ready(function(){
        }else{
             $(".note1").css("display","none");  
        }
-       var leth = dataJson.result.data.length;
+       leth = dataJson.result.data.length;
        if(leth>0){
             $(".no-records-found").remove();
             for(var i=0;i<leth/2;i++){
                 $(".t1-boby").append("<tr class='t-tr'><td rowspan='2' class='td'>"+dataJson.result.data[2*i].orgName+"</td><td class='td th'title='双击填写'>完成情况</td><td ></td><td ></td><td ></td><td ></td><td></td><td ></td><td></td><td></td><td ></td> <td></td> <td></td><td></td> <td></td><td></td><td></td><td></td><td></td><td ></td><td ></td><td></td><td></td><td ></td><td></td><td ></td><td></td><td ></td><td></td><td ></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td><td></td><td></td><td></td><td></td></tr><tr class='t-tr'><td class='td'title='双击填写'>考核金额</td> <td ></td><td ></td><td ></td><td ></td><td></td><td ></td><td></td><td></td><td ></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td> <td ></td><td></td><td></td><td ></td> <td></td> <td ></td> <td></td><td ></td> <td></td><td ></td><td></td><td></td><td></td> <td></td><td></td><td></td><td ></td> <td></td><td></td><td></td><td></td></tr>");
                  $(".t2-boby .notes").before("<tr class='t-tr'><td rowspan='2' class='td'>"+dataJson.result.data[2*i].orgName+"</td><td class='td th' title='双击填写'>完成情况</td><td ></td><td ></td><td ></td><td ></td><td></td><td ></td><td></td><td></td><td ></td> <td></td> <td></td><td></td> <td></td><td></td><td></td><td></td><td></td><td ></td><td ></td><td></td><td></td><td ></td><td></td><td ></td><td></td><td ></td><td></td><td ></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td><td></td><td></td><td></td><td></td></tr><tr class='t-tr'><td class='td'title='双击填写'>考核金额</td> <td ></td><td ></td><td ></td><td ></td><td></td><td ></td><td></td><td></td><td ></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td> <td ></td><td></td><td></td><td ></td> <td></td> <td ></td> <td></td><td ></td> <td></td><td ></td><td></td><td></td><td></td> <td></td><td></td><td></td><td ></td> <td></td><td></td><td></td><td></td></tr>");
             }  
+            tabclick(); 
        }
-         for(var i=0;i<4;i++){
-            var obj={};
-            $(".t1-boby tr").eq(i).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
-                $(".t1-boby .pop-up").remove(); 
-                $(".t2-boby .pop-up").remove();
-                var html = $(this).html();
-                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
-                $(this).children(".pop-up").children(".text").focus(); 
-                $(this).children(".pop-up").children(".text").val(html);
-                var index = $(this).index();
-                var index2 = $(this).parent().data("index");
-                obj.index=index;
-                obj.index2=index2;
-                $('.text').on("keydown",key);
-                $('.text').on("blur",function(){
-                      $(this).parent().parent().html($(this).val()); 
-                });
-            });   
-
-            function key(event){
-                  if(event.keyCode==9 || event.keyCode==13){
-                        $(this).parent().parent().html($(this).val()); 
-                        var nexttab = $(".t1-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
-                        tab();
-                        function tab(){
-                             $(".t1-boby .pop-up").remove(); 
-                             var html = nexttab.html();
-                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
-                             nexttab.children(".pop-up").children(".text").focus(); 
-                             nexttab.children(".pop-up").children(".text").val(html);
-                             var index = nexttab.index();
-                             var index2 = nexttab.parent().data("index");
-                             obj.index=index;
-                             obj.index2=index2;
-                             $('.text').on("keydown",key);
-                             $('.text').on("blur",function(){
-                                $(this).focus();
-                             });
-                        };
-                    }
-            }
-
-            $(".t2-boby .t-tr").eq(i).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
-                $(".t1-boby .pop-up").remove(); 
-                $(".t2-boby .pop-up").remove(); 
-                var html = $(this).html();
-                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
-                $(this).children(".pop-up").children(".text").focus(); 
-                $(this).children(".pop-up").children(".text").val(html);
-                var index = $(this).index();
-                var index2 = $(this).parent().data("index");
-                obj.index=index;
-                obj.index2=index2;
-                $('.text').on("keydown",key2);
-                $('.text').blur(function(){
-                        $(this).parent().parent().html($(this).val());
-                        $(this).focus();
-                });
-            });
-
-             function key2(event){
-                 if(event.keyCode==9 || event.keyCode==13){
-                        $(this).parent().parent().html($(this).val()); 
-                        var nexttab = $(".t2-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
-                        tab();
-                        function tab(){
-                             $(".t2-boby .pop-up").remove(); 
-                             var html = nexttab.html();
-                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
-                             nexttab.children(".pop-up").children(".text").focus(); 
-                             nexttab.children(".pop-up").children(".text").val(html);
-                             var index = nexttab.index();
-                             var index2 = nexttab.parent().data("index");
-                             obj.index=index;
-                             obj.index2=index2;
-                             $('.text').on("keydown",key2);
-                             $('.text').on("blur",function(){
-                                $(this).focus();
-                             });
-                        };
-                    }
-            }
-        }  
-        
     //数据显示   
         for(var k=0;k<leth/2;k++){
                 for(var i=0;i<39;i++){
@@ -144,6 +62,22 @@ $(document).ready(function(){
                     $(".t2-boby tr").eq(2*k).children("td").eq(i+2).html(dataJson.result.data[2*k][$(".t2-1 tr").eq(1).children("th").eq(i).attr("class")]);
                     $(".t2-boby tr").eq(2*k+1).children("td").eq(i+1).html(dataJson.result.data[2*k+1][$(".t2-1 tr").eq(1).children("th").eq(i).attr("class")]);
                 }
+        }
+        var indexp1 = $(".trd .scQNLYXSS").index(); 
+        var indexp2 = $(".trd .scJDLYXSS").index(); 
+        var indexp3 = $(".t2-1 .zbZHCYDL").index(); 
+        var indexp4 = $(".t2-1 .zbCYDL").index(); 
+        var indexp5 = $(".t2-1 .zbZHGDMH").index(); 
+        var indexp6 = $(".t2-1 .zbJZFHL").index(); 
+        var indexp7 = $(".t2-1 .zbDWFDYXXSL").index(); 
+        for(var i=0;i<leth/2;i++){
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp7+2).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp6+2).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp5+2).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp4+2).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(2*i).children("td").eq(indexp3+2).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(2*i).children("td").eq(indexp2+2).addClass("bg-green");       
+            $(".t1-boby .t-tr").eq(2*i).children("td").eq(indexp1+2).addClass("bg-green");     
         }
         //返还数据更新
         $(".bt").click(function(){
@@ -199,13 +133,205 @@ $(document).ready(function(){
             success: function(data){	
                     console.log(data);
                     window.alert("保存成功！");
-                    history.back();
+                    //history.back();
                 }
             });  
         })
     }
   } 
 
+    function tabclick(){
+          for(var i=0;i<leth/2;i++){
+            var obj={};
+            $(".t1-boby tr").eq(2*i).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove();
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().index();
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key);
+                $('.text').on("blur",function(){
+                      $(this).parent().parent().html($(this).val()); 
+                });
+            });   
+
+            function key(event){
+                  if(event.keyCode==13){
+                        $(this).parent().parent().html($(this).val()); 
+                        var nexttab = $(".t1-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                        tab();
+                        function tab(){
+                             $(".t1-boby .pop-up").remove(); 
+                             var html = nexttab.html();
+                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                             nexttab.children(".pop-up").children(".text").focus(); 
+                             nexttab.children(".pop-up").children(".text").val(html);
+                             var index = nexttab.index();
+                             var index2 = nexttab.parent().index();
+                             obj.index=index;
+                             obj.index2=index2;
+                             $('.text').on("keydown",key);
+                             $('.text').on("blur",function(){
+                                $(this).focus();
+                             });
+                        };
+                    }
+            }
+
+            $(".t2-boby .t-tr").eq(2*i).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove(); 
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().index();
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key2);
+                $('.text').blur(function(){
+                        $(this).parent().parent().html($(this).val());
+                        $(this).focus();
+                });
+            });
+
+             function key2(event){
+                 if(event.keyCode==13){
+                        $(this).parent().parent().html($(this).val()); 
+                        var nexttab = $(".t2-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                        tab();
+                        function tab(){
+                             $(".t2-boby .pop-up").remove(); 
+                             var html = nexttab.html();
+                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                             nexttab.children(".pop-up").children(".text").focus(); 
+                             nexttab.children(".pop-up").children(".text").val(html);
+                             var index = nexttab.index();
+                             var index2 = nexttab.parent().index();
+                             obj.index=index;
+                             obj.index2=index2;
+                             $('.text').on("keydown",key2);
+                             $('.text').on("blur",function(){
+                                $(this).focus();
+                             });
+                        };
+                    }
+            }
+        }  
+         for(var i=0;i<leth/2;i++){
+            var obj2={};
+            $(".t1-boby tr").eq(2*i+1).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove();
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().index();
+                obj2.index=index;
+                obj2.index2=index2;
+                $('.text').on("keydown",key3);
+                $('.text').on("blur",function(){
+                    if(!isNaN($(this).val())){
+                        $(this).parent().parent().html($(this).val());
+                    }else{
+                        $(this).val("");
+                        $(this).focus();
+                        alert("请填写数字！") 
+                    }
+                });
+            });   
+
+            function key3(event){
+                  if(event.keyCode==13){
+                    if(!isNaN($(this).val())){
+                        $(this).parent().parent().html($(this).val()); 
+                        var nexttab = $(".t1-boby tr").eq(obj2.index2).children("td").eq(obj2.index+1);
+                        tab();
+                        function tab(){
+                            $(".t1-boby .pop-up").remove(); 
+                            var html = nexttab.html();
+                            nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                            nexttab.children(".pop-up").children(".text").focus(); 
+                            nexttab.children(".pop-up").children(".text").val(html);
+                            var index = nexttab.index();
+                            var index2 = nexttab.parent().index();
+                            obj2.index=index;
+                            obj2.index2=index2;
+                            $('.text').on("keydown",key3);
+                            $('.text').on("blur",function(){
+                                $(this).focus();
+                            });
+                        };
+                     }else{
+                            $(this).val("");
+                            $(this).focus();
+                            alert("请填写数字！") 
+                    }
+
+                 }
+            }
+
+            $(".t2-boby .t-tr").eq(2*i+1).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove(); 
+                var html = $(this).html();
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().index();
+                obj2.index=index;
+                obj2.index2=index2;
+                $('.text').on("keydown",key4);
+                $('.text').on("blur",function(){
+                    if(!isNaN($(this).val())){
+                        $(this).parent().parent().html($(this).val());
+                    }else{
+                        $(this).val("");
+                        $(this).focus();
+                        alert("请填写数字！") 
+                    }    
+                });
+            });
+
+             function key4(event){
+                 if(event.keyCode==13){
+                        if(!isNaN($(this).val())){
+                            $(this).parent().parent().html($(this).val()); 
+                            var nexttab = $(".t2-boby tr").eq(obj2.index2).children("td").eq(obj2.index+1);
+                            tab();
+                            function tab(){
+                                $(".t2-boby .pop-up").remove(); 
+                                var html = nexttab.html();
+                                nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                                nexttab.children(".pop-up").children(".text").focus(); 
+                                nexttab.children(".pop-up").children(".text").val(html);
+                                var index = nexttab.index();
+                                var index2 = nexttab.parent().index();
+                                obj2.index=index;
+                                obj2.index2=index2;
+                                $('.text').on("keydown",key4);
+                                $('.text').on("blur",function(){
+                                    $(this).focus();
+                                });
+                            };
+                        }else{
+                            $(this).val("");
+                            $(this).focus();
+                            alert("请填写数字！") 
+                        }
+                    }
+            }
+        }
+      }
 })
 
  

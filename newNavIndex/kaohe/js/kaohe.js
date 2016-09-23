@@ -406,7 +406,7 @@ function prepare(data) {
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
         var j = i + 1;
-        htmlArray.push("<tr><td><input name='kaohe' type='checkbox' onClick='clickCheck(this)'  class='tdCheck' id=" + d.id + "></td><td>" + j + "</td><td style='text-align:left;' title='" + d.infomation + "'>" + d.infomation + "</td><td>" + d.date + "</td><td style='text-align:left;max-width:300px;' title='" + d.assCase + "'>" + d.assCase + "</td><td>" + d.amount + "</td><td>" + d.orgName + "<td>" + d.type + "</td><td>" + ds_fixed(d.tag) + "</td><td data-status=" + d.status + ">" + ds_fixed(d.status) + "</td><td>" + d.key + "</td></tr>");
+        htmlArray.push("<tr><td><input name='kaohe' type='checkbox' onClick='clickCheck(this)'  class='tdCheck' id=" + d.id + "></td><td>" + j + "</td><td style='text-align:left;' class='link' title='" + d.infomation + "'><a class='link' href='../khDetail/khDetail.html?code="+d.code+"'>" + d.infomation + "</td><td>" + d.date + "</td><td style='text-align:left;max-width:300px;' title='" + d.assCase + "'>" + d.assCase + "</td><td>" + d.amount + "</td><td>" + d.orgName + "<td>" + d.type + "</td><td>" + ds_fixed(d.tag) + "</td><td data-status=" + d.status + ">" + ds_fixed(d.status) + "</td><td>" + d.key + "</td></tr>");
     }
     return htmlArray.join("");
 

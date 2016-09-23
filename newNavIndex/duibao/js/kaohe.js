@@ -15,6 +15,7 @@ $(document).ready(function(){
 	}
   var applyId =GetRequest(href).applyId;
   var url;
+  var apId;
   if(applyId==""||applyId==undefined){
       var instanceCode =GetRequest(href).instanceCode;
       url =  ctx + "/jsjd/benchmark/getExtendByInstCode.do?instanceCode="+instanceCode;
@@ -68,11 +69,37 @@ $(document).ready(function(){
                    }
                 };
             }
+            apId=datar[0].applyId;
             var date = new Date(datar[0].createTime);
             var time = date.toLocaleDateString();
             $(".fr span").html(time);
-            $(".fl span").html(datar[0].orgName);
+            $(".fld span").html(datar[0].orgName);
+            $(".fl").eq(1).children("span").html(dataJson.result.ratifyUser);
+            $(".fl").eq(2).children("span").html(dataJson.result.checkUser);
+            $(".fl").eq(3).children("span").html(dataJson.result.examUser);
+            $(".fl").eq(4).children("span").html(dataJson.result.createUser);
             $(".textarea").val(dataJson.result.applyInstruction);
+            $(".applyInstruction").html(dataJson.result.applyInstruction);
+            $(".examInstruction").html(dataJson.result.examInstruction);
+            $(".auditInstruction").html(dataJson.result.auditInstruction);
+
+            var p1 = $(".trd .scQNLYXSS").index();
+            var p2 = $(".trd .scJDLYXSS").index();
+            var p3 = $(".t2-1 .zbZHCYDL").index();
+            var p4 = $(".t2-1 .zbZHGDMH").index();
+            var p5 = $(".t2-1 .zbCYDL").index();
+            var p6 = $(".t2-1 .zbJZFHL").index();
+            var p7 = $(".t2-1 .zbDWFDYXXSL").index();      
+             
+            for(var i=0;i<2;i++){
+              $(".t1-boby .t-tr").eq(2*i).children("td").eq(p1+1).addClass("bg-green");
+              $(".t1-boby .t-tr").eq(2*i).children("td").eq(p2+1).addClass("bg-green");
+              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p3+1).addClass("bg-green");
+              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p4+1).addClass("bg-green");
+              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p5+1).addClass("bg-green");
+              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p6+1).addClass("bg-green");
+              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p7+1).addClass("bg-green");
+            }
         }
   }
     //返还数据更新
@@ -115,7 +142,6 @@ $(document).ready(function(){
             }
         }    
     }
-
     obj[0]["specialWork"]={"KKX":"A","SCPB":"B"};  obj[1]["specialWork"]={"KKX":"A","SCPB":"B"}; 
     //向dataJson2里放入导出来的数据
     dataJson2.data=obj;
@@ -133,6 +159,31 @@ $(document).ready(function(){
            }
        });  
     })
+       $(".smt").click(function(){
+                // 获取http地址信息
+                var examInstruction = $(".ex-textarea").val();
+                var url = ctx + "/jsjd/benchmark/addExamInstruction.do?applyId="+apId+"&examInstruction="+examInstruction;
+                var dataJson2 = {
+                    "applyId":apId,
+                    "examInstruction":examInstruction
+                };
+                console.log(dataJson2);
+                //ajax获取数据data
+                $.ajax({
+                    url: url,	
+                    type:"POST",	
+                    data:dataJson2,
+                    dataType:"json",
+                    contentType:"json",
+                    success: function(data){	
+                        alert("保存成功！");
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        alert(JSON.parse(jqXHR.responseText).responsMsg);
+                    }
+                });  
+            }) 
+    
 })
 
  

@@ -49,7 +49,7 @@
              background-color: #ddd;
         }
          .t1-boby .t-tr:nth-child(even) td:not(.td),.t2-boby .t-tr:nth-child(even) td:not(.td){
-             border-left:1px solid #fff;
+             border-left:1px solid #666;
          }
         .bootstrap-table .table > thead > tr > th {
             vertical-align: middle;
@@ -57,6 +57,7 @@
         }
         .table>tbody>tr>td{
              vertical-align: middle; 
+             border-top: 1px solid #666;
         }
 
          .fixed-table-container table tr:nth-child(2) .th-inner {
@@ -72,6 +73,7 @@
         .fixed-table-container tbody td {
             position: relative;
             font-size: 12px;
+            border-left: 1px solid #666;            
             text-align: center;
             word-break: break-all;
         }
@@ -129,12 +131,18 @@
         .table>thead:first-child>tr:first-child>th{
             border-top:1px solid #666;
         }
+        .fixed-table-container tbody .bg-green{
+            background-color:#BBF7BE;
+        }
+        .auditInstruction,.examInstruction,.textarea{
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h3 class="text-center" style="font-weight: 600;"> 火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表</h3>
-    <div class="fl">
+    <h3 class="text-center" style="font-weight: 600;"> 火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表 <button class="btn btn-info bt"style="position: absolute;right: 100px;">保 存</button><button class="btn btn-info"style="position: absolute;right:10px;" onclick="javascript:history.back(-1);">返 回</button></h3>
+    <div class="fl fld">
         单位:<span></span>
     </div>
     <div class="fr">
@@ -638,24 +646,24 @@
     </tr>
     <tr>
         <td>审核说明</td>
-        <td colspan="36" class="grey" >
+        <td colspan="36" class="grey examInstruction" >
         </td>
     </tr>
     <tr>
         <td class="hd">考核说明</td>
-        <td colspan="36" class="hd grey" >
+        <td colspan="36" class="hd grey auditInstruction" >
        
         </td>
     </tr>
     </tbody>
 </table>
-<div class="wrap" style="display:none;">
+<div class="wrap">
     <div class="fl" style="width: 30%">批准：<input type="text" value="郭明星" style="border: none;"></div>
     <div class="fl" style="width: 30%">校准：<input type="text" value="刘海峡" style="border: none;"></div>
     <div class="fl" style="width: 30%">审核：<input type="text" value="金生祥" style="border: none;"></div>
     <div class="fl" style="width: 10%">制表：<input type="text" value="王清" style="border: none;width:100px;"></div>
 </div>
-<div style="margin-bottom:120px;margin-top:50px;"><button class="btn btn-info bt"style="position: absolute;left: 46%;">保 存</button><button class="btn btn-info"style="position: absolute;left: 52%;" onclick="javascript:history.back(-1);">返 回</button></div>
+<div style="margin-bottom:50px;"></div>
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-table.min.js"></script>
@@ -690,10 +698,9 @@
         //     } 
         // }  
         //双击填写
-  
-        for(var i=0;i<2;i++){
+ 
             var obj={};
-            $(".t1-boby tr").eq(2*i).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
+            $(".t1-boby tr").eq(0).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
                 $(".t1-boby .pop-up").remove(); 
                 $(".t2-boby .pop-up").remove();
                 var html = $(this).html();
@@ -711,7 +718,7 @@
             });   
 
             function key(event){
-                  if(event.keyCode==9 || event.keyCode==13){
+                  if(event.keyCode==13){
                         $(this).parent().parent().html($(this).val()); 
                         var nexttab = $(".t1-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
                         tab();
@@ -732,10 +739,9 @@
                         };
                     }
             }
-
-            $(".t2-boby .t-tr").eq(2*i).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+            $(".t1-boby tr").eq(2).children("td").not( $('.t1-boby .t-tr .td')).bind("click",function() {
                 $(".t1-boby .pop-up").remove(); 
-                $(".t2-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove();
                 var html = $(this).html();
                 $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
                 $(this).children(".pop-up").children(".text").focus(); 
@@ -745,35 +751,138 @@
                 obj.index=index;
                 obj.index2=index2;
                 $('.text').on("keydown",key2);
+                $('.text').on("blur",function(){
+                    if(!isNaN($(this).val())){
+                        $(this).parent().parent().html($(this).val()); 
+                     }else{
+                        $(this).val("");
+                        $(this).focus();
+                        alert("请输入数字!")
+                     }
+                });
+            });   
+
+            function key2(event){
+                  if(event.keyCode==13){
+                        if(!isNaN($(this).val())){
+                            $(this).parent().parent().html($(this).val());
+                                var nexttab = $(".t1-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                                tab();
+                                function tab(){
+                                    $(".t1-boby .pop-up").remove(); 
+                                    var html = nexttab.html();
+                                    nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                                    nexttab.children(".pop-up").children(".text").focus(); 
+                                    nexttab.children(".pop-up").children(".text").val(html);
+                                    var index = nexttab.index();
+                                    var index2 = nexttab.parent().data("index");
+                                    obj.index=index;
+                                    obj.index2=index2;
+                                    $('.text').on("keydown",key2);
+                                    $('.text').on("blur",function(){
+                                        $(this).focus();
+                                    });
+                                };
+                        }else{
+                                $(this).val("");
+                                alert("请填写数字！") 
+                        }    
+                    }
+            }
+            $(".t2-boby .t-tr").eq(2).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove(); 
+                var html = $(this).html();                 
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().data("index");
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key3);
+                $('.text').blur(function(){
+                        if(!isNaN($(this).val())){
+                            $(this).parent().parent().html($(this).val()); 
+                        }else{
+                            $(this).val("");
+                            $(this).focus();
+                            alert("请输入数字!")
+                        }
+                });
+            });
+
+             function key3(event){
+                 if(event.keyCode==13){
+       
+                            if(!isNaN($(this).val())){
+                                $(this).parent().parent().html($(this).val());
+                                  var nexttab = $(".t2-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
+                                  tab();
+                                  function tab(){
+                                        $(".t2-boby .pop-up").remove(); 
+                                        var html = nexttab.html();
+                                        nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                                        nexttab.children(".pop-up").children(".text").focus(); 
+                                        nexttab.children(".pop-up").children(".text").val(html);
+                                        var index = nexttab.index();
+                                        var index2 = nexttab.parent().data("index");
+                                        obj.index=index;
+                                        obj.index2=index2;
+                                        $('.text').on("keydown",key3);
+                                        $('.text').on("blur",function(){
+                                            $(this).focus();
+                                        });
+                                  };
+                            }else{ 
+                                $(this).val("");
+                                alert("请填写数字！")
+                            }    
+                      
+                    }
+            }
+          
+            $(".t2-boby .t-tr").eq(0).children("td").not( $('.t2-boby .t-tr .td')).on("click",function() {
+                $(".t1-boby .pop-up").remove(); 
+                $(".t2-boby .pop-up").remove(); 
+                var html = $(this).html();                 
+                $(this).append("<div class='pop-up'><input type='text'class='text'></div>");
+                $(this).children(".pop-up").children(".text").focus(); 
+                $(this).children(".pop-up").children(".text").val(html);
+                var index = $(this).index();
+                var index2 = $(this).parent().data("index");
+                obj.index=index;
+                obj.index2=index2;
+                $('.text').on("keydown",key4);
                 $('.text').blur(function(){
                         $(this).parent().parent().html($(this).val());
                         $(this).focus();
                 });
             });
 
-             function key2(event){
-                 if(event.keyCode==9 || event.keyCode==13){
-                        $(this).parent().parent().html($(this).val()); 
+             function key4(event){
+                 if(event.keyCode==13){
+                        $(this).parent().parent().html($(this).val());
                         var nexttab = $(".t2-boby tr").eq(obj.index2).children("td").eq(obj.index+1);
                         tab();
                         function tab(){
-                             $(".t2-boby .pop-up").remove(); 
-                             var html = nexttab.html();
-                             nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
-                             nexttab.children(".pop-up").children(".text").focus(); 
-                             nexttab.children(".pop-up").children(".text").val(html);
-                             var index = nexttab.index();
-                             var index2 = nexttab.parent().data("index");
-                             obj.index=index;
-                             obj.index2=index2;
-                             $('.text').on("keydown",key2);
-                             $('.text').on("blur",function(){
+                            $(".t2-boby .pop-up").remove(); 
+                            var html = nexttab.html();
+                            nexttab.append("<div class='pop-up'><input type='text'class='text'></div>");
+                            nexttab.children(".pop-up").children(".text").focus(); 
+                            nexttab.children(".pop-up").children(".text").val(html);
+                            var index = nexttab.index();
+                            var index2 = nexttab.parent().data("index");
+                            obj.index=index;
+                            obj.index2=index2;
+                            $('.text').on("keydown",key4);
+                            $('.text').on("blur",function(){
                                 $(this).focus();
-                             });
+                            });
                         };
-                    }
+                 }
             }
-        }         
+   
 })
 </script>
 </body>

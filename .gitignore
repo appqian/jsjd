@@ -10,4 +10,8 @@ flash
 groupIndex
 groupIndex-1
 groupIndex2
+WEB-INF/lib
+entries
+.idea
+META-INF
 WEB-INF

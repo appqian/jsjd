@@ -23,6 +23,19 @@ $(document).ready(function(){
             success: function(data){	
                 console.log(data);
                 $("#detail").html(load(data["result"]["pagedata"]));
+                var new_date = new Date().getMonth()+1;
+                if(new_date==1 || new_date==2|| new_date==3){
+                     $("#detail tr").find("a").contents().unwrap();     
+                }
+                if(new_date==4 || new_date==5|| new_date==6){
+                     $("#detail tr").eq(0).nextAll().find("a").contents().unwrap();     
+                }
+                if(new_date==7 || new_date==8|| new_date==9){
+                     $("#detail tr").eq(1).nextAll().find("a").contents().unwrap();     
+                }
+                if(new_date==10 || new_date==11|| new_date==12){
+                     $("#detail tr").eq(3).find("a").contents().unwrap();     
+                }
             }
         }); 
         function load(data) {
@@ -95,11 +108,11 @@ $(document).ready(function(){
                 }else if(quarter==4){
                     quarter="第四季度";
                 }
-                htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["summaryId"]+"' data-status='"+d["publishStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["summaryId"]+"'></td><td>" + j + "</td><td>" + d["summaryCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["summaryId"] + " ><a href='"+tabhref+".html?summaryId="+d['summaryId']+"'style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + publishStatus + "</td><td style='display:none;'>" + result_re + "</td></tr>");
+                 htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["summaryId"]+"' data-status='"+d["publishStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["summaryId"]+"'></td><td>" + j + "</td><td>" + d["summaryCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["summaryId"] + " ><a href='"+tabhref+".html?summaryId="+d['summaryId']+"'style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + publishStatus + "</td><td style='display:none;'>" + result_re + "</td></tr>"); 
             }
-               
             return htmlArray.join("");
         }
+
         $("#query").click(function(){
             var startTime = $("#startTime").val();
             var url = ctx + "/jsjd/benchmark/getBenchmarkGroupBaseInfo.do?year="+startTime;

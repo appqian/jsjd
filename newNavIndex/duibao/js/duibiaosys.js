@@ -6,13 +6,14 @@ $(document).ready(function(){
   var ctx = window.location.origin;
   var href = parent.document.getElementById("index_page").contentWindow.location.href;
   var orgId = localStorage.getItem("orgid_baobiao");
-  if(orgId == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
-      orgId="";
+  if(orgId=="a61365e2-969d-4352-b3f8-805027ab9f1d"){
+        orgId="";
   }
   var year ="";
   if(year==undefined || year==""){
       year=new Date().getFullYear();
   }
+  var tabhref;
   //var orgId="c21834b4-1cb0-490f-a2a8-deeaf7f7e065";
   getdatas(orgId,year);
   function getdatas(orgId,year){
@@ -28,7 +29,23 @@ $(document).ready(function(){
             type:"post",	
             success: function(data){	
                 console.log(data);
+             
                 $("#detail").html(load(data["result"]["pagedata"]));
+                var new_date = new Date().getMonth()+1;
+                if(new_date==1 || new_date==2|| new_date==3){
+                     $("#detail tr").find("a").contents().unwrap();     
+                }
+                if(new_date==4 || new_date==5|| new_date==6){
+                     $("#detail tr").not(".ji1").find("a").contents().unwrap();     
+                }
+                if(new_date==7 || new_date==8|| new_date==9){
+                     $("#detail tr .ji3").find("a").contents().unwrap();     
+                     $("#detail tr .ji4").find("a").contents().unwrap(); 
+                }
+                if(new_date==10 || new_date==11|| new_date==12){
+                     $("#detail tr .ji4").find("a").contents().unwrap();     
+                }
+                
             }
         }); 
         function load(data) {
@@ -83,13 +100,18 @@ $(document).ready(function(){
                 //拼起来
                 result_re = year + "-" + month +"-"+day + " " + result_re;
                 var auditStatus = d["auditStatus"];
-                var tabhref;
+                if(orgId==""){
+                    tabhref="table-look";
+                }
                 if(auditStatus=="A"||auditStatus=="D"||auditStatus=="G"||auditStatus=="H"||auditStatus=="R"){
-                    tabhref="table";
+                    if(orgId!=""){
+                       tabhref="table";
+                    }
                 }
                 if(auditStatus=="B"||auditStatus=="C"||auditStatus=="E"||auditStatus=="F"){
-                     tabhref="table-look";
+                    tabhref="table-look";
                 }
+                
                 auditStatus=explainStatus(auditStatus); 
                 var quarter = d["quarter"];
                 if(quarter==1){
@@ -101,7 +123,7 @@ $(document).ready(function(){
                 }else if(quarter==4){
                     quarter="第四季度";
                 }
-                htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["instCode"]+"' data-status='"+d["auditStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["applyId"]+"'></td><td>" + j + "</td><td>" + d["applyCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["applyId"] + " ><a href='"+tabhref+".html?applyId="+d['applyId']+"' style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + d["orgInfo"]["orgName"] + "</td><td>" +auditStatus + "</td><td style='display:none;'>" + result_re + "</td></tr>");
+                htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["instCode"]+"' data-status='"+d["auditStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["applyId"]+"'></td><td>" + j + "</td><td>" + d["applyCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["applyId"] + " class='ji"+d["quarter"]+"'><a href='"+tabhref+".html?applyId="+d['applyId']+"' style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + d["orgInfo"]["orgName"] + "</td><td>" +auditStatus + "</td><td style='display:none;'>" + result_re + "</td></tr>");
             }
                
             return htmlArray.join("");
