@@ -63,7 +63,7 @@
     //判断当前用户具不具有权限填写报表
     var flag = 0;
     $.ajax({
-        url:ctx +"/jsjd/portal/isForword.do?role_code=rkjd",
+        url:ctx +"/jsjd/portal/isForword.do?role_code=tzsb",
         dataType:"json",
         success: function(data) {
             flag = data[0].NUM_USER;
