@@ -3,16 +3,17 @@ if (!window.location.origin) {
 }
 var ctx = window.location.origin;
 //添加对应的value；
-$("#sys option").each(function(i){
-    $(this).val($(this).html());
-})
-//获取数据
+$("#sys option").each(function(i) {
+        $(this).val($(this).html());
+    })
+    //获取数据
 var flag = true;
 
 $("#submit").on('click', function() {
     flag = true;
     mainData(1)
 });
+
 $("#submit").click();
 
 //分页init
@@ -48,6 +49,7 @@ function mainData(pageNub) {
         "sysName": $('#sys').val(),
         "ptCode": $('#code').val(),
         "ptDesc": $('#desc').val(),
+        "spec":$("#spec").val(),
         "pageSize": 50,
         "pageNumber": pageNub
     }
@@ -95,9 +97,9 @@ function prepareDate(data, type, pageNub) {
             jzfixed(data);
             break;
         case "main":
-           
-           
-            var htmlx = datahandle(data.pagedata, pageNub, ['id', 'powerPlant', 'crew','major',  'sysName', 'pointCode', 'pointDesc', 'company', 'downRange', 'upRange', 'realData']);
+
+
+            var htmlx = dataHandle(data.pagedata, pageNub, ['id', 'powerPlant', 'crew', 'major', 'sysName', 'pointCode', 'pointDesc', 'company', 'downRange', 'upRange', 'realData']);
             var picodestr = getPiCode(data.pagedata);
             var picodeArray = picodestr.split(',');
             var url = ctx + '/jsjd/XipExperimentAction.do?method=getRealData&pointName=' + picodestr;
@@ -107,7 +109,7 @@ function prepareDate(data, type, pageNub) {
             $("#Apicode").val(picodestr);
             $("#url").val(url);
 
-            
+
             getRealData()
             $("#test").html(htmlx)
             break;
@@ -131,41 +133,46 @@ function getRealData() {
         dataType: "json",
         success: function(data) {
             var resultArray = [];
-            if(data.data.length<0){
+            if (data.data.length < 0) {
                 return;
             }
             for (var i = 0; i < picodeArray.length; i++) {
                 for (var j = 0; j < data.data.length; j++) {
-                    
+
                     if (picodeArray[i] == data.data[j].tag) {
                         resultArray.push(data.data[j])
                     }
                 }
             }
-            console.log(resultArray);
-            
+
+
             $("#test").find("td:nth-child(11n)").each(function(i) {
-                $(this).html("<span class='animated bounceIn'>" + statusFix(resultArray[i])/*resultArray[i].value*/ + "</span>")
-                
+                $this = $(this);
+                $this.html("<span class='animated bounceIn'>" + statusFix(resultArray[i]) /*resultArray[i].value*/ + "</span>")
+                if(statusFix(resultArray[i])=="异常"){
+                    $this.parent().css({background:"red",color:"white"})
+                }
             })
         }
     })
 }
-function statusFix(target){
-    //console.log(target)
-    var status = target.status;
-    var value = ""
-    switch (status) {     
-        case "0":
-            value = target.value;
-            break;       
-        default:
-            value = "异常"
-            break;
-    }
-    return value;
 
+function statusFix(target) {
+    if (target.status) {
+        var status = target.status;
+        var value = ""
+        switch (status) {
+            case "0":
+                value = target.value;
+                break;
+            default:
+                value = "异常"
+                break;
+        }
+        return value;
+    }
 }
+
 function jzfixed(data) {
     $("#g_id").html("<option value =''></option>")
     var arr = [];
@@ -192,7 +199,7 @@ function getPiCode(data) {
     return picodeArray.join(',');
 }
 
-function datahandle(data, pageNub, col) {
+function dataHandle(data, pageNub, col) {
     var htmlArray = [];
     for (var i = 0; i < data.length; i++) {
         htmlArray.push('<tr>')
@@ -208,7 +215,9 @@ function datahandle(data, pageNub, col) {
                     var Bar = "onclick=show('" + colValue + "') href='javascript:void(0)'";
                     htmlArray.push("<td  title=" + colValue + " " + Bar + " style='text-align:left;color:blue;cursor:pointer'><a>" + colValue + "</a></td>");
 
-                } else {
+                } else if(col[j]== "pointDesc") {
+                    htmlArray.push("<td title=" + colValue + " style='text-align:left;'>" + colValue + "</td>");
+                }else{
                     htmlArray.push("<td title=" + colValue + ">" + colValue + "</td>");
                 }
             }
@@ -244,18 +253,23 @@ function addjz() {
     ajax(url, "jz")
 }
 var points = "";
-
-function show(point) {
-    var pointArray = [];
-    pointArray.push(point);
-    points = pointArray.join("|");
-    /*if (points) {
-        points += "|" + point
-    } else {
-        points += point
-    }*/
+var pointArray = [];
+function show(point) { 
+    //
     var subwin = window.open("", "历史曲线", "width=" + 900 + ",height=" + 640 + ",directories=no,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no");
+    if(!points){
+         pointArray.push(point);
+    }else if(pointArray.length>=1&&pointArray.indexOf(point)== -1){
+        pointArray.push(point);
+    }else{
+         alert("请选择不同的点！")
+         subwin.focus();
+         return;
+    }
+    
+    points = pointArray.join("|");
     var queryString = "../open.html";
+  
     localStorage.setItem("psTag", points);
     if (subwin.location.href.indexOf("open") == -1) {
         subwin.location = queryString;
@@ -263,12 +277,13 @@ function show(point) {
     } else {
         subwin.child_open();
     }
-
-    function IfWindowClosed() {
-        if (subwin.closed == true) {
-            //alert("子关闭")
+    var flag = true;
+    function IfWindowClosed() {        
+        if (subwin.closed == true && flag) {
             points = "";
+            pointArray=[];          
             window.clearInterval(timer)
+            flag=false;                 
         }
     }
 

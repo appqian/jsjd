@@ -18,9 +18,11 @@
 </head>
 
 <body>
+    <input type="hidden" id="sessionCode" value="">
     <div id="wrap">
         <input type="hidden" id="Apicode">
         <input type="hidden" id="url">
+
         <div class="wu_top0 select" style="">
             <form class="form-inline">
                 <!-- <div class="left form-group" style="margin-left:30px;"><a href="kaohe.html">返回</a></div> -->
@@ -29,7 +31,7 @@
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="org">单位</label>
                         <select class="form-control col-sm-1" id="org">
                             <option value="" selected></option>
-                            <option value="">京能集团</option>
+                            
                             <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
                             <option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>
                         </select>
@@ -38,17 +40,34 @@
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="g_id">机组</label>
                         <select class="form-control col-sm-1" id="g_id">
                             <option value="" selected></option>    
-                           <!-- <option value="1">#1</option>
+                            <option value="1">#1</option>
                             <option value="2">#2</option>
                             <option value="3">#3</option>
-                            <option value="4">#4</option>-->
+                            <option value="4">#4</option>
                         </select>
                     </div>
+                    <!--<div class="form-group ">
+                        <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="spec">专业</label>
+                        <select class="form-control col-sm-1" id="spec">
+                            <option value="" selected></option>    
+                            <option value="1">#1</option>
+                            <option value="2">#2</option>
+                            <option value="3">#3</option>
+                            <option value="4">#4</option>
+                        </select>
+                    </div>-->
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="sys">系统</label>
                         <select class="form-control col-sm-1" id="sys" style="width:200px;">
-                            <option value="" selected></option>
-                            <option >汽轮机本体及调节系统</option>
+                            <option value=""></option>
+                            <option>汽水系统</option>
+                            <option>锅炉壁温</option>
+                            <option>风烟系统</option>
+                            <option>二次风系统</option>
+                            <option>制粉系统</option>
+                            <option>密封风系统</option>
+                            <option>燃油与火检系统</option>
+                            <option>汽轮机本体及调节系统</option>
                             <option>润滑油系统</option>
                             <option>密封油系统</option>
                             <option>EH油系统</option>
@@ -64,16 +83,8 @@
                             <option>低加系统</option>
                             <option>轴封系统</option>
                             <option>抽真空系统</option>
-                            <option>汽水系统</option>
-                            <option>锅炉壁温</option>
-                            <option>风烟系统</option>
-                            <option>二次风系统</option>
-                            <option>制粉系统</option>
-                            <option>密封风系统</option>
-                            <option>燃油与火检系统</option>
-                            <option>环保</option>
-                            <option>化学</option>
                             <option>电气专业温度监测</option>
+                            <option>外围系统</option>
                             <option>密封油油系统</option>
                             <option>给水泵组系统</option>
                             <option>开式水系统</option>
@@ -105,66 +116,15 @@
                             <option>发电机及励磁</option>
                             <option>停机变</option>
                             <option>高厂变及6KV厂用</option>
-                            <option>高厂变及7KV厂用</option>
-                            <option>高厂变及8KV厂用</option>
-                            <option>高厂变及9KV厂用</option>
-                            <option>高厂变及10KV厂用</option>
-                            <option>高厂变及11KV厂用</option>
-                            <option>高厂变及12KV厂用</option>
-                            <option>高厂变及13KV厂用</option>
-                            <option>高厂变及14KV厂用</option>
-                            <option>高厂变及15KV厂用</option>
-                            <option>高厂变及16KV厂用</option>
-                            <option>高厂变及17KV厂用</option>
-                            <option>高厂变及18KV厂用</option>
-                            <option>高厂变及19KV厂用</option>
-                            <option>高厂变及20KV厂用</option>
-                            <option>高厂变及21KV厂用</option>
-                            <option>高厂变及22KV厂用</option>
-                            <option>高厂变及23KV厂用</option>
-                            <option>高厂变及24KV厂用</option>
-                            <option>高厂变及25KV厂用</option>
-                            <option>高厂变及26KV厂用</option>
-                            <option>高厂变及27KV厂用</option>
-                            <option>高厂变及28KV厂用</option>
-                            <option>高厂变及29KV厂用</option>
-                            <option>高厂变及30KV厂用</option>
-                            <option>高厂变及31KV厂用</option>
                             <option>高公变及6KV厂用</option>
-                            <option>高公变及7KV厂用</option>
-                            <option>高公变及8KV厂用</option>
-                            <option>高公变及9KV厂用</option>
-                            <option>高公变及10KV厂用</option>
-                            <option>高公变及11KV厂用</option>
-                            <option>高公变及12KV厂用</option>
-                            <option>高公变及13KV厂用</option>
-                            <option>高公变及14KV厂用</option>
-                            <option>高公变及15KV厂用</option>
-                            <option>高公变及16KV厂用</option>
                             <option>公用6KV厂用段</option>
-                            <option>公用7KV厂用段</option>
-                            <option>公用8KV厂用段</option>
-                            <option>公用9KV厂用段</option>
-                            <option>公用10KV厂用段</option>
-                            <option>公用11KV厂用段</option>
-                            <option>公用12KV厂用段</option>
-                            <option>公用13KV厂用段</option>
-                            <option>公用14KV厂用段</option>
-                            <option>公用15KV厂用段</option>
-                            <option>公用16KV厂用段</option>
-                            <option>公用17KV厂用段</option>
-                            <option>公用18KV厂用段</option>
-                            <option>公用19KV厂用段</option>
-                            <option>公用20KV厂用段</option>
-                            <option>公用21KV厂用段</option>
-                            <option>公用22KV厂用段</option>
                             <option>机炉PC段</option>
                             <option>公用PC段</option>
                             <option>保安PC段</option>
                             <option>UPS及直流系统</option>
                             <option>柴油发电机</option>
                             <option>锅炉烟气系统</option>
-                            <option>磨煤机E制粉系统 </option>
+                            <option>磨煤机E制粉系统</option>
                             <option>密封风机系统</option>
                         </select>
                     </div>
