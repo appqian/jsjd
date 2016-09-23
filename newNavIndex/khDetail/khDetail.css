@@ -1,0 +1,44 @@
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+body{
+    font-size: 12px;
+}
+.fl{float:left;}
+.wrap{
+    width:1280px;
+    min-width: 1280px;
+    margin: 0 auto;
+    height: auto;
+}
+.title{
+    text-align: center;
+}
+fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}
+
+legend{padding:.5em;border:0;width:auto;margin: 0;font-size: 14px;font-weight: bold}
+.form-control{
+    font-size: 12px;
+} 
+.link{
+    cursor: pointer;
+    color:blue;
+    text-decoration: underline;
+}
+.detail{
+    position: relative;
+}
+table td{
+    height:38px;
+    line-height: 38px;
+}

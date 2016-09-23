@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>考核详情页</title>
+    <link type="text/css" rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/pagination.css" />
+
+    <link rel="stylesheet" type="text/css" href="khDetail.css">
+
+    <body>
+        <div class="wrap">
+            <div style="margin-top:10px;">
+                <h4 class="title fl" style="width:85%;text-indent:121px;" >考核明细</h4>
+                 <a type="button" class="btn btn-primary fl" href="../kaohe/kaohe.html">返回</a>
+                 <div class="clearfix"></div>
+            </div>
+            
+            <div id="baseInf" >
+
+                <form class="form-horizontal">
+                    <fieldset>
+                        <legend>基本信息</legend>
+                        <div class="form-group">
+                            <label for="code" class="col-sm-2 control-label">kks编码:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="code" placeholder="">
+                            </div>
+                            <label for="cDesc" class="col-sm-1 control-label">描述:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="cDesc" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cRule" class="col-sm-2 control-label">考核规则:</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="cRule"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="statistic">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <legend>统计信息</legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">考核时间:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group input-daterange">
+                                    <input type="text" class="form-control form_datetime" id="st">
+                                    <span class="input-group-addon">至</span>
+                                    <input type="text" class="form-control form_datetime" id="et">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-primary" id="query">查询</button>
+                                <button type="button" class="btn btn-danger" style="margin-left:20px;" id="reset">重置</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deltaTime" class="col-sm-2 control-label">累计时长:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" value="" id="deltaTime">
+                            </div>
+                            <label for="count" class="col-sm-1 control-label">累计次数:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" value="" id="count">
+                            </div>
+                            <label for="money" class="col-sm-1 control-label">累计金额:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" value="" id="money">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxVal" class="col-sm-2 control-label">触发最大值:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" value="" id="maxVal">
+                            </div>
+                            <label for="minVal" class="col-sm-1 control-label">触发最小值:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" value="" id="minVal">
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="detail">
+
+                <fieldset style="height:391px;">
+                    <legend>详细信息</legend>
+                    <table class="table table-bordered table-hover table-striped fl" style="width:35%;">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>考核值</th>
+                                <th>考核时间</th>
+                                <th>持续时长</th>
+                                <th>考核金额</th>
+                               <!--<th>申述状态</th>
+                                <th>是否考核</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="details">
+                            
+
+                        </tbody>
+                    </table>
+                    <div style="height:320px;width:64%;float:right;">
+                        <iframe id ="qushi" src="" style="width:100%;height:100%;margin:0;padding:0;"></iframe>
+                    </div>
+                    <div id="Pagination" class="pagination" style="position: absolute;left: 323px;top: 333px;">
+                        <!-- 这里显示分页 -->
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+
+        </div>
+
+        <script src="../../common/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
+        <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+        <script type="text/javascript" src="khDetail.js"></script>
+        
+    </body>
+
+</html>
