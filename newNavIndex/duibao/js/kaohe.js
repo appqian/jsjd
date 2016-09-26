@@ -70,9 +70,23 @@ $(document).ready(function(){
                 };
             }
             apId=datar[0].applyId;
-            var date = new Date(datar[0].createTime);
-            var time = date.toLocaleDateString();
-            $(".fr span").html(time);
+            var oTime;
+            function getMyDate(str){  
+                var oDate = new Date(str),  
+                oYear = oDate.getFullYear(),  
+                oMonth = oDate.getMonth()+1,  
+                oDay = oDate.getDate(),   
+                oTime = oYear +'年'+ getzf(oMonth) +'月'+ getzf(oDay)+'日';//最后拼接时间  
+                $(".fr b").html(oTime);
+            };  
+             function getzf(num){  
+                if(parseInt(num) < 10){  
+                    num = '0'+num;  
+                }  
+                return num;  
+            }  
+            getMyDate(datar[0].createTime);
+
             $(".fld span").html(datar[0].orgName);
             $(".fl").eq(1).children("span").html(dataJson.result.ratifyUser);
             $(".fl").eq(2).children("span").html(dataJson.result.checkUser);

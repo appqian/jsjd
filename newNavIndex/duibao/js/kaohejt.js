@@ -31,13 +31,27 @@ $(document).ready(function(){
 
    //处理数据 
    function chuli(dataJson){
-       var date = new Date(dataJson.result.createTime);
-       var time = date.toLocaleDateString();
+        var oTime;
+        function getMyDate(str){  
+            var oDate = new Date(str),  
+            oYear = oDate.getFullYear(),  
+            oMonth = oDate.getMonth()+1,  
+            oDay = oDate.getDate(),   
+            oTime = oYear +'年'+ getzf(oMonth) +'月'+ getzf(oDay)+'日';//最后拼接时间  
+            $(".fr span").html(oTime);
+        };  
+        function getzf(num){  
+            if(parseInt(num) < 10){  
+                num = '0'+num;  
+            }  
+            return num;  
+        }  
+       getMyDate(dataJson.result.data[0].createTime);
        $(".note").val(dataJson.result.note);
        $("#auditInstruction").val(dataJson.result.auditInstruction);
        $(".fl span").html(dataJson.result.year);
        $(".fl b").html(dataJson.result.quarter);
-       $(".fr span").html(time);
+
        if($("#auditInstruction").val()=="  "){
             $(".note1").css("display","block");
        }else{

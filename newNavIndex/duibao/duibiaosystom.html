@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
     <link type="text/css" rel="stylesheet" href="css/news.css"/>
     <script src="../../common/js/jquery.min.js"></script>
+	<style>
+		.wu_tab1 thead td,.wu_tab1 tbody tr:nth-of-type(even){
+			background: #e1f1f7;
+		}
+		.wu_tab1{
+			border-collapse: collapse;
+		}
+		.wu_tab1 thead td,.wu_tab1 tbody td{
+			border-left: 1px solid #b8b8b8;
+		}
+        .form-control[readonly]{
+            background-color: #fff;
+        }
+	</style>
 <body>
 <div class="wu_top">
     <div class="fengge"></div>
@@ -17,39 +31,39 @@
 
 <div class="" style="margin-top: 0px;height:900px;">
     <div class="wu_main1">
-        <div class="select " style="">
+        <div class="select " style="background-color: #e1f1f7;">
             <form class="form-inline">
-                  
-                    <button id="tj" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">提交流程</button>
-                    <button class="form-control col-sm-1 btn btn-default" type="button" id="reCallProcess" style="margin: 3px 5px 0 ">撤回</button> 
-                    <button class="form-control col-sm-1 btn btn-default" type="button" id="checkProcess" style="margin: 3px 5px 0 ">流程监控</button>  
-                    <div class="form-group"  style="margin-left:30px;margin-right:50px;float:right;">
-                        <button class ="form-control col-sm-1 btn btn-primary" type="button"  style="" id='query'>查询</button>
-                    </div>
-                    <div class="form-group" style="float:right;">
-                        <label for="startTime" class=" control-label left"style="margin-left:100px;">时间查询</label>
-                        <div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;top: -3px;">
-                            <input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:150px" id="startTime">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
-
-                        <input type="hidden" id="dtp_input1" value=""><br>
-                    </div>
-                    
-            </form>
+				<div class="form-group">
+					<div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;margin-left: 20px;">
+						<input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:150px" id="startTime">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+					</div>
+					<input type="hidden" id="dtp_input1" value=""><br>
+				</div>
+				<div class="form-group"  style="margin-left:30px;margin-top: 3px;">
+					<button class ="form-control col-sm-1 btn btn-primary" type="button"  style="" id='query'>查询</button>
+				</div>
+				<div style="float:right;margin-right:20px;">
+					<button id="tj" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">提交流程</button>
+					<button class="form-control col-sm-1 btn btn-default" type="button" id="reCallProcess" style="margin: 3px 5px 0 ">撤回</button> 
+					<button class="form-control col-sm-1 btn btn-default" type="button" id="checkProcess" style="margin: 3px 5px 0 ">流程监控</button>    
+				</div>
+			</form>
         </div>
         <table class="wu_tab1 level4" >
             <thead>
                 <tr>
-                    <td style="max-width:3%;"></td>
-                    <td style="max-width:3%;">序号</td>
-                    <td style="max-width:30%;">编号</td>
-                    <td style="max-width:10%;">季度</td>
+                    <td style="max-width:3%;">请选择</td>
+                    <td style="max-width:5%;">序号</td>
+                    <td style="max-width:5%;">编号</td>
+                    <td style="max-width:5%;">季度</td>
                     <td style="max-width:30%;">描述</td>
                     <td style="max-width:5.5%;">单位</td>
                     <td style="max-width:5%;">流程状态</td>
-                    <td style="max-width:5%;display:none;">创建时间</td>
+					<td style="max-width:5%;">提交日期</td>
+					<td style="max-width:5%;">提交人</td>
+                    
                 </tr>
             </thead>
             <tbody id="detail">             

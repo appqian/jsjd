@@ -53,52 +53,6 @@ $(document).ready(function(){
             for (var i = 0; i < data.length; i++) {
                 var d = data[i];
                 var j = i + 1;
-                var mmsecond = d["createTime"];
-                var result = [60,60,24];
-                var flag;
-                var result_re = "";
-                mmsecond = Math.floor(mmsecond/1000);
-                //变成秒单位,但是不操作
-                //下面这个for计算时分秒
-                for(var k=0;k<3;k++){
-                    flag = Math.floor(mmsecond%result[k]);
-                    mmsecond = Math.floor(mmsecond/result[k]);
-                    if(flag < 10){
-                        result_re = "0"+flag +":"+ result_re;
-                    }else{
-                        result_re = flag +":"+ result_re;
-                    }
-                }
-                //去掉最后的一个冒号
-                result_re = result_re.substring(0,result_re.length-1);
-                //下面计算年月日
-                var year,month,day;
-                var everyMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-                //计算年
-                flag = Math.floor(mmsecond/365);
-                year = 1970 - 0 + flag;
-                mmsecond = Math.floor(mmsecond%365);
-                //计算月和日
-                for(h=0;h<12;h++){
-                //判断闰月
-                    if(((year%4 == 0)&&(year%100 != 0)) || (year%400 == 0)){
-                        if(mmsecond == 59){
-                            month = "02";
-                            day = "29";
-                            break;
-                        }
-                    }
-                    if(mmsecond > everyMonth[h]){
-                        mmsecond -= everyMonth[h];
-                    }else{
-                        month = k+1;
-                        day = mmsecond;
-                        month = month >10?month:"0"+month;
-                        day = day>10?day:"0"+day;
-                    }
-                }
-                //拼起来
-                result_re = year + "-" + month +"-"+day + " " + result_re;
                 var auditStatus = d["auditStatus"];
                 if(orgId==""){
                     tabhref="table-look";
@@ -112,6 +66,21 @@ $(document).ready(function(){
                     tabhref="table-look";
                 }
                 
+                function getMyDate(str){  
+                    var oDate = new Date(str),  
+                    oYear = oDate.getFullYear(),  
+                    oMonth = oDate.getMonth()+1,  
+                    oDay = oDate.getDate(),   
+                    oTime = oYear +'年'+ getzf(oMonth) +'月'+ getzf(oDay)+'日';//最后拼接时间  
+                    return oTime;
+                };  
+                function getzf(num){  
+                    if(parseInt(num) < 10){  
+                        num = '0'+num;  
+                    }  
+                    return num;  
+                }  
+                var oTime = getMyDate(d["submitTime"]);
                 auditStatus=explainStatus(auditStatus); 
                 var quarter = d["quarter"];
                 if(quarter==1){
@@ -123,7 +92,7 @@ $(document).ready(function(){
                 }else if(quarter==4){
                     quarter="第四季度";
                 }
-                htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["instCode"]+"' data-status='"+d["auditStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["applyId"]+"'></td><td>" + j + "</td><td>" + d["applyCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["applyId"] + " class='ji"+d["quarter"]+"'><a href='"+tabhref+".html?applyId="+d['applyId']+"' style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + d["orgInfo"]["orgName"] + "</td><td>" +auditStatus + "</td><td style='display:none;'>" + result_re + "</td></tr>");
+                htmlArray.push("<tr><td><input name='kaohe' type='radio' class='tdCheck' data-instcode='"+d["instCode"]+"' data-status='"+d["auditStatus"]+"'  data-org='"+d["orgId"]+"'  value='"+d["applyId"]+"'></td><td>" + j + "</td><td>" + d["applyCode"] + "</td><td>" + quarter + "</td><td style='max-width:300px;color:#177eda;cursor: pointer;'id=" + d["applyId"] + " class='ji"+d["quarter"]+"'><a href='"+tabhref+".html?applyId="+d['applyId']+"' style='color: #177eda;'>" + d["benchmarkName"] + "</a></td><td>" + d["orgInfo"]["orgName"] + "</td><td>" +auditStatus + "</td><td>"+oTime+"</td><td>"+d["submitUser"]+"</td></tr>");
             }
                
             return htmlArray.join("");

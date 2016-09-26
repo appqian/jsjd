@@ -149,7 +149,7 @@ function getRealData() {
             $("#test").find("td:nth-child(11n)").each(function(i) {
                 $this = $(this);
                 $this.html("<span class='animated bounceIn'>" + statusFix(resultArray[i]) /*resultArray[i].value*/ + "</span>")
-                if(statusFix(resultArray[i])=="异常"){
+                if(statusFix(resultArray[i])=="坏点"){
                     $this.parent().css({background:"red",color:"white"})
                 }
             })
@@ -166,7 +166,7 @@ function statusFix(target) {
                 value = target.value;
                 break;
             default:
-                value = "异常"
+                value = "坏点"
                 break;
         }
         return value;
