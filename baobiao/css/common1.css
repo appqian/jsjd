@@ -132,6 +132,38 @@ table{
 .lh_35{
     line-height: 35px;
 }
+
+.right_right #right_table {
+    border-spacing: 20px 35px;
+}
+table {
+    background-color: #edf7f9;
+    border-radius: 0;
+}
+.title_style {
+    height: 46px;
+    line-height: 46px;
+    font-size: 22px;
+    background-color: #4a6eaf;
+    color: #FFF;
+}
+table td {
+    position: relative;
+    text-align: center;
+     width:120px;
+}
+table .table_style {
+    color: #000;
+    font-size: 16px;   
+    text-decoration: none;
+    width: 180px;
+}
+table a:hover {
+    background-color: #4084c8;
+    color: #FFF;
+}
+
+/*2级页面*/
 .modal_x{
     position: absolute;
     left: 0;
@@ -146,36 +178,4 @@ table{
     opacity: 0.4;
     display: none;
     cursor: pointer;
-}
-.right_right #right_table {
-    border-spacing: 20px 35px;
-}
-table {
-    /*background-color: #edf7f9;*/
-    border-radius: 0;
-}
-table td {
-    position: relative;
-    text-align: center;
-}
-table .table_style {
-    height: 16px;
-    width: 100%;
-    /*color: #8a8b8b;*/
-    color: #000;
-    font-size: 16px;
-    line-height: 16px;
-    text-decoration: none;
-    padding: 5px 10px;
-}
-table .table_style:hover {
-    background-color: #4084c8;
-    color: #FFF;
-}
-.title_style {
-    height: 46px;
-    line-height: 46px;
-    font-size: 22px;
-    background-color: #4a6eaf;
-    color: #FFF;
 }
