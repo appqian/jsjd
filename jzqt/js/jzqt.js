@@ -10,6 +10,28 @@ function rootpath() {
 	var rootPath = localhostPath + projectName;
 	document.getElementById("url").value = rootPath;
 }
+$(document).scroll(function(){
+    
+   if($(document).scrollTop()>"200"){
+		
+        _width = $(".thead_shadow").outerWidth() + 2;
+		if($(".thead_shadow").outerWidth()==0){
+			_width=$(".blance").outerWidth() + 2;
+		}
+        thArray = $(".thead_shadow tr td");
+        thead_fixed = $(".thead_fixed tr td");
+        for(var i = 0 ;i<thead_fixed.length;i++){
+            thead_fixed.eq(i).css({width:thArray.eq(i).outerWidth()})
+        }
+        
+        $('.thead_fixed').css({position:"fixed",top:0,width:_width}).show();
+        $(".thead_shadow").css({visibility:"hidden"});
+    }else{
+         $('.thead_fixed').css({position:"relative"}).hide();
+         $(".thead_shadow").css({visibility:"visible"})
+    }
+    
+})
 
 rootpath();
 var rootPath = $('#url').val();
@@ -59,12 +81,7 @@ var initPage = function(page) {
 };
 function callback(page_index, jq){
 	//从第一次执行函数中获取参数 重新传入
-	console.log(page_index);
-	
-		
-		jt_query(page_index + 1);
-	
-	
+	jt_query(page_index + 1);
   	return false;
 }
 var jt_flag= true;
@@ -85,7 +102,7 @@ function jt_query(pagenum){
    			starttime:$("#startTime").val(),
    			endtime:$("#endTime").val(),
    			pagenum:pagenum,
-   			pagesize:7
+   			pagesize:20
 	   },
 	   dataType:"json",
 	   success:function(data){
@@ -95,7 +112,7 @@ function jt_query(pagenum){
 			   $("#Pagination").hide();
        			return;
        		}
-	       	var page = Math.ceil(data.total/7);
+	       	var page = Math.ceil(data.total/20);
 	       	if(jt_flag){
 	       		$("#Pagination").show();
 				initPage(page);//分页加载
@@ -104,7 +121,6 @@ function jt_query(pagenum){
 	   
 		  $("#jt_huizong").html(preparedata(data.exper,["NAME","FIRETIME","RUSHTIME","PARATIME","ENDTIME","QT_DESC"],"jt_huizong"));
 		  $("#jt_huizong tr").find('td:nth-child(6n+1)').css({textAlign:"left",paddingLeft:"10px"})
-		  //$table.find('td:nth-child(4n+1)').css({maxWidth:"125px",textAlign:'left'});   
 	   }   
    })
 }
@@ -212,7 +228,7 @@ function preparedata(data,columns,table){
             }else if (table =="zonglan" && j == 2){
             	htmlArray.push("<td style='cursor:pointer'  "+columnValue+"><a href='#' style='color:blue'>"+d.TJNUM+"</a></td>")
             }else{
-            	htmlArray.push("<td class='overflow'><a title='" + columnValue + "'>" + columnValue + "</a></td>");
+            	htmlArray.push("<td class='overflow' title='" + columnValue + "'>" + columnValue + "</td>");
             }
         }
     }
@@ -231,7 +247,9 @@ function getColumnValue(table,column,columnValue,d){
 	if(column == "TJNUM"){
 		return "onclick=detail('"+d.ORGID+"','"+d.G_ID+"','TJ','1','true')";
 	}
-	
+	if(!columnValue){
+		columnValue="";
+	}
 	return columnValue;
 }
 //detail("c21834b4-1cb0-490f-a2a8-deeaf7f7e065",'1','QD');
@@ -252,8 +270,8 @@ function pageselectCallback(page_index, jq){
 	var org_id = sessionStorage.getItem("org_id");
 	var g_id   = sessionStorage.getItem("g_id")
 	var type   = sessionStorage.getItem("type")
-	 detail(org_id,g_id,type,page_index + 1);
-	//detail(orgId,gID,page_index + 1,g_id);
+	detail(org_id,g_id,type,page_index + 1);
+	
   	return false;
 }
 
@@ -262,8 +280,6 @@ function pageselectCallback(page_index, jq){
 var query_flag=true;
 
 //todo 
-
-
 
 /*
  * @param orgid 电厂id
@@ -290,7 +306,7 @@ function detail(orgid,g_id,type,nub,flag){
             g_id:g_id,
             type:type,
             pagenum:nub,
-			pagesize:8 
+			pagesize:20 
         },
         dataType:"json",
         success: function(data){
@@ -299,7 +315,7 @@ function detail(orgid,g_id,type,nub,flag){
         		$("#detail").html('<td colspan="9" >暂时没有数据</td>');
         		return;
         	}
-        	var page = Math.ceil(data.total/8)
+        	var page = Math.ceil(data.total/20)
         	if(query_flag||flag){
         		$("#Pagination").show()
 				initPagination(page);//分页加载
@@ -378,12 +394,9 @@ function preparedataDetail(data,type,orgId){
 
 
 		if(type=='TJ'){
-			
-			
 			var msg='';
 			if(d.ADUIT_STATUS=='A'  && orgId==d.ORG_ID){
 				msg='填写';
-				
 			}
 			if(d.ADUIT_STATUS=='C' && orgId==d.ORG_ID){
 				msg='已提交';

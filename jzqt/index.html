@@ -11,12 +11,9 @@
 </head>
 
 <body  id="body">
-
- <!--  <input id="url" type="hidden" value=""> -->
-  <div class="wu_top">
-  <div class="wu_top0"></div>
-  
-  <div class="fengge"></div>
+<div class="wu_top">
+	<div class="wu_top0"></div>
+	<div class="fengge"></div>
 </div>
 
 
@@ -114,8 +111,23 @@
 	
 	    </div>
 	    <div class="fengge"></div>
-	   	<table class="wu_tab1"  style="">
+			<table class="table table-bordered table-striped table-hover thead_fixed"  style="z-index:11;display:none">
 		      <thead>
+		        <tr>
+		          <td>启停机项目</td>
+		          <!-- <td>开始时间</td>
+		          <td>结束时间</td> -->
+		          <td>点火/灭火时间</td>
+		          <td>冲车/打闸时间</td>
+		          <td>并网/解列时间</td>
+		          <td>至50%负荷/盘车投入时间</td>
+		          <td>启停机类别</td>
+		        </tr>
+		      </thead>
+		     
+		 </table>
+	   	<table class="table table-bordered table-striped table-hover"  style="">
+		      <thead class="thead_shadow">
 		        <tr>
 		          <td>启停机项目</td>
 		          <!-- <td>开始时间</td>
@@ -135,8 +147,10 @@
     <div id="dc_view">
     	<!--  <p >岱海发电</p> -->
     	 <p id="lh_name" style="width:94%;float:left;text-indent:5%"></p>
-  		<a class='btn btn-primary' href="../newNavIndex/portal.jsp">返回</a>
-    	 <table class="wu_tab1"  style="">
+  		 <a class='btn btn-primary' href="../newNavIndex/portal.jsp">返回</a>
+			 <a class="btn btn-info pull-left" href="yxzt.html" style="">启机过程参数对比</a>
+			 <div class="clearfix"></div>
+    	 <table class=" table table-bordered table-striped table-hover blance"  style="">
 		      <thead>
 		        <tr>
 		          <td>机组</td>
@@ -150,20 +164,29 @@
 		      <tbody id="table1_huizong"> 
 		      </tbody>
 		 </table>
-		
-	    <table class="wu_tab1 level4" >
+		 <table class=" level4 table table-bordered table-striped table-hover thead_fixed" style='display:none;z-index:11' >
 		      <thead>
 		        <tr id="d_head">
-		         <!--  <td>机组</td> -->
 		          <td>启停项目</td>
-		          <!-- <td>开始时间</td>
-		          <td>结束时间</td> -->
 		          <td>点火时间</td>
 		          <td>冲车时间</td>         
 		          <td>并网时间</td>
 		          <td>至50%负荷/盘车投入时间</td>
 		          <td>启停机类别</td>
-		          <!-- <td>查看趋势</td> -->
+		          <td>查看报告</td>
+		        </tr>
+		      </thead>
+		     
+	    </table> 
+	    <table class=" level4 table table-bordered table-striped table-hover" >
+		      <thead class="thead_shadow">
+		        <tr id="d_head">
+		          <td>启停项目</td>
+		          <td>点火时间</td>
+		          <td>冲车时间</td>         
+		          <td>并网时间</td>
+		          <td>至50%负荷/盘车投入时间</td>
+		          <td>启停机类别</td>
 		          <td>查看报告</td>
 		        </tr>
 		      </thead>
