@@ -150,7 +150,7 @@ function getRealData() {
                 $this = $(this);
                 $this.html("<span class='animated bounceIn'>" + statusFix(resultArray[i]) /*resultArray[i].value*/ + "</span>")
                 if(statusFix(resultArray[i])=="坏点"){
-                    $this.parent().css({background:"red",color:"white"})
+                    $this.parent().css({color:"red"})
                 }
             })
         }
@@ -291,3 +291,21 @@ function show(point) {
     subwin.focus();
 
 }
+$(document).scroll(function(){
+    
+    if($(document).scrollTop()>"37"){
+        _width = $("#test").outerWidth() + 2;
+        thArray = $(".thead_shadow tr th");
+        thead_fixed = $(".thead_fixed tr th");
+        for(var i = 0 ;i<thArray.length;i++){
+            thead_fixed.eq(i).css({width:thArray.eq(i).outerWidth()})
+        }
+        //$('th').css({width:td_width-18});
+        $('.thead_fixed').css({position:"fixed",top:0,width:_width}).show();
+        $(".thead_shadow").css({visibility:"hidden"});
+    }else{
+         $('.thead_fixed').css({position:"relative"}).hide();
+         $(".thead_shadow").css({visibility:"visible"})
+    }
+    
+})

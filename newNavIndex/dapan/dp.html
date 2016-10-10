@@ -5,16 +5,21 @@
     <meta charset="UTF-8">
     <title>测点大盘</title>
 
-    <script src="../../common/js/jquery.min.js"></script>
+   <script src="../../common/js/jquery.min.js"></script>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
     <link type="text/css" rel="stylesheet" href="../css/pagination.css" />
     <script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+     <link rel="stylesheet" href="dp.css">
     <script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script type="text/javascript" src="../js/jquery.pagination.js"></script>
-    <link rel="stylesheet" href="dp.css">
+    <!-- <link rel="stylesheet" href="../css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+   
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script> -->
 </head>
 
 <body>
@@ -25,11 +30,10 @@
 
         <div class="wu_top0 select" style="">
             <form class="form-inline">
-                <!-- <div class="left form-group" style="margin-left:30px;"><a href="kaohe.html">返回</a></div> -->
-                <div style="float:left;margin-right:5%">
-                    <div class="form-group ">
+                <div class="select_style">
+                    <div class="form-group">
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="org">单位</label>
-                        <select class="form-control col-sm-1" id="org">
+                        <select class="form-control" id="org">
                             <option value="" selected></option>
                             
                             <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
@@ -38,7 +42,7 @@
                     </div>
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="g_id">机组</label>
-                        <select class="form-control col-sm-1" id="g_id">
+                        <select class="form-control " id="g_id">
                             <option value="" selected></option>    
                             <option value="1">#1</option>
                             <option value="2">#2</option>
@@ -48,7 +52,7 @@
                     </div>
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="spec">专业</label>
-                        <select class="form-control col-sm-1" id="spec">
+                        <select class="form-control" id="spec">
                             <option value="" selected></option>    
                             <option value="电气">电气</option>
                             <option value="锅炉">锅炉</option>
@@ -59,7 +63,7 @@
                     </div>
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 40px;position: relative;" for="sys">系统</label>
-                        <select class="form-control col-sm-1" id="sys" style="width:200px;">
+                        <select class="form-control " id="sys" style="width:200px;">
                             <option value=""></option>
                             <option>汽水系统</option>
                             <option>锅炉壁温</option>
@@ -131,21 +135,22 @@
                     </div>
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 80px;position: relative;" for="code">测点编码</label>
-                        <input class="form-control col-sm-1" type="text" id="code" style="width:120px" value="">
+                        <input class="form-control" type="text" id="code" style="width:120px" value="">
                     </div>
                     <div class="form-group ">
                         <label class=" control-label left" style="float:left;    width: 80px;position: relative;" for="desc">测点描述</label>
-                        <input class="form-control col-sm-1" type="text" id="desc" style="width:120px" value="">
+                        <input class="form-control" type="text" id="desc" style="width:120px" value="">
                     </div>
                     <div class="form-group" style="margin-left:22px;">
-                        <a class="form-control col-sm-1 btn btn-primary" id="submit" style="">查询</a>
+                        <a class="form-control col-sm-1 btn btn-primary" id="submit" style="line-height:6px">查询</a>
                     </div>
                 </div>
             </form>
             <div class="fengge"></div>
         </div>
-        <table class="table table-bordered bordered">
-            <thead>
+        
+        <table class="table table-bordered table-hover thead_fixed" id="table_content" style="display:none">
+            <thead class="thead_style ">
                 <tr>
                     <th>序号</th>
                     <th>单位</th>
@@ -158,16 +163,34 @@
                     <th>量程下限</th>
                     <th>量程上限</th>
                     <th>实时值</th>
-
+                </tr>
+            </thead>
+        </table>
+        <table class="table table-bordered table-hover" id="table_content">
+            <thead class="thead_style thead_shadow">
+                <tr>
+                    <th>序号</th>
+                    <th>单位</th>
+                    <th>机组</th>
+                    <th>专业</th>
+                    <th>系统</th>
+                    <th>测点编码</th>
+                    <th>测点描述</th>
+                    <th>计量单位</th>
+                    <th>量程下限</th>
+                    <th>量程上限</th>
+                    <th>实时值</th>
                 </tr>
             </thead>
             <tbody id="test">
+                
+                
             </tbody>
-        </table>
+            
+        </table> 
         <div id="Pagination" class="pagination" style="float:right">
         </div>
 
 </body>
 <script src="dp.js"></script>
-
 </html>
