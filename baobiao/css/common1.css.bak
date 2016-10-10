@@ -151,18 +151,18 @@ table{
     border-spacing: 20px 35px;
 }
 table {
-    /*background-color: #edf7f9;*/
+    background-color: #edf7f9;
     border-radius: 0;
 }
 table td {
     position: relative;
     text-align: center;
 }
+
 table .table_style {
     height: 16px;
     width: 100%;
-    /*color: #8a8b8b;*/
-    color: #000;
+    color: #0a4b4b;
     font-size: 16px;
     line-height: 16px;
     text-decoration: none;

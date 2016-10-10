@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--为了让 IE 浏览器运行最新的渲染模式-->
     <meta name="renderer" content="webkit"><!--让国产浏览器启用高速模式-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>节能监督报表</title>
+    <title>集团节能监督报表</title>
     <!--[if lt IE 9]>
     <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/common.css">
     <script src = '../js/jquery-1.8.3.min.js'></script>
     
-   <!--<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>-->
+   <!--<script src="../common/js/jquery.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="../js/tree_themes/SimpleTree.css"/>
     <script type="text/javascript" src="../js/SimpleTree.js"></script>
     
@@ -27,10 +27,10 @@
         <div class="right_tit b_color left b_radius">
             节能监督报表
         </div>
-        <a class="right_tit1 btn btn-default" href="jnjd.html">
+        <a class="right_tit1 btn btn-default" id="check" href="jnjd.html">
             查看电厂报表
         </a>
-        <a class="right_tit1 btn btn-default" href="diy.html">
+        <a class="right_tit1 btn btn-default" id="return" href="diy.html">
             返回
         </a>
 
@@ -40,24 +40,20 @@
         <table style="margin:0 auto" class="common_table">
             <tbody>
             <tr>
-                 <td>
-                     <a class="btn btn-default lh_35" href="?resid=I4028e4f368f5f6a50156ea0acad52122">集团节能监督月报表</a>
-                 </td>
-                 <td><a class="btn btn-default lh_35" href="?resid=I4028e4f3271a8708015727c00aa31919">集团节能汇总</a></td>
-                 <td><a class="btn btn-default lh_35" href="?resid=I4028e4f34f5e755d0157507a448132a4">节能监督-供热情况</a></td>
-                <!-- <td><a class="btn btn-default lh_35" href="?resid=I4028e4f3271a8708015727c00aa31919">集团节能汇总</a></td>-->
-                <td><a class="btn btn-default lh_35" href="?resid=I4028e4f34f5e755d01574fb8f6ec1419">集团月度节能总表</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d01574fb8f6ec1419">集团月度节能总表</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d0157505c66612b8d">集团发供电量</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d0157506fd87b2e72">集团综合煤气耗</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d01575083a5eb353b">集团厂用电率</a></td>
             </tr>
             <tr>
-               <!-- <td><a class="btn btn-default lh_35" href="?resid=I4028e4f368f5f6a50156ea0acad52122">集团节能月报</a></td>-->
-                <td><a class="btn btn-default lh_35" href="?resid=I4028e4f34f5e755d0157506fd87b2e72">煤气耗</a></td>
-                <td><a class="btn btn-default lh_35" href="?resid=I4028e4f350b94eeb015750fe9d74122d">集团季度节能总表</a></td>
-                <td><a class="btn btn-default lh_35" href="?resid=I4028e4f34f5e755d01575083a5eb353b">集团节能表-厂用电率</a></td>
-                <td><a class="btn btn-default lh_35" href="?resid=I4028e4f34f5e755d0157505c66612b8d">集团节能表-发供电量</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d0157507a448132a4">集团供热</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f34f5e755d0157507fc58734a0">集团节能量与投入</a></td>
+                <td><a class="btn btn_default " href="?resid=I4028e4f368f5f6a50156ea0acad52122">燃煤节能重点技术指标</a></td>
+                <td><a class="btn btn_default " href="?resid=I4028e4f3512c45a80157512ea751000d">燃气节能重点技术指标</a></td>
             </tr>
             <tr>
-                <td><a class="btn btn-default " href="?resid=I4028e4f34f5e755d015750a125df3c2b">燃煤节能重点技术指标</a></td>
-                <td><a class="btn btn-default " href="?resid=I4028e4f3512c45a80157512ea751000d">燃气节能重点技术指标</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f350b94eeb015750fe9d74122d">集团季度节能总表</a></td>
+                <td><a class="btn btn_default lh_35" href="?resid=I4028e4f3271a8708015727c00aa31919">集团经营指标汇总</a></td>
             </tr>
            
             </tbody>
@@ -102,6 +98,7 @@
                     _resid  = GetRequest(_url).resid; //获取当前 id;
 
             //加上选中效果！
+            $this.siblings(".modal_x").css({"width":$this.outerWidth(),"height":$this.outerHeight(),"top":$this.position().top,"left":$this.position().left});
             $(this).find(".modal_x").hide(); //table 中其他的modal
             $this.siblings('.modal_x').show();
             //console.log(_resid);
