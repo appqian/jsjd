@@ -49,7 +49,7 @@ img { border: 0; vertical-align: middle; }
 .select_option li.hover { background: #2fa9cc; color: #fff; }
 .wu_main { float: right; width: 83%;min-height:535px; margin: 0 1% 20px 0; border: 1px solid #ECECEC; border-top: none; }
 .wu_main1 { width: 98%; height: auto; min-height: 200px; margin: 10px auto; }
-.wu_main1 p { width: 100%; height: 30px; line-height: 30px; text-align: center; font-size: 13pt; color: #333333; }
+.wu_main1 p { width: 100%;  text-align: center; font-size: 13pt; color: #333333; }
 .wu_tab1 { width: 100%; margin: 15px auto; background: #ffffff; jerry: expression(cellSpacing="1"); border-collapse: separate; border-spacing: 1px; border: 1px solid #cccccc; }
 .wu_tab1 thead td { height: 40px; padding: 0 10px; background: #f2f2f2; text-align: center; vertical-align: middle; line-height: normal; color: #177eda; font-size: 12pt; }
 .wu_tab1 tbody td { height: 40px; padding: 0 10px; text-align: center; vertical-align: middle; line-height: normal; }
@@ -60,13 +60,13 @@ img { border: 0; vertical-align: middle; }
 
 
 .zhexian { width: 120px; cursor: pointer; }
-.zhexian p img { height: 50%; margin: 10px auto; }
+.zhexian p img { height: 16px;display: inline-block;  }
 .lineDiv { position: fixed; z-index: 4000; border: 1px solid #cccccc; background: #ffffff; display: none; }
 .drsMoveHandle { height: 40px; background: #177eda; cursor: move; }
 .drsMoveHandle span { float: right; width: 30px; height: 40px; cursor: pointer; background: url(../img/wj_close.jpg) right center no-repeat; }
 .linecontent {width: 700px; height: 300px; margin: 10px auto; overflow: hidden; text-align: center; }
 
-//左侧tree
+
 #tree li{
 	font-size: 14px!important;
 }
@@ -90,6 +90,9 @@ ul.ztree {
     text-decoration: none;
 	border: 1px solid #AAE;
 	color: #15B;
+}
+p{
+    margin: 0;
 }
 
 .pagination a, .pagination span {
@@ -126,7 +129,47 @@ ul.ztree {
 #level1_query{
     cursor: pointer;
 }
+table{
+    width: 100%;
+    max-width: 100%;
+}
 table a {
     color: blue;
     cursor: pointer;
-}；
+}
+table tr td{
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+}
+.table-bordered thead td {
+    padding: 0 5px;
+    background: #f2f2f2;
+    text-align: center;
+    vertical-align: middle;
+    height:40px;
+    color: #177eda;
+    font-size: 14px;
+    background: #c5d9f1;
+}
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #999;
+    text-align: center;
+}
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+    text-align: center;
+    
+}
+/*溢出隐藏*/
+.level4>tbody>tr>td, .level4>tbody>tr>th, .level4>tfoot>tr>td, .level4>tfoot>tr>th, .level4>thead>tr>td, .level4>thead>tr>th{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+   
+}
+/*table 加边框，*/
+.table-bordered.table-striped.table-hover{
+    border: 1px solid #999;
+  
+    margin-bottom: 10px;
+}

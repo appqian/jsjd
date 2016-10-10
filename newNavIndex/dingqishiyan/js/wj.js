@@ -1,3 +1,8 @@
+
+ $("#dcheader").freezeHeader();
+ $("#jtheader").freezeHeader();
+
+
 function rootpath() {
 	var url = $('<input id="url" type="hidden" value="">');
 	$("body").prepend(url);
@@ -24,8 +29,6 @@ function getTree() {
     var url =rootPath + "/portal/getSYTreeMenu.do";   
     getTreeData(url);
 }
-
-
 
 //集团视图========================================================
 
@@ -69,24 +72,7 @@ $("#jt_submit").click(function(){
 	jt_query=true;
 })
 
-//返回按钮处理 -- 处理在所在电厂级和集团级
-//-- todo 如果在机组和名称层级处理
-/*$("#fanhui_test").click(function(){
-	var now_org_name = $('.curSelectedNode').attr('title')
-	switch (now_org_name) {
-		case "京能集团":
-			jtview();
-			break;
-		case "岱海发电":
-			level1(now_org_name);
-			break;
-		case "宁东发电":
-			level1(now_org_name);
-			break;
-		default:
-			break;
-	}
-})*/
+
 
 //集团分页
 var jt_lh_pagenation = function(page) {
@@ -103,7 +89,10 @@ var jt_lh_pagenation = function(page) {
 };
 //集团分页callback
 function jt_query_pagenation(page_index, jq){
-	jt_detail(page_index+1) 
+	if(!jt_query){
+
+		jt_detail(page_index+1) 
+	}
 }
 //集团 汇总
 function jt_summary(){
@@ -111,7 +100,7 @@ function jt_summary(){
 	ajax(url,"jthz",["YSCOUNT","YCOUNT","YEARRATE","MSCOUNT","MCOUNT","MONTHRATE"]);
 	
 }
-//集团 detail
+//集团 deta 
 function jt_detail(jt_page_index){
 	
 	var orgid = $("#org_id").val();	
@@ -176,12 +165,9 @@ function getTreeData(url){
 
     })
 }
-
 getTree();
-
-
 //处理函数 --start
-function ajax(url, tableId, columns,sentData) {
+function ajax(url, tableId, columns,sentData,pagenum) {
 	if(!sentData){
 		sentData ={};
 	}
@@ -192,9 +178,9 @@ function ajax(url, tableId, columns,sentData) {
         dataType : "json",
         success : function(data) {
             var tableHtml = '';
-			
+			console.log(tableId)
 			if(data.total){
-				var page = Math.ceil(data.total/10)
+				var page = Math.ceil(data.total/20)
 			}
 			switch (tableId){	
 				case "level1"://header 电厂汇总
@@ -208,7 +194,6 @@ function ajax(url, tableId, columns,sentData) {
                 		tableHtml = prearData(data, columns);               
             		}
 					break;
-
 				case "level1_query": //电厂 level1
 					if(query_flag){
 						dc_lh_pagenation(page);//分页加载
@@ -218,14 +203,14 @@ function ajax(url, tableId, columns,sentData) {
 						tableHtml ="<div>暂时没有数据.....<div>"
 					}else{
 						jt_query = false; 
-						tableHtml = prearData(data.exper, columns);
+						tableHtml = prearData(data.exper, columns,pagenum);
 					}	 
 					break;
 				case "jt_detail": //jt_detail
-					page = Math.ceil(data.total/10)
+					//page = Math.ceil(data.total/20)
 					if(jt_query){
-						var page = Math.ceil(data.total/10)
-						jt_lh_pagenation(page);//分页加载
+						var page = Math.ceil(data.total/20)
+						jt_lh_pagenation(1);//分页加载
 					}
 					jt_query = false; 
 					tableHtml = prearData(data.exper, columns);
@@ -237,7 +222,7 @@ function ajax(url, tableId, columns,sentData) {
         }
     });
 }
-function prearData(data, columns) {
+function prearData(data, columns,pagenum) {
     var htmlArray = [];
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
@@ -245,8 +230,12 @@ function prearData(data, columns) {
         htmlArray.push("<tr>");
         for (var j = 0;j < columns.length; j++) {
 			//处理第一列为序号的
-        	if(columns[0]=="x" && j==0){
-        		k=i+1;
+			if(pagenum){
+				k=20*(pagenum-1)+i+1;
+			}else{
+				k=i+1
+			}
+        	if(columns[0]=="x"&&j==0){
         		htmlArray.push("<td >"+k+"</td>");
         	}else{
         		 var columnValue = getColumnValue(columns[j], d[columns[j]]);
@@ -314,7 +303,7 @@ function query_sy(event,pageNum,gid){
     	g_id="";
     } 
     data1 = {
-  		  "pageSize"    :10,  //页大小
+  		  "pageSize"    :20,  //页大小
   		  "pageNum"     :pageNum,   //当前页
   		  "orgId"       :orgId, //组织
   		  "gId"         :g_id,//机组
@@ -325,7 +314,7 @@ function query_sy(event,pageNum,gid){
   		 "conditionType":conditionType
   		};
     var url = rootPath+"/portal/getsydetailinfo.do"
-	ajax(url,'level1_query',['x','gId','name','startTime','ysCount','yCount','msCount','mCount','fCount'],data1);
+	ajax(url,'level1_query',["x",'gId','name','startTime','ysCount','yCount','msCount','mCount','fCount'],data1,pageNum);
     
     
 }
@@ -449,53 +438,9 @@ function chuantou(d){
                 }
                 flag=false;
                 $('#sblhcounter').html(prepearData(data.exper));
-                var line_width = ($(window).width() - 700) / 2 + "px";
-                //var line_height=($(window).height()-365)/2+"px";
-                var line_height = 100;
-                $(".lineDiv").css({
-                    "left": line_width,
-                    "top": line_height
-                });
-                //改变窗口浏览器大小重置相对定位
-                $(window).resize(function() {
-                    var line_width = ($(window).width() - 700) / 2 + "px";
-                    var line_height = ($(window).height() - 365) / 2 + "px";
-                    $(".lineDiv").css({
-                        "left": line_width,
-                        "top": line_height
-                    });
-                });
+                
                 var d_flag= true;
-                //弹窗淡入淡出
-                $(".zhexian").on("click",
-
-                    function(event) {
-                        var i = $(this).parent().index() -1 ;
-                        //console.log($(this).parent().index());
-
-                        var dataT = $(this).find('.drsMoveHandle').get(0).id;
-                        var arr = dataT.split(";");
-                        var code = arr[0];
-                        var name = arr[1];
-                        var starttime = arr[2];
-                        var endtime = arr[3];
-                        //console.log(name);
-
-                        if(d_flag){
-                            sbjiaohu("zx"+i,code,name,starttime,endtime);
-                            d_flag = false;
-                        }
-                        $(this).children(".lineDiv").fadeIn();
-                        var index = $(this).index();
-                    }
-                );
-                //弹出层关闭按钮
-                $(".drsMoveHandle span").bind("click",
-                    function(event) {
-                        $(this).parent().parent(".lineDiv").fadeOut();
-                        event.stopPropagation();
-                    }
-                )
+                
             }
         });
 
@@ -518,45 +463,30 @@ function level4_header(url,dataIN){
 			dataType: "json",
 			data: dataIN,
 			success: function(data) {
-				var data_level4 = data.lhlist[0];
-				
-				var table1_huizong_td = $("#table1_huizong").find("td");
+				var d = data.lhlist[0];
+				var tit_arr =[d.VALID_BASIC,d.LH_METHOD,d.SYSTEM_LOGIC,d.START_BASIC,d.END_BASIC];
+				var hz_arr = [d.YSCOUNT,d.YCOUNT,d.MSCOUNT,d.MCOUNT,d.NOEXPER];
+				var table1_huizong_td = $("#level4_huizong").find("td");
 				var header_h3 = $('.wu_top1').find("h3");
 				
 				if (data.lhlist.length == 0) {
 					table1_huizong_td.each(function(i) {
-						if (i > 4) {
 							$(this).html("暂时无数据");
-						}
-
 					});
-					//lh_name.html("");
 					header_h3.each(function() {
 						$(this).html("");
 					});
-					//lh_name.html("本条记录无数据");
-				}
-
-				if (data.lhlist.length !== 0) {
+					
+				}else{
 					/*轮换说明*/
-					header_h3.eq(0).html(data_level4.VALID_BASIC)
-					header_h3.eq(1).html(data_level4.LH_METHOD);
-					header_h3.eq(2).html(data_level4.SYSTEM_LOGIC);
-					header_h3.eq(3).html(data_level4.START_BASIC);
-					header_h3.eq(4).html(data_level4.END_BASIC)
-
-					/*轮换的名称*/
-					//lh_name.html(dataIN.name);
-
+					header_h3.each(function(i){						
+						$(this).html(tit_arr[i]);						
+					});
 					/*轮换的具体数据*/
-					table1_huizong_td.eq(5).html(data_level4.YSCOUNT);
-					table1_huizong_td.eq(6).html(data_level4.YCOUNT);
-					table1_huizong_td.eq(7).html(data_level4.MSCOUNT);
-					table1_huizong_td.eq(8).html(data_level4.MCOUNT);
-					table1_huizong_td.eq(9).html(data_level4.NOEXPER);
-
+					table1_huizong_td.each(function(i){
+						$(this).html(hz_arr[i]);
+					})
 				}
-
 			}
 
 		})
@@ -926,74 +856,79 @@ function zTreeOnClick(ev, treeId, treeNode) {
 			});
 			
 		}
-
-		//level4 轮换信息；
-		$.ajax({
-			url: url,
-			type: "POST",
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			dataType: "json",
-			data: {
+		var l4sentdata ={ 
 				method: "getSYCount",
+				org_id: sessionStorage.getItem("orgid"),
+				g_id: g_id,
+				special_id: special_id	
+		}
+		level4_header(url,l4sentdata);
+		//level4 轮换信息；
+		// $.ajax({
+		// 	url: url,
+		// 	type: "POST",
+		// 	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		// 	dataType: "json",
+		// 	data: {
+			/*	method: "getSYCount",
 				org_id: sessionStorage.getItem("orgid"),
 				
 				g_id: g_id,
-				special_id: special_id
-			},
-			success: function(data) {
+				special_id: special_id*/
+		// 	},
+		// 	success: function(data) {
 
-				var data_level4 = data.lhlist[0];
-				//console.log(data_level4);
-				//console.log(data_level4.length);
-				var table1_huizong_td = $("#table1_huizong").find("td");
-				var header_h3 = $('.wu_top1').find("h3");
-				var lh_name = $('#lh_name');
+		// 		var data_level4 = data.lhlist[0];
+				
+		// 		var table1_huizong_td = $("#table1_huizong").find("td");
+		// 		var header_h3 = $('.wu_top1').find("h3");
+		// 		var lh_name = $('#lh_name');
 
-				if (data.lhlist.length == 0) {
-					table1_huizong_td.each(function(i) {
-						if (i > 4) {
-							$(this).html("暂时无数据");
-						}
+		// 		if (data.lhlist.length == 0) {
+		// 			table1_huizong_td.each(function(i) {
+		// 				if (i > 4) {
+		// 					$(this).html("暂时无数据");
+		// 				}
 
-					});
-					lh_name.html("");
-					header_h3.each(function() {
-						$(this).html("");
-					});
-					lh_name.html("本条记录无数据");
-				}
+		// 			});
+		// 			lh_name.html("");
+		// 			header_h3.each(function() {
+		// 				$(this).html("");
+		// 			});
+		// 			lh_name.html("本条记录无数据");
+		// 		}
 
-				if (data.lhlist.length !== 0) {
-					/*轮换说明*/
-					header_h3.eq(0).html(data_level4.VALID_BASIC)
-					header_h3.eq(1).html(data_level4.LH_METHOD);
-					header_h3.eq(2).html(data_level4.SYSTEM_LOGIC);
-					header_h3.eq(3).html(data_level4.START_BASIC);
-					header_h3.eq(4).html(data_level4.END_BASIC)
+		// 		if (data.lhlist.length !== 0) {
+		// 			/*轮换说明*/
+		// 			header_h3.eq(0).html(data_level4.VALID_BASIC)
+		// 			header_h3.eq(1).html(data_level4.LH_METHOD);
+		// 			header_h3.eq(2).html(data_level4.SYSTEM_LOGIC);
+		// 			header_h3.eq(3).html(data_level4.START_BASIC);
+		// 			header_h3.eq(4).html(data_level4.END_BASIC)
 
-					/*轮换的名称*/
-					lh_name.html(treeNode.name);
+		// 			/*轮换的名称*/
+		// 			lh_name.html(treeNode.name);
 
-					/*轮换的具体数据*/
-					table1_huizong_td.eq(5).html(data_level4.YSCOUNT);
-					table1_huizong_td.eq(6).html(data_level4.YCOUNT);
-					table1_huizong_td.eq(7).html(data_level4.MSCOUNT);
-					table1_huizong_td.eq(8).html(data_level4.MCOUNT);
-					table1_huizong_td.eq(9).html(fixex(data_level4.NOEXPER));
-					function fixex(data){
-							if(data==0){
-								data = "是"
-							}else if(data == 1){
-								data = "否"
-							}
-							return data;
-					}
+		// 			/*轮换的具体数据*/
+		// 			table1_huizong_td.eq(5).html(data_level4.YSCOUNT);
+		// 			table1_huizong_td.eq(6).html(data_level4.YCOUNT);
+		// 			table1_huizong_td.eq(7).html(data_level4.MSCOUNT);
+		// 			table1_huizong_td.eq(8).html(data_level4.MCOUNT);
+		// 			table1_huizong_td.eq(9).html(fixex(data_level4.NOEXPER));
+		// 			function fixex(data){
+		// 					if(data==0){
+		// 						data = "是"
+		// 					}else if(data == 1){
+		// 						data = "否"
+		// 					}
+		// 					return data;
+		// 			}
 
-				}
+		// 		}
 
-			}
+		// 	}
 
-		})
+		// })
         return false;		
 	}
 	return false;
@@ -1003,22 +938,20 @@ function prepearData(data){
 	
 	var htmlArray =[];
 	htmlArray.push("<tr>");
-	
+	if(data.length==0){
+		htmlArray.push("<td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><tr>")
+		return htmlArray.join("");
+	}
 	for(var i = 0;i<data.length;i++){
 
 		var j=i+1;
 		var d = data[i];
-		//htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle'><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>" + data[i].name + "</td><td>是</td><td><a href='"+rootPath+"/getMainAction.do?method=getLhModel&lh_id="+data[i].id+"'>导出</a></td></tr>")
-		htmlArray.push("<tr><td>"+j+"</td><td>" + d.STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>"+d.SY_DESC+"</td><td>"+zunsi(d.NOEXPER)+"</td>")
+		
+		htmlArray.push("<tr><td>"+j+"</td><td>" + d.STARTTIME + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%;top:150px;width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].STARTTIME+";"+data[i].ENDTIEM+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td>"+zunsi(d.NOEXPER)+"</td>")
 		htmlArray.push('<td onclick=daocu("'+d.ID+'","'+d.EXCEL_ID+'") class="link">查看</td></tr>')
 
 	}
-	if(data.length!==5){
-		for(var k =data.length;k<5;k++){
-
-			htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
-		}
-	}
+	
 		
 	
 	htmlArray.push("</tr>");
@@ -1038,10 +971,10 @@ if (!window.location.origin) {
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }
 var ctx = window.location.origin;
-function daocu(id,typeSy){
+function daocu(id,type){
 	var url = ctx+"/jsjd/SYExportAction.do?method=getSYExport&sy_id="+id;
 	var url2  = ""
-	switch(typeSy){
+	switch(type){
 		case "ZK":
 			url2 =  ctx+'/spreadsheet/vision/openresource.jsp?paramsInfo=[{"name":"shebeishiqi_id","value":"'+id+'"}]&resid=I4028e4f32977bc74015529c597fc0d68&user=admin&password=manager&refresh=true'
 			break;
@@ -1098,13 +1031,20 @@ function trim(str) {
 $(".wu_top1 h2").each(function(i) {
 	$(this).hover(
 		function() {
+			$(this).parent().find("h3").stop(true);
 			$(".wu_top1 h3").hide();
-			$(this).parent().find("h3").slideDown();
+			$(".wu_top1 h3").animate({
+				"opacity":"0"
+			},200);
+			$(this).parent().find("h3").show();
+			$(this).parent().find("h3").animate({
+				"opacity":"1"
+			},200);
 		},
 		function() {
 			$(document).click(
 				function() {
-					$(".wu_top1 h3").slideUp();
+					$(".wu_top1 h3").hide();
 				});
 			$(".wu_top1 h2,.wu_top1 h3").click(
 				function(event) {
