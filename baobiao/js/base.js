@@ -12,6 +12,7 @@ if(!org_id){
     $.ajax({
 		url:ctx+"/jsjd/portal/getUserOrgId.do",
 		type:"POST",
+        async: false,
 		success:function(data){
 			org_id=data;
 		}
