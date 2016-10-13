@@ -192,7 +192,7 @@
 	<!--振动报表取数-->
 	<bean id="testTriggeraddZzReportForm" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="jobDetailaddZzReportForm"/>  
-       <property name="cronExpression" value="0 0 0 1 * ?"/><!-- 每月1号0点执行 value="0 0 0 1 * ?"  -->
+       <property name="cronExpression" value="0 0 3 1 * ?"/><!-- 每月1号3点执行 value="0 0 3 1 * ?"  -->
 	</bean> 
 	<!--节能报表取数-->
 	<bean id="testTriggeraddJNReportForm" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
