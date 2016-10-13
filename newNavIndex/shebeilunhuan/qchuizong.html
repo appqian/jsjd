@@ -4,11 +4,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>京能集团实时技术监督生产管理系统</title>
+
 	<link type="text/css" rel="stylesheet" href="css/zTreeStyle.css" />
 	<link type="text/css" rel="stylesheet" href="css/pagination.css" />
 	<link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
-	
 	<script src="../../common/js/jquery.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/news.css" />
 </head>
@@ -46,7 +48,9 @@
 		<div class="fengge"></div>
 	</div>
 	<div class="wu_left">
+
 		<ul id="tree" class="ztree"></ul>
+
 		<div class="fengge"></div>
 	</div>
 
@@ -56,9 +60,10 @@
 		<div class="wu_main1">
 			<p id="lh_name" style="width:94%;float:left"></p>
 			<a class="btn btn-primary" style="color:#fff" id="fanhui_test">返回</a>
+			<!--  <a id="">返回</a>-->
 			<!-- 集团view -->
 			<!-- 集团汇总 -->
-			<table class="wu_tab1 jt" style='display:none'>
+			<table class="jt table table-bordered table-striped table-hover" style='display:none'>
 				<thead>
 					<tr>
 						<td>本年应做（次）</td>
@@ -79,23 +84,22 @@
 
 			<div class="wu_top0 select jt_select jt" style="display:none">
 				<form class="form-inline">
-
 					<div style="float:left;margin-right:5%">
 						<div class="form-group ">
 							<label class=" control-label left" style="float:left;width: 40px;position: relative;top: 5px;" for="org_id">单位</label>
 							<select name="choose" class="form-control col-sm-1" id="org_id">
-							<option value="" selected>京能集团</option>
-							<option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
-							<option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>	                    
+								<option value="" selected>京能集团</option>
+								<option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海发电</option>
+								<option value="472212af-1977-462b-a74a-a1f36ed6562d">宁东发电</option>	                    
 							</select>
 						</div>
 						<div class="form-group ">
 							<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="g_id_jt">机组</label>
 							<select name="choose" class="form-control col-sm-1" id="g_id_jt">
-									<option value="" selected></option>
-									<option value="1">#1</option>
-									<option value="2">#2</option>
-									<option value="3">#3</option>
+								<option value="" selected></option>
+								<option value="1">#1</option>
+								<option value="2">#2</option>
+								<option value="3">#3</option>
 								<option value="4">#4</option>
 							</select>
 						</div>
@@ -121,18 +125,18 @@
 				</form>
 				<div class="fengge"></div>
 			</div>
-
+			                                                                                                                                                                                                                                                                                            
 			<!-- 集团详情 -->
-			<table class="wu_tab1 jt" style="display:none">
-				<thead>
+			<table class="jt table table-bordered table-striped table-hover " id="jtheader" style="display:none">
+				<thead class="thead_shadow">
 					<tr>
-						<td rowspan="2">序号</td>
-						<td rowspan="2" style="width:50px;">单位</td>
-						<td rowspan="2">机组</td>
-						<td rowspan="2">轮换名称</td>
+						<td rowspan="2" >序号</td>
+						<td rowspan="2" style="width: 73px;line-height:40px">单位</td>
+						<td rowspan="2" style="width: 73px;line-height:40px">机组</td>
+						<td rowspan="2" style="line-height:40px;">轮换名称</td>
 						<td rowspan="2">本年应做（次）</td>
 						<td rowspan="2">本年已做（次）</td>
-						<!-- <td>每月应做(次)</td>-->
+
 						<td>1月已做(次)</td>
 						<td>2月已做(次)</td>
 						<td>3月已做(次)</td>
@@ -149,7 +153,11 @@
 
 				</thead>
 				<tbody id='jt_detail'>
-
+					<tr>
+						<td class='spin'  colspan="18">
+				 			<img alt="请等待" src="img/spin.gif">
+				 		</td>
+					</tr>
 
 				</tbody>
 				<div class="fengge"></div>
@@ -163,7 +171,7 @@
 
 			<!-- 电厂view -->
 			<!-- level4 详情 汇总 -->
-			<table class="wu_tab1 dc" id="table1_huizong" style="display:none">
+			<table class="dc table table-bordered table-striped table-hover" id="table1_huizong" style="display:none">
 				<thead>
 					<tr>
 						<td>本年应进行（次）</td>
@@ -173,23 +181,26 @@
 						<td>非轮换（次）</td>
 
 					</tr>
-					<tr>
-						<td>5</td>
-						<td>3</td>
-						<td>1</td>
-						<td>2</td>
-						<td>1</td>
-					</tr>
+					
 				</thead>
+				<tbody id="level4_huizong">
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
 			</table>
 			<!-- level4  详情 -->
-			<table class="wu_tab1 level4 dc" style="display:none">
+			<table class="level4 dc table table-bordered table-striped table-hover" style="display:none">
 				<thead>
 					<tr>
 						<td>序号</td>
+						<td>轮换名称</td>
 						<td>轮换时间</td>
 						<td>轮换曲线</td>
-						<td>轮换说明</td>
 						<td>是否准时</td>
 						<td>导出报告</td>
 					</tr>
@@ -199,7 +210,7 @@
 				</tbody>
 			</table>
 			<!-- 电厂汇总  -->
-			<table class="wu_tab1 level1 dc" style='display:none'>
+			<table class="level1 dc table table-bordered table-striped table-hover" style='display:none'>
 				<thead>
 					<tr>
 						<td>序号</td>
@@ -226,12 +237,12 @@
 						<div class="form-group ">
 							<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="add_type">类型</label>
 							<select name="choose" class="form-control col-sm-1" id="add_type">
-	                 	<option value="PLAN">计划项目</option>
-	                 	<option value="DONE">已做项目</option>
-	                 	<option value="UNDONE">未做项目</option>
-	                 	<option value="DELAY">非计划项目</option>
-	                    
-               	 	</select>
+								<option value="PLAN">计划项目</option>
+								<option value="DONE">已做项目</option>
+								<option value="UNDONE">未做项目</option>
+								<option value="DELAY">非计划项目</option>
+								
+							</select>
 						</div>
 						<div class="form-group ">
 							<label class=" control-label left" style="float:left;    width: 40px;position: relative;top: 5px;" for="g_id">机组</label>
@@ -276,7 +287,7 @@
 						</div>
 
 
-						<div class="form-group" id="query" style="margin-left:22px;">
+						<div class="form-group" id="query" style="margin-left:10px;">
 							<button class="form-control col-sm-1 btn btn-primary" type="button" id="submit" style="">查询</button>
 						</div>
 					</div>
@@ -285,9 +296,11 @@
 
 			</div>
 			<!-- 电厂详情 -->
-			<table class="wu_tab1 level1 dc">
-				<thead>
-					<tr>
+
+			
+			<table class="level1 dc table table-bordered table-striped table-hover" id="dcheader" >
+				<thead class="thead_shadow">
+					<tr >
 						<td>序号</td>
 						<td>机组</td>
 						<td>轮换名称</td>
@@ -320,29 +333,22 @@
 		<div class="fengge"></div>
 	</div>
 	<!-- <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
-<script type="text/javascript"  src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
+	<script type="text/javascript"  src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
 	<script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
-	<!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>-->
-	<script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
-	<script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="js/echarts2.js?v1"></script>
+
+	<script type="text/javascript" src=../js/bootstrap-datepicker.min.js></script>
+	<script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	
 	<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
 	<script type="text/javascript" src="js/jquery.pagination.js"></script>
-
+	<script type="text/javascript" src="../js/freezeheader.js">
+		
+	</script>
 	<script type="text/javascript" src="js/wj.js?v3"></script>
 	<script type="text/javascript">
-		/*$('.form_datetime').datetimepicker({
-		    weekStart: 1,
-		    todayBtn:  1,
-		    autoclose: 1,
-		    todayHighlight: 1,
-		    startView: 4,
-		    minView: 2,
-		    forceParse: 0,
-		    //format: "yyyy-mm"
-		    format: "yyyy-mm-dd"
-		});*/
-		$('.form_datetime').datepicker({
+	$('.form_datetime').datepicker({
 			language: 'zh-CN',
 			weekStart: 1,
 			//todayBtn: 1,
@@ -354,19 +360,23 @@
 			clearBtn: 1,
 			format: "yyyy-mm-dd"
 		});
-		$('.jt-form_datetime').datepicker({
-			//weekStart: 1,
-			//todayBtn:  1,
-			language: 'zh-CN',
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minViewMode: 2,
-			forceParse: 0,
-			//format: "yyyy-mm"
-			format: "yyyy"
-		});
-	</script>
+
+	$('.jt-form_datetime').datetimepicker({
+		//weekStart: 1,
+		//todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 4,
+		minView: 4,
+		forceParse: 0,
+		//format: "yyyy-mm"
+		format: "yyyy"
+	});
+
+
+
+  
+</script>
 </body>
 
 </html>
