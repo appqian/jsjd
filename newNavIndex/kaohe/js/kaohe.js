@@ -1,3 +1,25 @@
+
+$(document).scroll(function(){
+    _width = $(".blance").width();
+    if($(document).scrollTop()>"245"){
+        thArray = $(".fixedHeader_shadow tr td");
+        thead_fixed = $(".fixedHeader tr td");
+        for(var i = 0 ;i<thArray.length;i++){
+            thead_fixed.eq(i).css({width:thArray.eq(i).outerWidth()})
+        }
+        $('.fixedHeader').css({position:"fixed",top:0,width:_width}).show()
+        $(".fixedHeader_shadow").css({visibility:"hidden"})
+    }else{
+         $('.fixedHeader').css({position:"relative"}).hide();
+         $(".fixedHeader_shadow").css({visibility:"visible"})
+    }
+    
+})
+/*$(document).ready(function() { 
+   $('.fixedHeader').fixedtableheader(); 
+});*/
+
+
 function clickCheck(obj) {
     /*  var $this = obj;
       console.log($(obj).parent().siblings().eq(4));
@@ -34,6 +56,8 @@ function snyc(orgid) {
         $(".jt").show();  
         jtview();        
     } 
+    //考核类型为空
+    $("#type").val("") 
     query(orgid, 1, '', true);          
    
 
@@ -406,7 +430,7 @@ function prepare(data) {
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
         var j = i + 1;
-        htmlArray.push("<tr><td><input name='kaohe' type='checkbox' onClick='clickCheck(this)'  class='tdCheck' id=" + d.id + "></td><td>" + j + "</td><td style='text-align:left;' class='link' title='" + d.infomation + "'><a class='link' href='../khDetail/khDetail.html?code="+d.code+"'>" + d.infomation + "</td><td>" + d.date + "</td><td style='text-align:left;max-width:300px;' title='" + d.assCase + "'>" + d.assCase + "</td><td>" + d.amount + "</td><td>" + d.orgName + "<td>" + d.type + "</td><td>" + ds_fixed(d.tag) + "</td><td data-status=" + d.status + ">" + ds_fixed(d.status) + "</td><td>" + d.key + "</td></tr>");
+        htmlArray.push("<tr><td><input name='kaohe' type='checkbox' onClick='clickCheck(this)'  class='tdCheck' id=" + d.id + "></td><td>" + j + "</td><td style='text-align:left;max-width:239px;' class='link' title='" + d.infomation + "'><a class='link' href='../khDetail/khDetail.html?code="+d.code+"&infomation="+d.infomation+"&proName="+d.pro+"&type="+d.type+"&id="+d.id+"'>" + d.infomation + "</td><td>" + d.date + "</td><td style='text-align:left;max-width:300px;' title='" + d.assCase + "'>" + d.assCase + "</td><td>" + d.amount + "</td><td>" + d.orgName + "<td>" + d.type + "</td><td>" + ds_fixed(d.tag) + "</td><td data-status=" + d.status + ">" + ds_fixed(d.status) + "</td><td>" + d.key + "</td></tr>");
     }
     return htmlArray.join("");
 

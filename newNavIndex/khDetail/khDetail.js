@@ -14,10 +14,24 @@ function GetRequest(href) {
     }
     return theRequest;
 }
-var code = GetRequest(href).code
+ var code=GetRequest(href).code;
+ var infomation=decodeURI(GetRequest(href).infomation);
+ var proName=decodeURI(GetRequest(href).proName);
+ var ass_type=decodeURI(GetRequest(href).type);
+ var id=decodeURI(GetRequest(href).id);
 
+//基础信息
+function baseInf() {
+	var json={"code":code,"infomation":infomation,"proName":proName,"type":ass_type,"id":id}
+    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXInform";
+    ajax(url, "baseInf",json)
+    if(ass_type=="定期工作"){
+    	$("#baseInf").find(".control-label").eq(0).hide().next().hide();
+    	$("#baseInf").find(".col-sm-1").removeClass("col-sm-1").addClass("col-sm-2");
+    }
+}
 var flag = true;
-baseInf()
+baseInf();
 
 
 $(document).keyup(function(){
@@ -34,38 +48,49 @@ $("#query").on("click", function() {
 $("#reset").on("click", function() {
         $("#statistic").find(".form-control").val("")
     })
-    //基础信息
-function baseInf() {
-    //var code = "NMDH:PE:10HTA50CQ001-cal_KH";
-    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXInform&code=" + code;
-    ajax(url, "baseInf")
-}
+
 
 //统计信息
 function statistic() {
     //var code = "NMDH:PE:10HTA50CQ001-cal_KH";
     var st = $("#st").val();
     var et = $("#et").val();
-    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXtotal&code=" + code + "&st=" + st + "&et=" + et;
-
-    ajax(url, "statistic")
+    var json={"st":st,"et":et,"id":id,"type":ass_type,"code":code}
+    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXtotal";
+    ajax(url, "statistic",json)
     detail(1);
+    if(ass_type=="定期工作"){
+    	$("#statistic").find(".form-group").eq(2).hide();
+    	$("#statistic").find(".form-group").eq(1).find(".control-label").eq(0).hide();
+    	$("#deltaTime").hide();
+    	$("#deltaTime").parent().removeClass("col-sm-2").addClass("col-sm-1");
+    }
 }
 
 //详细信息
 function detail(pagenum) {
+    if(ass_type=="定期工作"){
+    	$("#qushi").parent().hide();
+    	$(".detail").find(".cscx-table").hide();
+    }else{
+    	$(".detail").find(".dqgz-table").hide();
+    }
     //var code = "NMDH:PE:10HTA50CQ001-cal_KH";
     var st = $("#st").val();
     var et = $("#et").val();
-    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXdetails&code=" + code + "&pageNum=" + pagenum + "&pageSize=7&st=" + st + "&et=" + et;
-    ajax(url, "detail")
+    var json={"st":st,"et":et,"id":id,"type":ass_type,"code":code,"pageNum":pagenum,"pageSize":7}
+    var url = ctx + "/jsjd/getKaoheAction.do?method=getCSCXdetails";
+    ajax(url, "detail",json)
+
 }
 
 /*===============处理函数===============*/
-function ajax(url, id) {
+function ajax(url, id,dataIn) {
+
     $.ajax({
         url: url,
-        type: 'get',
+        type: 'post',
+        data:dataIn,
         dataType: "json",
         success: function(data) {
             if (id == "detail") {
@@ -83,6 +108,8 @@ function ajax(url, id) {
 function prepareDate(data, type) {
     switch (type) {
         case "baseInf":
+        	if(data.length==0)
+        		return;
             var baseInfArr = [data[0].code, data[0].cDesc, data[0].cRule];
             $("#baseInf").find(".form-control").each(function(i) {
                 $(this).val(baseInfArr[i]).attr("readonly","readonly")
@@ -96,8 +123,11 @@ function prepareDate(data, type) {
             })
             break;
         case "detail":
-          
-            $("#details").html(preDetail(data)).find("td").eq(1).click();
+        	if(ass_type=="定期工作"){
+        		$("#detail_dqgz").html(preDetaildqgz(data));
+        	}else{
+        		$("#details").html(preDetail(data)).find("td").eq(1).click();
+        	}
             break;
         default:
             break;
@@ -112,20 +142,44 @@ function preDetail(data){
         for (var i = 0; i < data.length;i++) {
             var j = i+1;
             var d = data[i]
-            var et = (new Date(d.et).getTime())/1000;
-            var st = (new Date(d.st).getTime())/1000;
+            //var et = (new Date(d.et).getTime())/1000;
+           // var st = (new Date(d.st).getTime())/1000;
+           var et = Date.parse(d.et.replace(/-/g,"/"))/1000;
+            var st = Date.parse(d.st.replace(/-/g,"/"))/1000;
+            
             var da = JSON.stringify({"et":et,"st":st})
             htmlArray.push("<tr><td>"+j+"</td><td class='link' onclick = qushi("+da+")>"+d.val+"</td><td>"+d.kht+"</td><td>"+d.deltaTime+"</td><td>"+d.money+"</td>")
             //htmlArray.push("<td>"+statusfixed(d.status)+"</td><td>"+statusfixed(d.flag)+"</td></tr>")
         }
         if(data.length<7){
             for(var z=data.length;z<7;z++){
-                htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td></tr>")
+                htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td>/tr>")
                 //htmlArray.push("<td></td><td></td></tr>")
             }
         }
     }
     return htmlArray.join("");
+}
+function preDetaildqgz(data) {
+	var htmlArray = [];
+
+	if (data.length == 0) {
+		return;
+	} else {
+		for (var i = 0; i < data.length; i++) {
+			var j = i + 1;
+			var d = data[i]	
+			htmlArray.push("<tr><td>" + j + "</td><td>" + d.inform
+					+ "</td><td>" + d.kht + "</td><td>" + d.money + "</td><td>"
+					+ statusfixed(d.status) + "</td><td>" + statusfixed(d.flag) + "</td>");
+		}
+		if (data.length < 7) {
+			for (var z = data.length; z < 7; z++) {
+				htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
+			}
+		}
+	}
+	return htmlArray.join("");
 }
 function statusfixed(status){
     if(status == "N"){
