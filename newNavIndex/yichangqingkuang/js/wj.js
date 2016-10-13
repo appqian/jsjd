@@ -366,7 +366,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 	
 	//level1 && level2 are some interface;
 
-	
 	function level4(){
 		var flag=true;
 		$("#fanhui_test").unbind('click').click(function(){
@@ -388,6 +387,10 @@ function zTreeOnClick(ev, treeId, treeNode) {
 					break;
 			}
 		})
+
+		$(".jt").hide();
+		
+
 
 		$("table.level1").hide();
 		$("table.level4").show();
@@ -445,8 +448,6 @@ function zTreeOnClick(ev, treeId, treeNode) {
 					
 					//初始化弹窗的相对定位
 					var line_width = ($(window).width() - 700) / 2 + "px";
-					
-					//var line_height=($(window).height()-365)/2+"px";
 					var line_height = 100;
 					$(".lineDiv").css({
 						"left": line_width,
@@ -519,27 +520,26 @@ function zTreeOnClick(ev, treeId, treeNode) {
 function prepearData(data){
 	
 	var htmlArray =[];
-	//htmlArray.push("<tr>");
+		if(data.length==0){
+			htmlArray.push("<tr><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td><td>暂无数据</td></tr>")
+			return htmlArray.join("");
+	}
 	for(var i = 0;i<data.length;i++){
 		var j=i+1;
 		if(!data[i].name||data[i].name ==""||data[i].name== " "){
 			data[i].name = "填写"
 		}
 		//如果本条记录orgid 与  用户orgid 不同 这不让填写故障说明
+	
 		if(user_org_id!=data[i].ORG_ID){
 			//console.log("不相等")
-			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+","+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal'  data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")
+			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+";"+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal'  data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")
 		}else{
-			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+","+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal' data-target='#gz' data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")			
+			htmlArray.push("<tr><td>"+j+"</td><td>" + data[i].starttime + "</td><td class='zhexian' ><p><img src='img/qx.png' /></p><div class='lineDiv' style='left:25%; top: 150px; width:700px; height:365px;'><div class='drsMoveHandle' id='"+data[i].KKS_CODE+";"+data[i].KKS_NAME+";"+data[i].starttime+";"+data[i].endtime+";"+data[i].id+"' ><span></span></div><div class='linecontent' id='zx"+i+"'></div></div></td><td><a  data-toggle='modal' data-target='#gz' data-id='"+data[i].id+"'>" + data[i].name + "</a></td><td>是</td><td ><a href='"+rootPath+"/getMainAction.do?method=getGzModel&gz_id="+data[i].id+"'>导出</a></td></tr>")			
 		}
 		
 	}
-	if(data.length!==5){
-		for(var k =data.length;k<5;k++){
-
-			htmlArray.push("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
-		}
-	}		
+		
 	return htmlArray.join('');
 }
 function chuantou(d){
@@ -607,7 +607,6 @@ function chuantou(d){
 		$.ajax({
 			url: url,
 			type: "POST",
-			//contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			dataType: "json",
 			data: {
 				method:"getGZTime",
@@ -655,9 +654,7 @@ function chuantou(d){
 				$(".zhexian").on("click",
 
 					function(event) {
-						var i = $(this).parent().index() -1 ;
-						//console.log($(this).parent().index());
-
+						var i = $(this).parent().index();
 						var dataT = $(this).find('.drsMoveHandle').get(0).id;
 						var arr = dataT.split(";");
 						var code = arr[0];
@@ -665,14 +662,11 @@ function chuantou(d){
 						var starttime = arr[2];
 						var endtime = arr[3];
 						var id = arr[4];
-						
-						
 						if(d_flag){
 							sbjiaohu("zx"+i,code,name,starttime,endtime);
-							d_flag = false;
+							//d_flag = false;
 							
 						}
-
 						$(this).children(".lineDiv").fadeIn();
 						var index = $(this).index();
 						
@@ -685,7 +679,6 @@ function chuantou(d){
 						event.stopPropagation();
 					}
 				)
-
 				function tiaozhuan() {
 					var s = document.getElementById('fadeIn');
 				}
@@ -700,14 +693,8 @@ function chuantou(d){
 			g_id:   d.G_ID,
 			name: d.name
 	}
-	level4_header(url,l4sentdata)
-
-
-	
+	level4_header(url,l4sentdata)	
 }
-
-
-
 function level4_header(url,data){
 	$.ajax({
 		url: url,
@@ -717,28 +704,21 @@ function level4_header(url,data){
 		data: data,
 		success: function(data) {
 	
-			var data_level4 = data.gzlist[0];			
-			var table1_huizong_td = $("#table1_huizong").find("td");
-			var lh_name = $('#lh_name');
+			var d = data.gzlist[0];			
+			//var table1_huizong_td = $("#table1_huizong").find("td");
+			var table1_huizong_td = $("#level4_huizong").find("td");
+			var dArr=[d.totalnum,d.ycount,d.mcount]
+			$('#lh_name').html(data.name);
 			if (data.gzlist.length == 0) {
-
 				table1_huizong_td.each(function(i) {
-					if (i > 2) {						
 						$(this).html("暂时无数据");
-					}
-
 				});
-				
-				lh_name.html("本条记录无数据");
+			}else{
+				table1_huizong_td.each(function(i){
+					$(this).html(dArr[i])
+				})
 			}
-
-			if (data.gzlist.length !== 0) {
-				lh_name.html(data.name);
-				/*具体数据*/
-				table1_huizong_td.eq(3).html(data_level4.totalnum);
-				table1_huizong_td.eq(4).html(data_level4.ycount);
-				table1_huizong_td.eq(5).html(data_level4.mcount);	
-			}
+			
 
 		}
 
@@ -761,7 +741,6 @@ $(".wu_top1 h2").each(function(i) {
 		function() {
 			$(document).click(
 				function() {
-
 					$(".wu_top1 h3").slideUp();
 				});
 			$(".wu_top1 h2,.wu_top1 h3").click(
@@ -866,8 +845,8 @@ function chulishijian(startime,endtime){
 			}
 		}
 	})
-	//console.log(time);
-		return time;
+	
+	return time;
 		
 		
 }
@@ -965,16 +944,7 @@ Date.prototype.format = function(format) {
 }
 
 
-function shuaxinhanshu(length) {
-	var html = '';
-	var s = 1;
-	var a = '#1EH油泵切至#2EH油泵运行';
-	var b = '是';
-	for (var i = 0; i < length; i++) {
-		html += '<tr><td>' + (i + 1) + '</td><td class="time">' + s + '</td><td class="zhexian"><p><img src="img/qx.png" /></p><div class="lineDiv" style="left:25%; top: 150px; width:400px; height:365px;"><div class="drsMoveHandle"><span></span></div><div class="linecontent"><div id="zhe' + (i + 1) + '" class="zhe" style="width: 300px;height:300px;"></div></div></div></td><td class="shuoming">' + a + '</td><td>' + b + '</td></tr>'
-	}
-	$('#rongqi').append(html)
-}
+
 
 
 

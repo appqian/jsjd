@@ -5,10 +5,11 @@
 	<meta charset="utf-8">
 	<title>京能集团实时技术监督生产管理系统</title>
 	<link rel="stylesheet" href="../../common/css/bootstrap.min.css">
-
 	<link type="text/css" rel="stylesheet" href="css/zTreeStyle.css" />
 	<link type="text/css" rel="stylesheet" href="css/pagination.css" />
 	 <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+	 <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
+	 
 	<link type="text/css" rel="stylesheet" href="css/news.css" />
 </head>
 
@@ -32,7 +33,7 @@
 			
 			<!--集团view-->
 			<!--集团查询-->
-			<div class="wu_top0 select jt_select jt" style="display:none;margin: 0 0 20px 0;">
+			<div class="wu_top0 select jt_select jt" style="display:none;margin: 0 0 10px 0;">
 				<form class="form-inline">
 					<div style="float:left;margin-right:5%">
 						<div class="form-group ">
@@ -77,7 +78,7 @@
 			</div>
 
 			<!--集团汇总-->
-			<table class="wu_tab1 jt" style='display:none'>
+			<table class="jt table table-bordered table-striped table-hover" style='display:none'>
 				<thead>
 				<tr>
 					<td>序号</td>
@@ -94,7 +95,7 @@
 			</table>
 			<!--电厂view-->
 			<!--电厂汇总-->
-			<table class="wu_tab1 level1 dc" style="display:none;">
+			<table class="level1 dc table table-bordered table-striped table-hover" style="display:none;">
 				<thead>
 					<tr>
 						<td>序号</td>
@@ -110,22 +111,26 @@
 				</tbody>
 			</table>
 			<!--电厂明细汇总-->
-			<table class="wu_tab1 level4 dc" id="table1_huizong" style="display:none">
+			<table class="level4 dc table table-bordered table-striped table-hover" id="table1_huizong" style="display:none">
 				<thead>
 					<tr>
 						<td>累计发生次数</td>
 						<td>本年已发生（次）</td>
 						<td>本月已发生（次）</td>
 					</tr>
+					
+				</thead>
+				<tbody id="level4_huizong">
 					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
-				</thead>
+														
+				</tbody>
 			</table>
 			<!--电厂明细汇总-->
-			<table class="wu_tab1 level4 dc" style="display:none">
+			<table class="level4 dc table table-bordered table-striped table-hover" style="display:none">
 				<thead>
 					<tr>
 						<td>序号</td>
@@ -185,12 +190,16 @@
 	<script type="text/javascript" src="../../common/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
 
+	<script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
+		
 	<script type="text/javascript" src="js/echarts2.js"></script> 
 	<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
 	<script type="text/javascript" src="js/jquery.pagination.js"></script>
 	<script type="text/javascript" src="js/wj.js"></script>
 	<script type="text/javascript">
-		$('.jt-form_datetime').datetimepicker({
+
+		/*$('.jt-form_datetime').datetimepicker({
 			//weekStart: 1,
 			//todayBtn:  1,
 			autoclose: 1,
@@ -199,6 +208,18 @@
 			minView: 4,
 			forceParse: 0,
 			//format: "yyyy-mm"
+			format: "yyyy"
+		});*/
+		$('.jt-form_datetime').datepicker({
+			language: 'zh-CN',
+			weekStart: 1,
+			//todayBtn: 1,
+			autoclose: 1,
+			todayHighlight: 1,
+			minViewMode: 2,
+			forceParse: 0,
+			//todayHighlight:1,
+			clearBtn: 1,
 			format: "yyyy"
 		});
 
