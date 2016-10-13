@@ -90,7 +90,7 @@ setInterval(huanxingshuju,60*1000)
 
 
 
-
+$.ajaxSetup({ cache: false }); 
 function huanxingshuju(){
  	var url2=ctx+'/syzb.do?method=getAmounts';
 	$.ajax({
@@ -103,7 +103,7 @@ function huanxingshuju(){
 		zong[0].innerHTML=fixNumber(data[0].value);
 		zong[1].innerHTML=fixNumber(data[3].value);
 		zong[2].innerHTML=fixNumber(data[6].value);
-        console.log(data[2].ration)
+        //console.log(data[2].ration)
 		var a= baoliuliangwei(data[2].ration);
 		var b= baoliuliangwei(data[5].ration);
 		var c= baoliuliangwei(data[8].ration);
@@ -120,7 +120,8 @@ function huanxingshuju(){
         var curHour = da.getHours();
 
         var dayNum = DayNumOfMonth(currentYear, currentMonth);
-        var dayPercent = (currentDay*24+curHour) / (dayNum*24);
+        
+        var dayPercent = (currentDay*24+curHour-24) / (dayNum*24);
 
         var monthPercent = (currentMonth/12).toFixed(2) * 100;
 
