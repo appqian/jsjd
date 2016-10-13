@@ -10,28 +10,7 @@ function rootpath() {
 	var rootPath = localhostPath + projectName;
 	document.getElementById("url").value = rootPath;
 }
-$(document).scroll(function(){
-    
-   if($(document).scrollTop()>"200"){
-		
-        _width = $(".thead_shadow").outerWidth() + 2;
-		if($(".thead_shadow").outerWidth()==0){
-			_width=$(".blance").outerWidth() + 2;
-		}
-        thArray = $(".thead_shadow tr td");
-        thead_fixed = $(".thead_fixed tr td");
-        for(var i = 0 ;i<thead_fixed.length;i++){
-            thead_fixed.eq(i).css({width:thArray.eq(i).outerWidth()})
-        }
-        
-        $('.thead_fixed').css({position:"fixed",top:0,width:_width}).show();
-        $(".thead_shadow").css({visibility:"hidden"});
-    }else{
-         $('.thead_fixed').css({position:"relative"}).hide();
-         $(".thead_shadow").css({visibility:"visible"})
-    }
-    
-})
+$("#freezeheader").freezeHeader();
 
 rootpath();
 var rootPath = $('#url').val();
@@ -378,7 +357,7 @@ function preparedataDetail(data,type,orgId){
 		$("#d_head td").eq(3).html("并网/解列时间")
 		$("#d_head td").eq(4).html("至50%负荷/盘车投入时间")
 	}
-	
+	$("#freezeheader").freezeHeader();
 	
 	for(var i = 0; i < data.expr.length; i++){
 		var d = data.expr[i];

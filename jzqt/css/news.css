@@ -29,7 +29,7 @@ img { border: 0; vertical-align: middle; }
 /* 展开的父节点 */
 .st_tree .open { list-style-image: url(../img/st_icon_open.png); background: url(../img/st_folder_open.gif); background-repeat: no-repeat; padding: 0 0 0 20px; }
 .wu_top { position: fixed; top: 0; left: 0; width: 100%; min-width: 960px; height: auto; z-index: 10; }
-.wu_top0 { float: left; width: 100%; height: 20px; background: #ffffff; }
+.wu_top0 { float: left; width: 100%; height: 20px;  }
 .wu_top1 { float: right; display: inline; width: 83%; min-width: 796.8px; height: auto; margin: 0 1% 0 0; border: 1px solid #ECECEC; line-height: 36px; text-align: center; font-size: 13pt; background: #ffffff; }
 .wu_top1 span { float: left; display: inline; padding: 0 10px; height: 28px; line-height: 28px; margin: 5px 0 5px 10px; text-align: center;  color: #ffffff; background: #2fa9cc; border: 0; border-radius: 5px; cursor: pointer; vertical-align: middle; }
 .wu_top1 ol { float: left; width: 100%; height: auto; overflow: visible; }

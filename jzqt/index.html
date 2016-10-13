@@ -6,7 +6,7 @@
 <link type="text/css" rel="stylesheet" href="css/news.css" />
 <link rel="stylesheet" type="text/css" href="js/tree_themes/SimpleTree.css"/>
 <link rel="stylesheet" type="text/css" href="css/pagination.css"/>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="../common/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 </head>
 
@@ -111,22 +111,9 @@
 	
 	    </div>
 	    <div class="fengge"></div>
-			<table class="table table-bordered table-striped table-hover thead_fixed"  style="z-index:11;display:none">
-		      <thead>
-		        <tr>
-		          <td>启停机项目</td>
-		          <!-- <td>开始时间</td>
-		          <td>结束时间</td> -->
-		          <td>点火/灭火时间</td>
-		          <td>冲车/打闸时间</td>
-		          <td>并网/解列时间</td>
-		          <td>至50%负荷/盘车投入时间</td>
-		          <td>启停机类别</td>
-		        </tr>
-		      </thead>
-		     
+			
 		 </table>
-	   	<table class="table table-bordered table-striped table-hover"  style="">
+	   	<table class="table table-bordered table-striped table-hover" id="freezeheader">
 		      <thead class="thead_shadow">
 		        <tr>
 		          <td>启停机项目</td>
@@ -230,18 +217,19 @@
 
 
 <div id = "stock" style = "width:100%;height:600px;"></div>
-<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../common/js/jquery.min.js"></script>
 <!-- <script type="text/javascript" src="js/echarts2.js"></script> -->
 <script type="text/javascript" src="js/jquery.pagination.js"></script>
 <script src=  "../webbuilder/controls/ext/ext-all.js" type="text/javascript" ></script>
 <script src=  "../webbuilder/controls/ext/locale/ext-lang-zh_CN.js" type="text/javascript" ></script>
 <link href=   "../webbuilder/controls/ext/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../common/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="js/SimpleTree.js"></script>
 <script type="text/javascript" src="js/Sweefty.js"></script>
 <script type="text/javascript" src="js/moaModal.minified.js"></script>
 <script type="text/javascript" src="js/workflowUtil4.0.js"></script>
+<script type="text/javascript" src="js/freezeheader.js"></script>
 <script type="text/javascript" src="js/jzqt.js"></script>
 <script src="../newNav/js/monitor.js"></script>
 <!--  <script src="https://code.highcharts.com/stock/highstock.js"></script> -->
