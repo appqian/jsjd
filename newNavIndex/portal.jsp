@@ -724,7 +724,7 @@
 	<script type="text/javascript" src="${ctx}/newNavIndex/js/portal_v2.js?v2"></script>
 	<script type="text/javascript" src="${ctx}/newNavIndex/js/jt-index.js?v3"></script>
 	
-	<script type="text/javascript"  src="${ctx}/newNavIndex/js/charts.js"></script>
+	<script type="text/javascript"  src="${ctx}/newNavIndex/js/charts.js?v1"></script>
 
 	
 	<script type="text/javascript">

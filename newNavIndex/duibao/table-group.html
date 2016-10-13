@@ -7,133 +7,6 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-table.min.css"/>
     <style type="text/css">
-
-        /*body{
-            font-family: MicrosoftYaHei;
-            font-size:16px ;
-        }
-        .fl {
-            float: left;
-            font-weight:600;
-        }
-        .fr {
-            float: right;
-        }
-        .tc {
-            text-align: center;
-            background-color: #C5D9F1;
-        }
-        .bootstrap-table{
-            width:1750px;
-            margin: 0 auto;
-        }
-
-        .t2-1 tr:nth-child(1) th:nth-last-child(3) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(2) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(1) .th-inner{
-            padding: 2px;
-            line-height: 24px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
-        .fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner {
-            font-size: 12px;
-        }
-
-        .bootstrap-table .table > thead > tr > th {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .table>tbody>tr:hover{
-            background-color: white;
-        }
-        .table>tbody>tr>td{
-             vertical-align: middle;
-             border-top: 1px solid #666; 
-        }
-         .fixed-table-container table tr:nth-child(2) .th-inner {
-            padding: 2px;
-            margin:0px auto;
-            width: 38px;
-            line-height: 24px;
-            vertical-align: top;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
-        .fixed-table-container tbody td {
-            position: relative;
-            font-size: 12px;
-            text-align: center;
-            word-break: break-all;
-            border-left: 1px solid #666;
-        }
-
-        .fixed-table-container tbody tr td:first-child{
-            font-weight: 800;
-            background-color: #8DB4E2;
-            border: 1px solid #666;
-            text-align: center;
-            min-width:75px;
-        }
-        .table>thead:first-child>tr:first-child>th{
-            border-top:1px solid #666;
-        }
-        .wrap{
-            width:1500px;
-            margin: 0 auto;
-        }
-       .fixed-table-container tbody .bg-green{
-            background-color:#BBF7BE;
-        }
-        .t2-boby tr td:not(first-child){
-            text-align: left;
-        }
-        .td{
-            font-weight:800;
-        }
-        .th{
-            background-color: #8DB4E2;
-            border-right: 1px solid #666;
-        }
-        .pop-up{
-           position:absolute;
-           top:0px;
-           left:0px;
-           width:100%;
-           height:100%;
-           border:1px solid #ddd;
-           padding:0px;
-           background-color: white;
-           z-index:999;
-        }
-        .pop-up input[type="text"]{
-            display:block;
-            width:100%;
-            height:100%;
-            padding:0px;
-            font-size:12px;
-            border:1px solid #ddd;
-        }
-         .bootstrap-table .table>thead>tr>th{
-                border-bottom: 2px solid #666;
-         }
-         .fixed-table-container{
-                border: 1px solid #666; 
-                margin-bottom:40px;
-         }
-         .fixed-table-container thead th{
-                border-left: 1px solid #666;
-         }
-        .totalAmount,.ranking,.cardinalNumber,.factoryCoefficientNumber,.singleMachineCoefficientNumber{
-            display:none;
-        }
-        .note1{ 
-            display:none; 
-            position:absolute;
-            line-height:20px;
-            top:5px;
-            left:10px;
-        }  */
           body{
             font-family: MicrosoftYaHei;
             font-size:16px ;
@@ -141,14 +14,13 @@
         .fl {
             float: left;
             margin-top:10px;
-            font-weight:600;
         }
         .tc {
             text-align: center;
             background-color: #e1f1f7;
         }
         .bootstrap-table{
-            width:1750px;
+            width:1650px;
             margin: 0 auto;
         }
         #table2{
@@ -178,7 +50,7 @@
 
          .fixed-table-container table tr:nth-child(2) .th-inner {
             padding: 2px;
-            width: 38px;
+            width: 37px;
             margin:0px auto;
             line-height: 24px;
             vertical-align: top;
@@ -196,13 +68,13 @@
         /*  tbody 第一个td 加粗 ====  */
         .fixed-table-container tbody tr td:first-child{
             font-weight: 800;
-            min-width:75px;
+            width:50px;
             background-color: #8DB4E2;
             border:1px solid #b8b8b8;
             color: #fff;
         }
         .wrap{
-            width:1750px;
+            width:1650px;
             margin: 0 auto;
         }
         .notSupportInvestigate,.totalAmount,.ranking{
@@ -254,7 +126,6 @@
         }
         .shm{
             font-size:12px;
-            font-weight: 600;
             clear: both;
         }
         .shm .green{
@@ -279,18 +150,30 @@
             top:5px;
             left:10px;
         } 
+        em{
+             font-style: initial;
+        }
     </style>
+    <!--[if IE]>
+        <style >
+             .bootstrap-table .table{
+                 border-collapse: inherit!important;
+             }
+            .pop-up{
+               min-height:34px;
+            }
+        </style>
+    <![endif]-->
 </head>
 <body>
 <div class="wrap">
-    <h3 class="text-center" style="position: relative;font-family: '微软雅黑';font-size: 24px;margin-bottom: 30px;color: #4778c7;letter-spacing: 1px;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)<button class="btn btn-info bt"style="position:absolute;background:#4778c7;top:60px;right:110px;padding:4px 25px;">保存</button><button class="btn btn-info"style="position:absolute;background:#4778c7;top:60px;right:10px;padding:4px 25px;" onclick="javascript:history.back(-1);">返回</button></h3>
-    <div class="fl fld" style="margin-bottom:5px;">
-       考核期：<span></span>年<b></b>季度
+    <h3 class="text-center" style="position: relative;font-family: '微软雅黑';font-size: 24px;margin-bottom: 40px;color: #4778c7;letter-spacing: 1px;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)<button class="btn btn-info bt"style="position:absolute;background:#4778c7;top:60px;right:110px;padding:4px 25px;">保存</button><button class="btn btn-info"style="position:absolute;background:#4778c7;top:60px;right:0px;padding:4px 25px;" onclick="javascript:history.back(-1);">返回</button></h3>
+    <div class="shm">
+       *说明&nbsp; 1. <span class="green"></span> 此底色为自动生成数据，无底色为手动输入数据
     </div>
-    <div class="shm" style="margin-bottom:10px;">
-       *说明&nbsp; 1. <span class="green"></span>此底色为自动生成数据，无底色为手动输入数据&nbsp;&nbsp;&nbsp; 2. 点击指标名称可查看计算方法 
+    <div class="fl fld" style="margin-bottom:10px;width:100%;">
+       考核期：<span></span>年<b></b>季度&nbsp;&nbsp;&nbsp; <div style="float:right"><em style="font-weight: 500;"></em></div>
     </div>
-
 </div>
 <table id="table1" data-toggle="table">
     <thead class="tc trd">
@@ -496,8 +379,8 @@
     </tbody>
 </table>
 <h3 class="text-center" style="font-family: '微软雅黑';font-size: 24px;margin-bottom: 30px;color: #4778c7;letter-spacing: 1px;">火电考核说明</h3>
-<div style="position:relative;width: 1750px;margin:0px auto;">  
-    <textarea style="display: block;width: 1750px;margin:30px auto;height:auto;min-height: 155px;border:1px solid #b8b8b8;" id="auditInstruction" onfocus="document.getElementById('note1').style.display='none'" onblur="if(value=='  ')document.getElementById('note1').style.display='block'"></textarea>
+<div style="position:relative;width: 1650px;margin:0px auto;">  
+    <textarea style="display: block;width: 1650px;margin:30px auto;height:auto;min-height: 155px;border:1px solid #b8b8b8;" id="auditInstruction" onfocus="document.getElementById('note1').style.display='none'" onblur="if(value=='  ')document.getElementById('note1').style.display='block'"></textarea>
     <div id="note1" class="note1"><font color="#777">在这里填写考核说明</font></div>  
 </div>
 <div style="margin-bottom:50px;"></div>

@@ -77,7 +77,7 @@ $(document).ready(function(){
                 oMonth = oDate.getMonth()+1,  
                 oDay = oDate.getDate(),   
                 oTime = oYear +'年'+ getzf(oMonth) +'月'+ getzf(oDay)+'日';//最后拼接时间  
-                $(".fr b").html(oTime);
+                $(".fr b").html("日期： "+oTime);
             };  
              function getzf(num){  
                 if(parseInt(num) < 10){  
@@ -85,7 +85,9 @@ $(document).ready(function(){
                 }  
                 return num;  
             }  
-            getMyDate(datar[0].createTime);
+            if(datar[0].submitTime!=null){
+                getMyDate(datar[0].submitTime);
+            }
 
             $(".fld span").html(datar[0].orgName);
             $(".fl").eq(1).children("span").html(dataJson.result.ratifyUser);
@@ -103,17 +105,37 @@ $(document).ready(function(){
             var p4 = $(".t2-1 .zbZHGDMH").index();
             var p5 = $(".t2-1 .zbCYDL").index();
             var p6 = $(".t2-1 .zbJZFHL").index();
-            var p7 = $(".t2-1 .zbDWFDYXXSL").index();      
-             
-            for(var i=0;i<2;i++){
-              $(".t1-boby .t-tr").eq(2*i).children("td").eq(p1+1).addClass("bg-green");
-              $(".t1-boby .t-tr").eq(2*i).children("td").eq(p2+1).addClass("bg-green");
-              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p3+1).addClass("bg-green");
-              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p4+1).addClass("bg-green");
-              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p5+1).addClass("bg-green");
-              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p6+1).addClass("bg-green");
-              $(".t2-boby .t-tr").eq(2*i).children("td").eq(p7+1).addClass("bg-green");
-            }
+            var p7 = $(".t2-1 .zbDWFDYXXSL").index();  
+            var p8 = $(".trd .kkxLJFT").index();  
+            var p9 = $(".trd .kkxGZTJ").index();
+            var p10 = $(".trd .jxAXHLXYX").index();
+            var p11 = $(".trd .jxBCXHLXYX").index();
+            var p12 = $(".trd .jxXHYGYNGZTJ").index();
+            var p13 = $(".trd .jxCJXJHND").index();
+            var p14 = $(".trd .jxCJXGQ").index();
+            var p15 = $(".t2-1 .zbGDMHJZSJZ").index();
+            var p16 = $(".t2-1 .zbZHGDMHJHFJZ").index();
+            var p17 = $(".t2-1 .zbZHCYDLJHFJZ").index();
+            var p18 = $(".t2-1 .zbGDMH").index();
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p1+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p2+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p8+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p9+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p10+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p11+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p12+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p13+1).addClass("bg-green");
+            $(".t1-boby .t-tr").eq(0).children("td").eq(p14+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p3+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p4+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p5+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p6+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p7+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p15+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p16+1).addClass("bg-green");
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p17+1).addClass("bg-green"); 
+            $(".t2-boby .t-tr").eq(0).children("td").eq(p18+1).addClass("bg-green"); 
+            $(".gray").html("—");
         }
   }
     //返还数据更新
@@ -173,7 +195,7 @@ $(document).ready(function(){
            }
        });  
     })
-       $(".smt").click(function(){
+    $(".smt").click(function(){
                 // 获取http地址信息
                 var examInstruction = $(".ex-textarea").val();
                 var url = ctx + "/jsjd/benchmark/addExamInstruction.do?applyId="+apId+"&examInstruction="+examInstruction;
@@ -196,8 +218,8 @@ $(document).ready(function(){
                         alert(JSON.parse(jqXHR.responseText).responsMsg);
                     }
                 });  
-            }) 
-    
+        }) 
+       
 })
 
  

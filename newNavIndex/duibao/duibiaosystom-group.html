@@ -23,7 +23,6 @@
         .form-control[readonly]{
             background-color: #fff;
         }
-
 	</style>
 <body>
 <div class="wu_top">
@@ -35,34 +34,35 @@
         <div class="select " style="background-color: #e1f1f7;">
             <form class="form-inline"> 
                 <div class="form-group">
-					<div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;margin-left: 20px;">
-						<input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:150px" id="startTime">
+                    <span style="margin-left: 20px;font-size:14px;color: #177eda;line-height:42px">年度查询：</span>
+					<div class="input-group date form_datetime col-sm-2" data-link-field="dtp_input1" style="position: relative;margin-top:-2px;">
+						<input class="form-control col-sm-12" size="16" type="text" value="" readonly="" style="width:150px;height: 30px;" id="startTime">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 						<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					</div>
 					<input type="hidden" id="dtp_input1" value=""><br>
 				</div>
-				<div class="form-group"  style="margin-left:30px;margin-top: 3px;">
-					<button class ="form-control col-sm-1 btn btn-primary" type="button"  style="" id='query'>查询</button>
+				<div class="form-group"  style="margin-left:30px;margin-top:5px;">
+					<button class ="form-control col-sm-1 btn btn-primary" type="button"  style="width: 80px;height: 30px;line-height: 15px;" id='query'>查询</button>
 				</div>
 				<div style="float:right;margin-right:20px;">
-					<button id="tj" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 3px 5px 0 10px " data-toggle="modal" data-target="#myModal">提交流程</button>
-					<button class="form-control col-sm-1 btn btn-default" type="button" id="reCallProcess" style="margin: 3px 5px 0 ">撤回</button> 
-					<button class="form-control col-sm-1 btn btn-default" type="button" id="checkProcess" style="margin: 3px 5px 0 ">流程监控</button>    
-				</div>
-                    
+				   <!--  <button id="tj" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 5px 5px 0 10px;height:30px;line-height: 18px; " data-toggle="modal" data-target="#myModal">发布</button> 
+				    <button id="qx" class="form-control col-sm-1 btn btn-default jt" type="button" style="margin: 5px 5px 0 10px;height:30px;line-height: 18px; " data-toggle="modal" data-target="#myModal">取消发布</button> -->
+                </div>
             </form>
         </div>
         <table class="wu_tab1 level4" >
             <thead>
                 <tr>
-                    <td style="max-width:3%;">请选择</td>
-                    <td style="max-width:3%;">序号</td>
-                    <td style="max-width:30%;">编号</td>
-                    <td style="max-width:10%;">季度</td>
-                    <td style="max-width:30%;">描述</td>
-                    <td style="max-width:5%;">发布状态</td>
-                    <td style="max-width:5%;display:none">创建时间</td>
+                   <!--  <td style="width: 6%;" class="selt">请选择</td> -->
+                    <td style="width: 5%;">序号</td>
+                    <td style="width:10%;">编号</td>
+                    <td style="width:10%;">季度</td>
+                    <td style="width:30%;">描述</td>
+                    <td style="width:10%;">发布状态</td>
+                    <td style="width:10%;">发布时间</td>
+                    <td style="width:10%;">发布人</td>
+                    <td class="selt">操作</td>
                 </tr>
             </thead>
             <tbody id="detail">             

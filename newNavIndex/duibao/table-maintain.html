@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-table.min.css"/>
+    <style type="text/css">
+         body{
+            font-family: MicrosoftYaHei;
+            font-size:16px ;
+        }
+        .fl {
+            float: left;
+            margin-top:10px;
+        }
+        .tc {
+            text-align: center;
+            background-color: #e1f1f7;
+        }
+        .bootstrap-table{
+            width:1650px;
+            margin: 0 auto;
+        }
+        #table2{
+            margin-bottom:20px;
+        }
+        /*table2 thead 最后几个宽度 修改*/
+        .t2-1 tr:nth-child(1) th:nth-last-child(3) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(2) .th-inner,.t2-1 tr:nth-child(1) th:nth-last-child(1) .th-inner{
+            padding: 2px;
+            width: 39px!important;
+            line-height: 24px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        .fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner {
+            font-size: 12px;
+        }
+        .bootstrap-table .table > thead > tr > th {
+            color:#4778c7;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table>tbody>tr>td{
+             vertical-align: middle; 
+             border-top: 1px solid #b8b8b8;
+        }
+        .fixed-table-footer, .fixed-table-header{
+              height: 0px;
+        }
+        .fixed-table-container table tr:nth-child(2) .th-inner {
+            padding: 2px;
+            width: 37px;
+            margin:0px auto;
+            line-height: 24px;
+            vertical-align: top;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        .fixed-table-container tbody td {
+            position: relative;
+            font-size: 12px;
+            min-width:75px;
+            border-left: 1px solid #b8b8b8;
+            text-align: center;
+            word-break: break-all;
+        }
+        /*  tbody 第一个td 加粗 ====  */
+        .fixed-table-container tbody tr td:first-child{
+            font-weight: 800;
+            width:50px;
+            background-color: #8DB4E2;
+            border:1px solid #b8b8b8;
+            color: #fff;
+        }
+        .wrap{
+            width:1650px;
+            margin: 0 auto;
+        }
+        .notSupportInvestigate,.totalAmount,.ranking{
+            display:none;
+        }
+
+       .pop-up{
+           position:absolute;
+           top:0px;
+           left:0px;
+           width:100%;
+           height:100%;
+           border:1px solid #ddd;
+           padding:0px;
+           background-color: white;
+           z-index:999;
+        }
+        .pop-up input[type="text"]{
+            display:block;
+            width:100%;
+            height:100%;
+            padding:0px;
+            font-size:12px;
+            border:1px solid #ddd;
+        }
+          .bootstrap-table .table>thead>tr>th{
+                border-bottom: 1px solid #b8b8b8;
+         }
+         .fixed-table-container{
+                border: 1px solid #b8b8b8;
+                margin-bottom:40px; 
+         }
+         .fixed-table-container thead th{
+                border-left:1px solid #b8b8b8;
+         }
+         .hd{
+            height:200px;
+         }
+         .table>tbody>tr .grey{
+                background-color: #f5f8fd;
+                border-bottom: 1px solid #b8b8b8;
+                border-top: 1px solid #b8b8b8;
+         }
+        .fixed-table-container tbody .bg-green{
+            background-color:#BBF7BE;
+        }
+       .fixed-table-container tbody .auditInstruction,.fixed-table-container tbody .examInstruction,.fixed-table-container tbody .textarea{
+            text-align: left;
+        }
+        .shm{
+            font-size:12px;
+            clear: both;
+        }
+        .shm .green{
+            display:inline-block;
+            background-color:#BBF7BE;
+            width:50px;
+            height:20px;
+            vertical-align: middle;
+        }
+        .bootstrap-table .table tr .th{
+             color:#fff;
+             font-weight: 800; 
+             background-color: #8DB4E2;
+        }
+        .totalAmount,.ranking,.cardinalNumber,.factoryCoefficientNumber,.singleMachineCoefficientNumber{
+            display:none;
+        }
+        .note1{ 
+            display:none; 
+            position:absolute;
+            line-height:20px;
+            top:5px;
+            left:10px;
+        }  
+        em{
+             font-style: initial;
+        }
+        .out {
+            border-top: 203px #e1f1f7 solid;
+            width: 0px;
+            height: 0px;
+            border-left: 54px #8DB4E2 solid;
+            position: relative;
+        }
+        .out em{
+            color: #fff;
+            font-style: normal;
+            display: block;
+            position: absolute;
+            top: -65px;
+            left: -50px;
+        }
+    </style>
+    <!--[if IE]>
+        <style >
+             .bootstrap-table .table{
+                 border-collapse: inherit!important;
+             }
+        </style>
+    <![endif]-->
+</head>
+<body>
+<div class="wrap">
+    <h3 class="text-center" style="position: relative;font-family: '微软雅黑';font-size: 24px;margin-bottom: 40px;color: #4778c7;letter-spacing: 1px;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)</h3>
+</div>
+<table id="table1" data-toggle="table">
+    <thead class="tc trd">
+        <tr>
+            <th rowspan="2" style='padding:0'>
+                <div class="out">
+                    <em>电网<br/>周期</em>
+                </div>
+            </th>
+            <th colspan="2">华北电网</th>
+            <th rowspan="2">蒙西电网</th>
+            <th rowspan="2">蒙东电网</th>
+            <th rowspan="2">山西电网</th>
+            <th rowspan="2">宁夏电网</th>
+        </tr>
+        <tr>
+            <th>煤电</th>
+            <th>燃机</th>
+        </tr>
+    </thead>
+    <tbody class="t1-boby">
+        <tr>
+            <td class='td'>第一季度</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+            <tr>
+            <td class='td'>第二季度</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+            <tr>
+            <td class='td'>第三季度</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+            <tr>
+            <td class='td'>第四季度</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class='td'>全年</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="wrap">
+    <h3 class="text-center" style="position: relative;font-family: '微软雅黑';font-size: 24px;margin-bottom: 40px;color: #4778c7;letter-spacing: 1px;">火电运营企业安全生产技术经济对标管理季(年)度奖励考核申报审核兑现表(一)</h3>
+</div>
+<table id="table1" data-toggle="table">
+    <thead class="tc trd">
+        <tr>
+            <th rowspan="3" class="th">
+                电厂
+            </th>
+            <th rowspan="3" class="th">
+                机组
+            </th>
+             <th colspan="2">
+                考核系数
+            </th>
+             <th >
+                利用小时数当地平均水平（第一季度）
+            </th>
+            <th >
+                利用小时数当地平均水平（第二季度）
+            </th>
+            <th>
+                利用小时数当地平均水平（第三季度）
+            </th>
+            <th>
+                利用小时数当地平均水平（第四季度）
+            </th>
+             <th>
+                A级检修工期  △
+            </th>
+             <th>
+                B级检修工期  △
+            </th>
+             <th>
+                C级检修工期  △
+            </th>
+             <th>
+                机组设计热耗
+            </th>
+            <th>
+                供电煤耗机组设计值
+            </th>
+            <th>
+                综合供电煤耗计划分解值（第一季度）
+            </th>
+             <th>
+                综合供电煤耗计划分解值（第二季度）
+            </th>
+             <th>
+                综合供电煤耗计划分解值（第三季度）
+            </th>
+             <th>
+                综合供电煤耗计划分解值（第四季度）
+            </th>
+             <th>
+                综合厂用电率计划分解值（第一季度）
+            </th>
+             <th>
+                综合厂用电率计划分解值（第二季度）
+            </th>
+            <th>
+                综合厂用电率计划分解值（第三季度）
+            </th>
+            <th>
+                综合厂用电率计划分解值（第四季度）
+            </th>
+        </tr>
+       
+        <tr>
+            <th>全厂</th>
+            <th>单机</th>
+            <th>小时</th>
+            <th>小时</th>
+            <th>小时</th>
+            <th>小时</th>
+            <th>天</th>
+            <th>天</th>
+            <th>天</th>
+            <th>kJ/kWh</th>
+            <th>g/kWh</th>
+            <th>g/kWh</th>
+            <th>g/kWh</th>
+            <th>g/kWh</th>
+            <th>g/kWh</th>
+            <th>%</th>
+            <th>%</th>
+            <th>%</th>
+            <th>%</th>
+        </tr>
+    </thead>
+    <tbody class="t1-boby">
+       <tr class='t-tr'>
+           <td rowspan='5' class='td'>岱海电厂</td>
+           <td class='td th'>全厂</td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+        <tr class='t-tr'>
+           <td class='td'>#1</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+         <tr class='t-tr'>
+           <td class='td'>#2</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+         <tr class='t-tr'>
+           <td class='td'>#3</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+         <tr class='t-tr'>
+           <td class='td'>#4</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+        <tr class='t-tr'>
+           <td rowspan='5' class='td'>宁东电厂</td>
+           <td class='td th'>全厂</td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+        <tr class='t-tr'>
+           <td class='td'>#1</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+         <tr class='t-tr'>
+           <td class='td'>#2</td> 
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+           <td></td> 
+        </tr>
+    </tbody>
+</table>
+
+<div style="margin-bottom:50px;"></div>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-table.min.js"></script>
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+</body>
+</html>
