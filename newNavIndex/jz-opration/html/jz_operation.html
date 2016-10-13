@@ -22,14 +22,12 @@
 <body>
 <div id="wrap">
 
-    <div class="select" style="padding-left: 49%;">
-
-
+    <div class="select" style="padding-left: 45%;background-color: #e1f1f7;">
         <form class="form-inline">
             <!--<div class="left form-group" style="margin:0 10px;">筛选条件</div>-->
             <div class="form-group ">
                 <label class="w60 control-label left" for="org_id">单位</label>
-                <select  name="choose" class="form-control col-sm-1" id="org_id">
+                <select  name="choose" class="form-control col-sm-1" id="org_id" style="height: 30px;margin-top: 2px;">
                 	<option value="" selected="selected"></option>
                     <option value="c21834b4-1cb0-490f-a2a8-deeaf7f7e065">岱海电厂</option>
                     <option value="472212af-1977-462b-a74a-a1f36ed6562d" >宁东电厂</option>
@@ -45,7 +43,7 @@
                 <label for="endTime" class=" control-label left">年份</label>
                
                 <div class="input-group date form_datetime col-sm-2"  data-link-field="dtp_input1"  style="position: relative;top: -3px;">
-                    <input class="form-control col-sm-12" size="16"  type="text" value="" id="endTime" readonly style="width:105px">
+                    <input class="form-control col-sm-12" size="16"  type="text" value="" id="endTime" readonly style="width:105px;background: white;height: 30px;">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -53,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label for="status" class=" control-label left">机组</label>
-                <select  name="choose" class="form-control col-sm-1" id="status">
+                <select  name="choose" class="form-control col-sm-1" id="status" style="height: 30px;margin-top: 2px;">
                 	 <option value=""></option>
                     <option value="1">#1</option>
                     <option value="2">#2</option>
@@ -65,25 +63,73 @@
 
 
             <div class="form-group" id="query" style="margin-left:22px;">
-                <button class="form-control col-sm-1 btn btn-primary" type="button" id="submit" style="position: relative;top: -2px;">查询</button>
+                <button class="form-control col-sm-1 btn btn-primary" type="button" id="submit" style="position: relative;width: 80px;height: 30px;line-height: 15px;margin-top: 1px;">查询</button>
             </div>
         </form>
     </div>
-    <div id="dh" class="container-fluid">
-        <div class="row">
-            <div class="col-md-1 dc_head">电厂</div>
-            <div class="col-md-1 dc_head">机组</div>
-
+    <div class="legend">
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #002060"></div>
+            <div class="legend_expr">D级检修</div>
         </div>
-        <div class="row">
-        
-        	 
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #00538e"></div>
+            <div class="legend_expr">C级检修</div>
+        </div>
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #0070c0"></div>
+            <div class="legend_expr">B级检修</div>
+        </div>
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #00b0f0"></div>
+            <div class="legend_expr">A级检修</div>
+        </div>
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #999"></div>
+            <div class="legend_expr">未来时间</div>
+        </div>
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #ffb980"></div>
+            <div class="legend_expr">故障停机</div>
+        </div>  
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #2ec7c9" ></div>
+            <div class="legend_expr">电网调停</div>
+        </div>                     
+        <div class="legend_combi">
+            <div class="legend_item" style="background: #e76169"></div>
+            <div class="legend_expr">机组运行</div>
+        </div>
+    </div>  
+    <div class="row" style="margin: 0px;">
+        <div class="col-md-1 dc_head"><span>电厂</span></div>
+        <div class="col-md-1 dc_head" style="width: 50px;"><span>机组</span></div>
+        <div class="col-md-1 dc_head" style="background-color: #e6f2ff;width: 160px;"></div>
+        <div class="col-md-9" style="height: 50px;line-height: 50px;background-color: #e6f2ff;color: #4778c7;">
+            <div class="identification_row">
+                <div class="identification_item fl" style="">1月</div>
+                <div class="identification_item fl" style="">2月</div>
+                <div class="identification_item fl" style="">3月</div>
+                <div class="identification_item fl" style="">4月</div>
+                <div class="identification_item fl" style="">5月</div>
+                <div class="identification_item fl" style="">6月</div>
+                <div class="identification_item fl" style="">7月</div>
+                <div class="identification_item fl" style="">8月</div>
+                <div class="identification_item fl" style="">9月</div>
+                <div class="identification_item fl" style="">10月</div>
+                <div class="identification_item fl" style="">11月</div>
+                <div class="identification_item fl" style="">12月</div>
+            </div>
+        </div>
+    </div>
+    <div id="dh" class="container-fluid">
+        <div class="row" style="margin-top:20px;">
         	<div class="g1">
-	        	<div class="col-md-1"></div>
-	            <div class="col-md-2">
+	        	<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#1</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9"></div>
 	        </div>
@@ -92,11 +138,11 @@
 
            
             <div class="g2">
-            	<div class="col-md-1"></div>
-	            <div class="col-md-2">
+            	<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#2</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9" ></div>
 	        </div>    
@@ -104,28 +150,28 @@
 
             
             <div class="g3">
-            	<div class="col-md-1"></div>
-	            <div class="col-md-2">
+            	<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#3</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9"></div>
 	        </div> 
             
 
               <div class="g4">
-            	<div class="col-md-1"></div>
-	            <div class="col-md-2">
+            	<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#4</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9"></div>
 	        </div> 
-            <div class="col-md-9 bar_right"  >
+            <div class="col-md-9 bar_right" style="height:276px;" >
             	<div class="line_tag" style="height:274px;"></div>
-                <div class="lh10" style="height:7px"></div>
+                <div class="lh10" style="height: 16px;"></div>
                 <div class="my_row">
                     
                 </div>
@@ -133,7 +179,7 @@
                 <div class="my_row">
                     
                 </div>
-                <div class="lh20"></div>
+                <div class="lh20" ><hr/></div>
                 <div class="my_row">
                     
                 </div>
@@ -141,7 +187,7 @@
                 <div class="my_row">
                    
                 </div>
-                <div class="lh20"></div>
+                <div class="lh20" ><hr/></div>
                 <div class="my_row">
                    
                 </div>
@@ -150,7 +196,7 @@
                 <div class="my_row">
                    
                 </div>
-                <div class="lh20"></div>
+                <div class="lh20" ><hr/></div>
                 <div class="my_row">
                    
                 </div>
@@ -230,24 +276,24 @@
             <div class="col-md-1 dc_head">电厂</div>
             <div class="col-md-1 dc_head">机组</div>
         </div>-->
-        <div class="row">
+        <div class="row" style="margin-top:20px;margin-bottom:70px;">
         	
-            <div class="col-md-1 nd" >宁东电厂</div>
+            <div class="col-md-1 nd" style="z-index:999;text-align: center;">宁东电厂</div>
             <div class="g1">
-				<div class="col-md-1"></div>
-	            <div class="col-md-2">
+				<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#1</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9"></div>
 			</div>
             <div class="g2">
-				<div class="col-md-1"></div>
-	            <div class="col-md-2">
+				<div class="col-md-1"><span></span></div>
+	            <div class="col-md-2 no-pading">
 	                <span class="gz">#2</span>
-	                <span class="right">年度检修计划</span>
-	                <br/><span class="right">机组实际状况</span>
+	                <span class="right" style="line-height: 28px;">年度检修计划</span>
+	                <br/><span class="right" style="line-height: 8px;">机组实际状况</span>
 	            </div>
 	            <div class="col-md-9"></div>
 			</div>
@@ -266,19 +312,16 @@
                 <span class="right">年度检修计划</span>
                 <br/><span class="right">机组实际状况</span>
             </div>-->
-            <div class="col-md-9 bar_right" >
+            <div class="col-md-9 bar_right" style="height:140px">
             	<div class="line_tag" style=""></div>
-                <div class="lh10" style="height:7px"></div>
+                <div class="lh10" style="height: 16px;"></div>
                 <div class="my_row" style="background:#fff">
                 </div>
                 <div class="lh10"></div>
                 <div class="my_row">
-                  
-                   
-                   
                    
                 </div>
-                <div class="lh20"></div>
+                <div class="lh20"><hr/></div>
                 <div class="my_row" style="background:#fff">
                   
                    
@@ -292,7 +335,7 @@
                    
                    
                 </div>
-                <div class="lh20"></div>
+                <div class="lh20"><hr/></div>
                <!-- <div class="my_row">
                   
                    
@@ -323,70 +366,8 @@
             </div>
         </div>
     </div>
-
-    <div class="identification col-md-9">
-        <div class="identification_row">
-            <div class="identification_item fl" style="">1月</div>
-            <div class="identification_item fl" style="">2月</div>
-            <div class="identification_item fl" style="">3月</div>
-            <div class="identification_item fl" style="">4月</div>
-            <div class="identification_item fl" style="">5月</div>
-            <div class="identification_item fl" style="">6月</div>
-            <div class="identification_item fl" style="">7月</div>
-            <div class="identification_item fl" style="">8月</div>
-            <div class="identification_item fl" style="">9月</div>
-            <div class="identification_item fl" style="">10月</div>
-            <div class="identification_item fl" style="">11月</div>
-            <div class="identification_item fl" style="">12月</div>
-        </div>
-    </div>
     <div class="clearfix"></div>
-    <div class="legend">
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #FF0000"></div>
-            <div class="legend_expr">机组运行</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #009DD9" ></div>
-            <div class="legend_expr">电网调停</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #FFFF00"></div>
-            <div class="legend_expr">故障停机</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #999"></div>
-            <div class="legend_expr">未来时间</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #009900"></div>
-            <div class="legend_expr">A级检修</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #00CC66"></div>
-            <div class="legend_expr">B级检修</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #00FF00"></div>
-            <div class="legend_expr">C级检修</div>
-        </div>
-        <div class="legend_combi">
-            <div class="legend_item" style="background: #66FF99"></div>
-            <div class="legend_expr">D级检修</div>
-        </div>
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
+   
     <table class="table" style="width:400px;position: absolute;background: #fff;display: none;z-index: 999;" id="move_layer">
         <thead>
             <tr>
@@ -426,7 +407,7 @@
    
     query(orgId);
     $("#org_id").on("change",function(){
-    	//console.log($(this).val())
+    	console.log($(this).val())
     	if($("#org_id").val() =='472212af-1977-462b-a74a-a1f36ed6562d'){
     		$("#status option").eq(3).remove();
     		$("#status option").eq(3).remove();
@@ -442,8 +423,8 @@
     
     
      var dayPercent =((dayPassOfYear()/dayOfYear())*100).toFixed(6)+"%";
-    //console.log(dayPercent);
-    $(".line_tag").hide();
+   // console.log(dayPercent);
+     $(".line_tag").hide();
     $(".line_tag").css({left:dayPercent});
     
     $("#submit").on("click",function(){
@@ -461,7 +442,7 @@
     	if(g_id == 3 || g_id == 4 ){
     		
     		$(".nd").hide();
-    		//console.log(g_id);
+    		console.log(g_id);
     	}else{
     		$("#nd").fadeIn();
     		$(".nd").show();
@@ -644,8 +625,7 @@
                     	
                         p_width = ((plan[j].d-1)/dayOfYears*100).toFixed(6)+"%";
                     }
-                    console.log("plan 第"+i+"个"+ plan[j].d);
-                    console.log(p_width)
+                   
                    
                     var p_move  = "layer_show(event,'"+plan[j].m+"','"+plan[j].s.replace(/\s+|\s+$/g,'&nbsp;')+"','"+plan[j].e.replace(/\s+|\s+$/g,'&nbsp;')+"')";
                     var p_div   = '<div style="background: '+p_color+';width:'+p_width+'" onmousemove='+p_move+' onmouseout="'+out+'"></div>';
@@ -660,18 +640,23 @@
                 var b = [];//数据2级放到一个二维数组
                 for(var k = 0;k<real.length;k++){
                     var r_color = colorFix(real[k].m);
-                  // console.log(real[k].d);
+                   
                     if(real[k].m ===""){
                     	//console.log("空");
                     	real[k].m = "待处理"
                     	
                     }
-                    if(j == 0){
+                    if(k == 0){
                         var r_width = ((real[k].d)/dayOfYears*100).toFixed(6)+"%";
                     }else{
-                        r_width = ((real[k].d-1)/dayOfYears*100).toFixed(6)+"%";
+                    	if(real[k].d==1){
+                    	    r_width = ((real[k].d)/dayOfYears*100).toFixed(6)+"%";
+                    	}else{
+                    		r_width = ((real[k].d-1)/dayOfYears*100).toFixed(6)+"%";
+                    	}
+                        
                     }
-                    console.log(real[0].d);
+                    //console.log(real[0].d);
                     //console.log((real[0].d/dayOfYears)*100).toFixed(6);
                     //var r_width = ((real[k].d-1)/dayOfYears*100).toFixed(2)+"%";
                     var r_move = "layer_show(event,'"+real[k].m+"','"+real[k].s.replace(/\s+|\s+$/g,'&nbsp;')+"','"+real[k].e.replace(/\s+|\s+$/g,'&nbsp;')+"')";
@@ -711,15 +696,15 @@
         }
         if(orgId == "c21834b4-1cb0-490f-a2a8-deeaf7f7e065"){
         	//console.log(1);
-            left = ev.clientX-560; 
-            top = ev.clientY-90; 
+            left = ev.pageX-530; 
+            top = ev.pageY-180; 
         }else if(orgId == "472212af-1977-462b-a74a-a1f36ed6562d"){
         	
-                left = ev.clientX-560; 
-                top = ev.clientY-40;
+                left = ev.pageX-530; 
+                top = ev.pageY-180;
         }else if(orgId == "a61365e2-969d-4352-b3f8-805027ab9f1d"){
-        	 left = ev.clientX-560; 
-             top = ev.clientY-90;
+        	 left = ev.pageX-530; 
+             top = ev.pageY-180;
         }
         var td = $("#detail").find("td");
         td.eq(0).html(status);
@@ -747,27 +732,27 @@
     function colorFix(status){
         var color = "";
         switch (status){
-            case "机组运行":color="#FF0000";
+            case "机组运行":color="#e76169";
                 break;
-            case "电网调停":
-            case "电网调停后启动":
-                color="#009DD9";
+            case "电网调停":color="#2ec7c9";
                 break;
-            case "故障停机":color="#FFFF00";
+            case "电网调停后启动":color="#2ec7c9";
                 break;
-            case "未来时间":color="#999";
+            case "故障停机":color="#ffb980";
                 break;
-            case "A级检修":color="#009900";
+            case "未来时间":color="#f00";
                 break;
-            case "B级检修":color="#00CC66";
+            case "A级检修":color="#00b0f0";
                 break;
-            case "C级检修":color="#00FF00";
+            case "B级检修":color="#0070c0";
                 break;
-            case "D级检修":color="#66FF99";
+            case "C级检修":color="#00538e";
                 break;
-            case "" : color='green';
+            case "D级检修":color="#002060";
+                break;
+            case "" : color='#2ec977';
             	break;
-            case "无" : color ="#f00"
+            case "无" : color ="#cccccc"
            		 break;
         }
         return color;
@@ -793,7 +778,7 @@
         var oldTime = new Date(nowYear +"-01-01").getTime();
         return parseInt((nowTime - oldTime)/(60*60*24*1000))+1;
     }
-    console.log(dayPassOfYear()); 
+    //console.log(dayPassOfYear()); 
    
  
 </script>

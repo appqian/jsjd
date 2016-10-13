@@ -36,7 +36,8 @@ body,html{
 
 }
 .select{
-    padding-top:2px;
+    margin-top: 15px; 
+    padding-top:4px;
     height:42px;
     line-height: 38px;
     text-align: center;
@@ -47,14 +48,12 @@ body,html{
 
 .select .form-group{
     float:left;
+    margin-right: 20px;
 }
 .control-label{
     margin: 0 10px;
 }
 .w60{width:35px;}
-#dh {
-    margin-top: 20px;
-}
 .col-md-1,.col-md-10,.col-md-2,.col-md-9{
     height:70px;
     line-height: 32px;
@@ -63,11 +62,13 @@ body,html{
     position:relative;
 }
 .bar_right{
-    width:79%;
-    height:280px;
-    position:absolute;
-    left:21%;
-
+    width: 80%;
+    height: 280px;
+    position: absolute;
+    left: 20%;
+    background: #f4f4f4;
+    padding: 0px;
+    padding-right: 10px;
 }
 #dh .col-md-2,#nd .col-md-2{
 
@@ -75,30 +76,59 @@ body,html{
 }
 .gz{
     position: relative;
-    top: 15px;
+    top: 0px;
+    left: 5px;
+    float: left;
+    height: 68px;
+    line-height: 68px;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    background-color: #f4f4f4;
 }
 .dh{
     position: absolute;
     top: 118px;
+    z-index:99; 
+    text-align: center;    
 }
 .nd{
 	position:absolute;
 	top:47px;
 }
 .my_row{
-    height:20px;
+    height:14px;
+    margin-left: 40px;
     background: #999;
+    border-radius: 6px;   
 }
-.my_row div{float: left; height:20px;}
-
+.my_row div{
+    float: left; 
+    height:14px;
+    border-radius: 5px;  
+}
 .lh10{
     height:10px;
 }
 .lh20{
-    height:20px;
+    height:17px;
+}
+.lh20 hr{
+    margin-top: 14px;
+    border: 1px solid #fff;
 }
 .dc_head{
-    height: 30px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    padding: 0px 5px;
+}
+.dc_head span{
+    width: 100%;
+    display: block;
+    height: 100%;
+    color: #4778c7; 
+    background-color: #e6f2ff;
 }
 .identification {
     width: 79%;
@@ -113,25 +143,25 @@ body,html{
     width:8.32%;
     text-align: center;
     height:30px;
-    border-right:1px solid #cccccc;
 }
 .legend{
-    margin:20px 0;
+    margin:15px 0;
     height:30px;
     padding-left:436px;
 }
 .legend_item{
-    height:20px;
-    width:20px;
+    height:14px;
+    width:14px;
     margin: 5px;
     background: #0e90d2;
 }
 .legend_combi{
-  float:left;
+  float:right;
+  margin-right:15px;
 }
 .legend_combi div{
     float:left;
-    line-height: 30px;
+    line-height: 24px;
 }
 
 
@@ -142,4 +172,22 @@ body,html{
     background: #0E0D0D;
     left: 0%;
     margin: 1px 0 0 0px;
+}
+.no-pading{
+    padding: 0px;
+}
+.g1 .col-md-1,.g2 .col-md-1,.g3 .col-md-1,.g4 .col-md-1{
+    padding: 0px 5px;
+}
+.g1 .col-md-1 span,.g2 .col-md-1 span,.g3 .col-md-1 span,.g4 .col-md-1 span{
+    width: 100%;
+    display: block;
+    height: 100%;
+    background-color: #f4f4f4;
+}
+.no-pading .right{
+    display: inline-block;
+    height: 34px;
+    padding: 10px 9px;
+    background: #f4f4f4;
 }
