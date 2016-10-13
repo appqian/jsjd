@@ -267,18 +267,13 @@ function init() {
 		jtjzqt();//集团机组其他
 		JTtzgg();//集团通知公告
 		jt_kaohe();//集团考核
-		
 		huanxingshuju()
 		shengchanbaobiao_jt();
-		JTjiandubaobiao(); //集团监督报表;
 
 	}
 	dc_kaohe();
 	//getMission(userID);  //工作提醒
 	//getWorksDate(userID);//监督工作	
-		
-	
-	
 	change_gztj();//技改显示fixed	
 } 
 /**
@@ -388,7 +383,6 @@ function zhibiaoyilan(orgid) {
 				for (var i = 0; i < ev.length; i++) {
 					a++;
 					if(i==0/*||i>=4&& i<6*/){
-
 						spanHtml1 += "<div class='fl' style='padding-right: 8px;'> "+ev[i].QUOTA_NAME+"</div><div class='fl'>" + parseFloat(ev[i].VALUEDATE).toFixed(2) + ev[i].UNIT + "</div>";
 					}
 					if(i>=0&&i<3){
@@ -413,15 +407,12 @@ function zhibiaoyilan(orgid) {
 							"</span>" +
 							"<span class='tdn2'  style='text-align:left' id='" + ev[i].QUOTA_NAME + "'>" + parseFloat(ev[i].VALUEDATE).toFixed(2) + ev[i].UNIT + "</span>" + "</div>";
 
-						$(zfh).html("<a onclick=OpenWindow('" + ev[1].PI_CODE + "','" + ev[1].QUOTA_NAME + "','','','" + ev[1].METHOD + "','" + ev[1].POINTS + "') href='javascript:void(0)' >" + parseFloat(ev[1].VALUEDATE).toFixed(2) + "MW" + "</a>").show();
-						$(fhl).html("<a onclick=OpenWindow('" + ev[2].PI_CODE + "','" + ev[2].QUOTA_NAME + "','','','" + ev[2].METHOD + "','" + ev[2].POINTS + "') href='javascript:void(0)' >" + parseFloat(ev[2].VALUEDATE).toFixed(2) + "%" + "</a>").show();
+						//$(zfh).html("<a onclick=OpenWindow('" + ev[1].PI_CODE + "','" + ev[1].QUOTA_NAME + "','','','" + ev[1].METHOD + "','" + ev[1].POINTS + "') href='javascript:void(0)' >" + parseFloat(ev[1].VALUEDATE).toFixed(2) + "MW" + "</a>").show();
+						//$(fhl).html("<a onclick=OpenWindow('" + ev[2].PI_CODE + "','" + ev[2].QUOTA_NAME + "','','','" + ev[2].METHOD + "','" + ev[2].POINTS + "') href='javascript:void(0)' >" + parseFloat(ev[2].VALUEDATE).toFixed(2) + "%" + "</a>").show();
+						$(zfh).html("<a onclick=show('" + ev[1].PI_CODE + "') href='javascript:void(0)' >" + parseFloat(ev[1].VALUEDATE).toFixed(2) + "MW" + "</a>").show();
+						$(fhl).html("<a onclick=show('" + ev[2].PI_CODE + "') href='javascript:void(0)' >" + parseFloat(ev[2].VALUEDATE).toFixed(2) + "%" + "</a>").show();
 					}
 				}
-				
-				/*if( $("#hb_title").hasClass("title_active1")){
-				  	$("#dczb").hide();
-				  	$("dczb").html("");
-				}*/
 				document.getElementById("dczb").innerHTML = spanHtml;
 
 				$("#hole").html(spanHtml1);
@@ -445,46 +436,44 @@ function zhibiaoyilan(orgid) {
 	})
 
 }
-var first = true;
+
+
 var points = "";
-function show(point) {
-    if(points){
-    	points += "|"+point
+var pointArray = [];
+function show(point) { 
+    var subwin = window.open("", "历史曲线", "width=" + 900 + ",height=" + 640 + ",directories=no,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no");
+    if(!points){
+         pointArray.push(point);
+    }else if(pointArray.length>=1&&pointArray.indexOf(point)== -1){
+        pointArray.push(point);
     }else{
-    	points += point
-    } 
-    var  subwin = window.open("","历史曲线", "width=" + 900 + ",height=" + 640 + ",directories=no,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no");
+         alert("请选择不同的点！")
+         subwin.focus();
+         return;
+    }
+    points = pointArray.join("|");
     var queryString = "newNavIndex/open.html";
-    localStorage.setItem("psTag", points);
-   //subwin.postMessage(points,"*")
-   /*if(subwin.onclosed == true){
-	   points = "";
-   }*/
-   if(subwin.location.href.indexOf("open") == -1) {
-	   //console.log(1);
-       subwin.location = queryString;
-       subwin.postMessage(points,"*")
-       
-   } else {
-		   subwin.child_open();	   
-   }
-   function IfWindowClosed() {
-       if (subwin.closed == true) {
-    	   //alert("子关闭")
-           points="";
-           window.clearInterval(timer)
-       }
-   }
   
-   timer = window.setInterval(IfWindowClosed, 500);
-   subwin.focus();
-   
+    localStorage.setItem("psTag", points);
+    if (subwin.location.href.indexOf("open") == -1) {
+        subwin.location = queryString;
+
+    } else {
+        subwin.child_open();
+    }
+    var flag = true;
+    function IfWindowClosed() {        
+        if (subwin.closed == true && flag) {
+            points = "";
+            pointArray=[];          
+            window.clearInterval(timer)
+            flag=false;                 
+        }
+    }
+    timer = window.setInterval(IfWindowClosed, 500);
+    subwin.focus();
 }
-window.onmessage = function(e){
-	alert(1);
-	points = "";
-	
-}
+
 function GetRequest(url) {
 	var url = url.split('?')[1]; //获取url中"?"符后的字串
 	var theRequest ={};
@@ -493,7 +482,7 @@ function GetRequest(url) {
 	 for(var i = 0; i < strs.length; i ++) {
 	   theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
 	}
-return theRequest;
+	return theRequest;
 }
 
 function baoliuliangwei(data){
@@ -1811,8 +1800,8 @@ function shengchanbaobiao_show(){
     $('.dianchang_view').find("td").css({backgrond:'#fff'});
 }
 
-//查看奖励对标兑现表href
-/*function dizhi() {
+/*//查看奖励对标兑现表href
+function dizhi() {
 	var url2 = ctx + '/portal/getDuibiao.do';
 	$.ajax({
 		type: "get",
@@ -1825,8 +1814,8 @@ function shengchanbaobiao_show(){
 		}
 	});
 }
-dizhi();
-*/
+dizhi();*/
+
 //默认宁东电厂技隐藏
 function nindongjigaiHide(){
 	var id=$('#org').val();
