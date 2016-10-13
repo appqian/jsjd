@@ -23,7 +23,7 @@ common.prototype.page.dc.getGroupGraph=function(){
 	
 	$.post("/jsjd/graph.do?method=getGroupGraph",{}, function(data) {
 		var obj = eval(data);
-		var data_3 = ["<a href='javascript:void(0);' onclick='common.prototype.page.dc.getBelowGraph(\"c21834b4-1cb0-490f-a2a8-deeaf7f7e065\");'>岱海发电</a>","<a href='javascript:void(0);' onclick='common.prototype.page.dc.getBelowGraph(\"472212af-1977-462b-a74a-a1f36ed6562d\");'>宁东发电</a>","京桥热电","京阳热电","京泰发电","京能热电","高安屯热电","京丰燃气","京隆发电","漳山发电","京玉发电","康巴什发电","华宁热电","京西热电"];
+		var data_3 = ["<a href='javascript:void(0);' onclick='common.prototype.page.dc.getBelowGraph(\"c21834b4-1cb0-490f-a2a8-deeaf7f7e065\");'>岱海发电</a>","<a href='javascript:void(0);' onclick='common.prototype.page.dc.getBelowGraph(\"472212af-1977-462b-a74a-a1f36ed6562d\");'>宁东发电</a>","京桥热电","京阳热电","京泰发电","京西热电","高安屯热电","京丰燃气","京隆发电","漳山发电","京玉发电","康巴什发电","华宁热电","未来热电"];
 		$(".struct_cell_text_1").html("<strong><font size=4>京能集团技术监督网络领导小组</font></strong>");   //一行数据
 		for(var i = 0; i < obj.length; i++){
 			var dataWrite="";
