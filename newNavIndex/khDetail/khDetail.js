@@ -169,7 +169,7 @@ function preDetaildqgz(data) {
 		for (var i = 0; i < data.length; i++) {
 			var j = i + 1;
 			var d = data[i]	
-			htmlArray.push("<tr><td>" + j + "</td><td>" + d.inform
+			htmlArray.push("<tr><td>" + j + "</td><td style='text-align:left'>" + d.inform
 					+ "</td><td>" + d.kht + "</td><td>" + d.money + "</td><td>"
 					+ statusfixed(d.status) + "</td><td>" + statusfixed(d.flag) + "</td>");
 		}

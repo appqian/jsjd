@@ -42,3 +42,6 @@ table td{
     height:38px;
     line-height: 38px;
 }
+.dqgz-table thead th{
+	text-align:center
+}
