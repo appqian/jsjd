@@ -269,6 +269,7 @@ function init() {
 		jt_kaohe();//集团考核
 		huanxingshuju()
 		shengchanbaobiao_jt();
+		JTjiandubaobiao(); //集团监督报表;
 
 	}
 	dc_kaohe();
