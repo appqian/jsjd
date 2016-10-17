@@ -269,6 +269,7 @@ var query_flag=true;
  */
 
 function detail(orgid,g_id,type,nub,flag){
+	
 	sessionStorage.setItem("org_id",orgid)
 	sessionStorage.setItem("g_id",g_id);
 	sessionStorage.setItem("type",type);
@@ -357,8 +358,8 @@ function preparedataDetail(data,type,orgId){
 		$("#d_head td").eq(3).html("并网/解列时间")
 		$("#d_head td").eq(4).html("至50%负荷/盘车投入时间")
 	}
-	$("#freezeheader").freezeHeader();
 	
+	$("#freezeheader").freezeHeader();
 	for(var i = 0; i < data.expr.length; i++){
 		var d = data.expr[i];
 		htmlArray.push("<tr>");
@@ -390,7 +391,7 @@ function preparedataDetail(data,type,orgId){
 			//console.log(d);
 			
 			htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td class='button link' id="+d.ID+" onclick=getvalue('"+d.ID+"','"+d.NAME+"',this)>"+msg+"</td>")
-			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 			
 			
@@ -402,7 +403,7 @@ function preparedataDetail(data,type,orgId){
 			}
 			//console.log(d);
 		    htmlArray.push("<td style='text-align:left'>"+d.NAME+"</td><td>"+d.FIRETIME+"</td><td>"+d.RUSHTIME+"</td><td>"+d.PARATIME+"</td><td>"+d.ENDTIME+"</td><td  class='button link'>"+msg+"</td>")
-			//htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
+			htmlArray.push("<td class='zhexian' id='"+JSON.stringify(data.KKS_CODE)+";"+JSON.stringify(data.KKS_NAME)+";"+d.STARTTIME+";"+d.ENDTIME+";"+JSON.stringify(data.POINT_MEAS)+"'><p><img src='img/qx.png' /></p></td>");
 			htmlArray.push('<td onclick=daocu("'+d.ID+'","'+type+'") class="link">查看</td>')
 		}
 		

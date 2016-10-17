@@ -43,10 +43,11 @@ if (!window.location.origin) {
         var end = (new Date(endTime).getTime())/1000;//转换utc时间  延后半小时
         
         code = codes.replace(/,/g,"|");
-        console.log(code)
+       // console.log(code)
         //code=code.slice(0,code.lastIndexOf("|"))
         
-        url =  "http://172.168.100.101:8080/HistoryTrend.aspx?Tag="+code+"&StartTime="+start+"&EndTime="+end
+        //url =  "http://172.168.100.101:8080/HistoryTrend.aspx?Tag="+code+"&StartTime="+start+"&EndTime="+end
+        url =  "http://172.168.100.101:8080/HistoryTrend.aspx?Tag="+code
         $("#stock").attr("src",url);       
     }
 
